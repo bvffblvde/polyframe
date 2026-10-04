@@ -21,6 +21,7 @@ interface EditorState {
   dialog: DialogId;
   clipboard: Node[];
   fitRequest: number;
+  tour: number | null;
   viewOverride: { mode: Mode; skin: SkinId } | null;
   set: (patch: Partial<Omit<EditorState, "set">>) => void;
   select: (ids: ID[]) => void;
@@ -41,6 +42,7 @@ export const useEditorStore = create<EditorState>()((set) => ({
   dialog: null,
   clipboard: [],
   fitRequest: 0,
+  tour: null,
   viewOverride: null,
   set: (patch) => set(patch),
   select: (selection) => set({ selection }),

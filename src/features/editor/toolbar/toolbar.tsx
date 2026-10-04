@@ -1,6 +1,19 @@
 "use client";
 
-import { ChevronDown, Command, Download, Grid3x3, Keyboard, Minus, MonitorSmartphone, Plus, Redo2, Share2, Undo2 } from "lucide-react";
+import {
+  ChevronDown,
+  CircleHelp,
+  Command,
+  Download,
+  Grid3x3,
+  Keyboard,
+  Minus,
+  MonitorSmartphone,
+  Plus,
+  Redo2,
+  Share2,
+  Undo2,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -19,7 +32,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { TEMPLATES } from "@/core/templates";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { GRID_SIZES, SKIN_IDS, type GridSize, type Mode, type SkinId } from "@/core/document/types";
@@ -51,11 +70,16 @@ export function Toolbar() {
   const templates = useTemplates();
   const tt = useTranslations("templates");
   const fileRef = useRef<HTMLInputElement>(null);
-  const openDialog = (dialog: "projects" | "exportPng" | "exportCode" | "shortcuts" | "share" | "command") => useEditorStore.getState().set({ dialog });
+  const openDialog = (
+    dialog: "projects" | "exportPng" | "exportCode" | "shortcuts" | "share" | "command",
+  ) => useEditorStore.getState().set({ dialog });
   if (!settings) return null;
 
   return (
-    <header className="flex h-12 shrink-0 items-center gap-1 border-b bg-background px-2" aria-label={tMeta("title")}>
+    <header
+      className="flex h-12 shrink-0 items-center gap-1 border-b bg-background px-2"
+      aria-label={tMeta("title")}
+    >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm" className="max-w-48 font-semibold">
@@ -65,7 +89,9 @@ export function Toolbar() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start">
           <DropdownMenuLabel>{t("project")}</DropdownMenuLabel>
-          <DropdownMenuItem onSelect={() => createAndOpenProject(names)}>{t("newProject")}</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => createAndOpenProject(names)}>
+            {t("newProject")}
+          </DropdownMenuItem>
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>{tt("newFrom")}</DropdownMenuSubTrigger>
             <DropdownMenuSubContent>
@@ -76,9 +102,13 @@ export function Toolbar() {
               ))}
             </DropdownMenuSubContent>
           </DropdownMenuSub>
-          <DropdownMenuItem onSelect={() => openDialog("projects")}>{t("openProjects")}</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => openDialog("projects")}>
+            {t("openProjects")}
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onSelect={() => fileRef.current?.click()}>{t("importJson")}</DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => fileRef.current?.click()}>
+            {t("importJson")}
+          </DropdownMenuItem>
           <DropdownMenuItem onSelect={io.exportJson}>{t("exportJson")}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -102,29 +132,39 @@ export function Toolbar() {
         <Redo2 aria-hidden />
       </IconButton>
       <Separator orientation="vertical" className="mx-1 h-6!" />
-      <ToggleGroup
-        type="single"
-        variant="outline"
-        size="sm"
-        value={settings.mode}
-        aria-label={t("mode")}
-        onValueChange={(v) => v && commands.updateSettings({ mode: v as Mode })}
-      >
-        <ToggleGroupItem value="wireframe">{tm("wireframe")}</ToggleGroupItem>
-        <ToggleGroupItem value="styled">{tm("styled")}</ToggleGroupItem>
-      </ToggleGroup>
-      <Select value={settings.skin} onValueChange={(v) => commands.updateSettings({ skin: v as SkinId })}>
-        <SelectTrigger size="sm" aria-label={t("skin")} className="w-[130px]" data-testid="skin-select">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent>
-          {SKIN_IDS.map((id) => (
-            <SelectItem key={id} value={id}>
-              {SKIN_LABELS[id]}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
+      <div className="flex items-center gap-1" data-tour="mode-skin">
+        <ToggleGroup
+          type="single"
+          variant="outline"
+          size="sm"
+          value={settings.mode}
+          aria-label={t("mode")}
+          onValueChange={(v) => v && commands.updateSettings({ mode: v as Mode })}
+        >
+          <ToggleGroupItem value="wireframe">{tm("wireframe")}</ToggleGroupItem>
+          <ToggleGroupItem value="styled">{tm("styled")}</ToggleGroupItem>
+        </ToggleGroup>
+        <Select
+          value={settings.skin}
+          onValueChange={(v) => commands.updateSettings({ skin: v as SkinId })}
+        >
+          <SelectTrigger
+            size="sm"
+            aria-label={t("skin")}
+            className="w-[130px]"
+            data-testid="skin-select"
+          >
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {SKIN_IDS.map((id) => (
+              <SelectItem key={id} value={id}>
+                {SKIN_LABELS[id]}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" size="sm" aria-label={t("grid")}>
@@ -133,12 +173,17 @@ export function Toolbar() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <DropdownMenuCheckboxItem checked={settings.grid.enabled} onCheckedChange={cmd.toggleSnap}>
+          <DropdownMenuCheckboxItem
+            checked={settings.grid.enabled}
+            onCheckedChange={cmd.toggleSnap}
+          >
             {t("snapToGrid")}
           </DropdownMenuCheckboxItem>
           <DropdownMenuCheckboxItem
             checked={settings.grid.visible}
-            onCheckedChange={(visible) => commands.updateSettings({ grid: { ...settings.grid, visible } })}
+            onCheckedChange={(visible) =>
+              commands.updateSettings({ grid: { ...settings.grid, visible } })
+            }
           >
             {t("showGrid")}
           </DropdownMenuCheckboxItem>
@@ -146,7 +191,9 @@ export function Toolbar() {
           <DropdownMenuLabel>{t("gridSize")}</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={String(settings.grid.size)}
-            onValueChange={(v) => commands.updateSettings({ grid: { ...settings.grid, size: Number(v) as GridSize } })}
+            onValueChange={(v) =>
+              commands.updateSettings({ grid: { ...settings.grid, size: Number(v) as GridSize } })
+            }
           >
             {GRID_SIZES.map((g) => (
               <DropdownMenuRadioItem key={g} value={String(g)}>
@@ -162,7 +209,13 @@ export function Toolbar() {
       </IconButton>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="w-16 tabular-nums" aria-label={t("zoomMenu")} data-testid="zoom-level">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-16 tabular-nums"
+            aria-label={t("zoomMenu")}
+            data-testid="zoom-level"
+          >
             {Math.round(zoom * 100)}%
           </Button>
         </DropdownMenuTrigger>
@@ -181,22 +234,36 @@ export function Toolbar() {
         <Plus aria-hidden />
       </IconButton>
       <div className="ml-auto flex items-center gap-1">
-        <span className="px-2 text-xs text-muted-foreground" role="status" data-testid="save-status">
-          {status === "saved" ? t("saved") : status === "error" ? t("saveError") : status === "idle" ? "" : t("saving")}
+        <span
+          className="px-2 text-xs text-muted-foreground"
+          role="status"
+          data-testid="save-status"
+        >
+          {status === "saved"
+            ? t("saved")
+            : status === "error"
+              ? t("saveError")
+              : status === "idle"
+                ? ""
+                : t("saving")}
         </span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="sm">
+            <Button variant="outline" size="sm" data-tour="export">
               <Download aria-hidden /> {t("export")}
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onSelect={() => openDialog("exportPng")}>{t("exportPng")}</DropdownMenuItem>
-            <DropdownMenuItem onSelect={() => openDialog("exportCode")}>{t("exportCode")}</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDialog("exportPng")}>
+              {t("exportPng")}
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDialog("exportCode")}>
+              {t("exportCode")}
+            </DropdownMenuItem>
             <DropdownMenuItem onSelect={io.exportJson}>JSON</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-        <Button variant="outline" size="sm" onClick={() => openDialog("share")}>
+        <Button variant="outline" size="sm" onClick={() => openDialog("share")} data-tour="share">
           <Share2 aria-hidden /> {t("share")}
         </Button>
         <IconButton label={t("viewer")} asChild>
@@ -207,9 +274,26 @@ export function Toolbar() {
         <IconButton label={t("command")} shortcut="⌘K" onClick={() => openDialog("command")}>
           <Command aria-hidden />
         </IconButton>
-        <IconButton label={t("shortcuts")} shortcut="?" onClick={() => openDialog("shortcuts")}>
-          <Keyboard aria-hidden />
-        </IconButton>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size="icon" aria-label={t("help")} data-tour="help">
+              <CircleHelp aria-hidden />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem onSelect={() => useEditorStore.getState().set({ tour: 0 })}>
+              {t("tour")}
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/guide" target="_blank">
+                {t("guide")}
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDialog("shortcuts")}>
+              <Keyboard aria-hidden /> {t("shortcuts")}
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <LanguageSwitch />
       </div>
     </header>

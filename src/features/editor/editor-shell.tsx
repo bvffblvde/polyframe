@@ -27,6 +27,8 @@ import { ExportPngDialog } from "./dialogs/export-png-dialog";
 import { ProjectsDialog } from "./dialogs/projects-dialog";
 import { ShareDialog } from "./dialogs/share-dialog";
 import { CommandPalette } from "./command-palette/command-palette";
+import { Tour } from "./tour/tour";
+import { tourDone } from "./tour/steps";
 import { ShortcutsDialog } from "./dialogs/shortcuts-dialog";
 import { Inspector } from "./inspector/inspector";
 import { LayersPanel } from "./layers/layers-panel";
@@ -56,6 +58,10 @@ function Editor() {
     void initProjects(names);
     return stop;
   }, [names]);
+
+  useEffect(() => {
+    if (ready && !tourDone()) useEditorStore.getState().set({ tour: 0 });
+  }, [ready]);
 
   const onDragStart = (e: DragStartEvent) => setDragType((e.active.data.current?.type as ComponentType) ?? null);
   const onDragEnd = (e: DragEndEvent) => {
@@ -88,7 +94,7 @@ function Editor() {
       <div className="flex h-dvh flex-col overflow-hidden">
         <Toolbar />
         <div className="flex min-h-0 flex-1">
-          <aside className="flex w-64 shrink-0 flex-col border-r bg-background" aria-label={t("panels.components")}>
+          <aside className="flex w-64 shrink-0 flex-col border-r bg-background" aria-label={t("panels.components")} data-tour="palette">
             <Tabs
               value={leftTab}
               onValueChange={(v) => useEditorStore.getState().set({ leftTab: v as "components" | "layers" })}
@@ -96,7 +102,9 @@ function Editor() {
             >
               <TabsList className="m-2 grid w-auto grid-cols-2">
                 <TabsTrigger value="components">{t("panels.components")}</TabsTrigger>
-                <TabsTrigger value="layers">{t("panels.layers")}</TabsTrigger>
+                <TabsTrigger value="layers" data-tour="layers-tab">
+                  {t("panels.layers")}
+                </TabsTrigger>
               </TabsList>
               <TabsContent value="components" className="min-h-0 flex-1">
                 <Palette />
@@ -106,10 +114,10 @@ function Editor() {
               </TabsContent>
             </Tabs>
           </aside>
-          <main className="min-w-0 flex-1">
+          <main className="min-w-0 flex-1" data-tour="canvas">
             <CanvasDropZone />
           </main>
-          <aside className="w-72 shrink-0 border-l bg-background" aria-label={t("panels.inspector")}>
+          <aside className="w-72 shrink-0 border-l bg-background" aria-label={t("panels.inspector")} data-tour="inspector">
             <Inspector />
           </aside>
         </div>
@@ -121,6 +129,7 @@ function Editor() {
       <ShortcutsDialog />
       <ShareDialog />
       <CommandPalette />
+      <Tour />
     </DndContext>
   );
 }

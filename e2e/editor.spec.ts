@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
 
 async function openEditor(page: Page, locale = "en") {
+  await page.context().addInitScript(() => window.localStorage.setItem("polyframe:tour-done", "1"));
   await page.goto(`/${locale}/editor`);
   await expect(page.getByTestId("canvas")).toBeVisible();
   await expect(page.getByTestId("save-status")).toHaveText(locale === "en" ? "Saved" : "Збережено");
@@ -185,4 +186,25 @@ test("exports code for shadcn and MUI", async ({ page }) => {
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Download .tsx" }).click();
   expect((await download).suggestedFilename()).toBe("Desktop1.tsx");
+});
+
+test("shows the product tour on the first visit only", async ({ page }) => {
+  await page.goto("/en/editor");
+  const tour = page.getByTestId("tour");
+  await expect(tour).toContainText("Welcome to Polyframe");
+  for (const title of ["Add components", "Arrange on the canvas", "Edit in the Inspector", "Organize layers", "Switch the look", "Export your work", "Share a link", "Work faster"]) {
+    await page.getByRole("button", { name: "Next" }).click();
+    await expect(tour).toContainText(title);
+  }
+  await expect(tour.getByRole("link", { name: "Read the full guide" })).toHaveAttribute("href", "/en/guide");
+  await page.getByRole("button", { name: "Start building" }).click();
+  await expect(tour).toHaveCount(0);
+  await page.reload();
+  await expect(page.getByTestId("save-status")).toHaveText("Saved");
+  await expect(tour).toHaveCount(0);
+  await page.getByRole("button", { name: "Help" }).click();
+  await page.getByRole("menuitem", { name: "Take the tour" }).click();
+  await expect(tour).toContainText("Welcome to Polyframe");
+  await page.keyboard.press("Escape");
+  await expect(tour).toHaveCount(0);
 });

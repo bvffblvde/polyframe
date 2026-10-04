@@ -103,6 +103,8 @@ export function CommandPalette() {
             </CommandGroup>
             <CommandGroup heading={t("command.help")}>
               {item("shortcuts", t("toolbar.shortcuts"), () => setDialog("shortcuts"), <Keyboard aria-hidden />, "?")}
+              {item("tour", t("toolbar.tour"), () => useEditorStore.getState().set({ tour: 0 }), <Keyboard aria-hidden />)}
+              {item("guide", t("toolbar.guide"), () => window.open(`/${locale}/guide`, "_blank"), <Keyboard aria-hidden />)}
             </CommandGroup>
           </CommandList>
         </Command>

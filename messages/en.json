@@ -148,7 +148,10 @@
     "saveError": "Not saved",
     "share": "Share",
     "command": "Command palette",
-    "exportCode": "Code..."
+    "exportCode": "Code...",
+    "help": "Help",
+    "tour": "Take the tour",
+    "guide": "User guide"
   },
   "modes": {
     "wireframe": "Wireframe",
@@ -526,5 +529,50 @@
     "loading": "Generating...",
     "warnings": "These layers have no exporter for this target and became placeholders: {list}",
     "preview": "Code preview"
+  },
+  "tour": {
+    "label": "Product tour",
+    "next": "Next",
+    "back": "Back",
+    "skip": "Skip tour",
+    "done": "Start building",
+    "progress": "Step {current} of {total}",
+    "openGuide": "Read the full guide",
+    "welcome": {
+      "title": "Welcome to Polyframe",
+      "body": "Sketch a screen once, then see it as a wireframe or in the style of popular UI kits. This one-minute tour shows the whole flow."
+    },
+    "palette": {
+      "title": "Add components",
+      "body": "Drag a component onto an artboard, or click it to drop it in the middle of the view. Search works in English and Ukrainian."
+    },
+    "canvas": {
+      "title": "Arrange on the canvas",
+      "body": "Drag to move, use the handles to resize, drag on empty space to select several. Smart guides and the grid help you align. Hold Space and drag to pan, use ⌘ + scroll to zoom."
+    },
+    "inspector": {
+      "title": "Edit in the Inspector",
+      "body": "Change text, variants, size and state of the selected layer. With several layers selected you can align, distribute and group them. With nothing selected you get project and artboard settings."
+    },
+    "layers": {
+      "title": "Organize layers",
+      "body": "The Layers tab lists every artboard and layer. Drag to reorder, double-click to rename, lock or hide what gets in the way."
+    },
+    "mode": {
+      "title": "Switch the look",
+      "body": "Wireframe keeps you focused on structure. Styled applies a skin: shadcn/ui, MUI, Mantine, Ant Design or Bootstrap. Your layout never changes, only the look."
+    },
+    "export": {
+      "title": "Export your work",
+      "body": "Download PNG images, a JSON project file, or React code for six UI libraries. Everything is saved automatically in this browser."
+    },
+    "share": {
+      "title": "Share a link",
+      "body": "The whole project fits into the link, so nothing is uploaded. Anyone can open it in a read-only viewer and save a copy."
+    },
+    "help": {
+      "title": "Work faster",
+      "body": "Press ⌘K for the command palette and ? for all shortcuts. You can restart this tour or open the full guide from the Help menu."
+    }
   }
 }

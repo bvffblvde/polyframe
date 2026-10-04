@@ -29,6 +29,7 @@ export function useShortcuts(cmd: ReturnType<typeof useCommands>) {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       const mod = e.metaKey || e.ctrlKey;
+      if (useEditorStore.getState().tour !== null) return;
       if (mod && e.code === "KeyK") {
         e.preventDefault();
         const ed0 = useEditorStore.getState();
