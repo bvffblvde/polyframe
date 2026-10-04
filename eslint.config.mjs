@@ -25,5 +25,5 @@ export default defineConfig([
       "no-restricted-imports": ["error", { patterns: [uiLibraries, coreOnly] }],
     },
   },
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "coverage/**", "playwright-report/**", "test-results/**", "exporter-check/**"]),
+  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts", "coverage/**", "playwright-report/**", "test-results/**", "exporter-check/**", "storybook-static/**"]),
 ]);

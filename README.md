@@ -103,6 +103,7 @@ pnpm typecheck      # tsc --noEmit
 pnpm test           # Vitest unit and component tests
 pnpm test:coverage  # with coverage thresholds for ops and geometry
 pnpm test:e2e       # Playwright
+pnpm storybook      # every canvas component in every skin and mode
 ```
 
 The generated code is type-checked in a separate package, see [exporter-check](./exporter-check/README.md).
@@ -137,7 +138,7 @@ Polyframe **does not bundle the real UI libraries**. Each component is rendered 
 <details>
 <summary><b>Tech stack</b></summary>
 
-Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) · Zustand + zundo · dnd-kit · Zod · next-intl · idb-keyval · lz-string · html-to-image · fflate · Prettier · Shiki · cmdk · Vitest · Testing Library · Playwright
+Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) · Zustand + zundo · dnd-kit · Zod · next-intl · idb-keyval · lz-string · html-to-image · fflate · Prettier · Shiki · cmdk · Vitest · Testing Library · Playwright · Storybook
 
 </details>
 
@@ -147,7 +148,8 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] **v0.1 MVP**: canvas, 24 components, 5 skins + wireframe, inspector, layers, undo/redo, PNG/JSON export
 - [x] **v0.2**: code export (shadcn/ui, MUI), share links, ⌘K, smart guides, groups, templates
 - [x] **v0.3**: Mantine / Ant / Bootstrap / Chakra exporters, product tour and user guide, landing page, docs site, SEO and OG images, PWA (offline editor)
-- [ ] **Later**: Storybook matrix, auto-layout containers, custom skin editor, token import, SVG export
+- [x] Storybook matrix of components × skins × modes
+- [ ] **Later**: auto-layout containers, custom skin editor, token import, SVG export
 
 Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).
 

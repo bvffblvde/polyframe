@@ -3,3 +3,4 @@ allowBuilds:
   unrs-resolver: false
   '@parcel/watcher': false
   '@swc/core': false
+  esbuild: true

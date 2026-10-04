@@ -1,0 +1,29 @@
+:root {
+  --font-geist-sans: "Geist";
+  --font-sketch: "Caveat";
+}
+body {
+  margin: 0;
+  background: #f5f5f5;
+  font-family: "Geist", system-ui, sans-serif;
+}
+.sb-matrix {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--cell-min), 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+.sb-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sb-cell-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #525252;
+}
+.sb-cell .pf-root {
+  border-radius: 8px;
+  box-shadow: 0 0 0 1px #e5e5e5;
+}

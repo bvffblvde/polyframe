@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import en from "../../../messages/en.json";
 import uk from "../../../messages/uk.json";
@@ -30,6 +31,12 @@ function translator(messages: Tree): Translator {
 }
 
 describe("registry", () => {
+  it("has a Storybook story for every component", () => {
+    for (const type of COMPONENT_TYPES) {
+      expect(existsSync(`src/core/registry/components/${type}/${type}.stories.tsx`), type).toBe(true);
+    }
+  });
+
   it("registers every component type", () => {
     expect(definitions.map((d) => d.type).sort()).toEqual([...COMPONENT_TYPES].sort());
   });

@@ -103,6 +103,7 @@ pnpm typecheck      # tsc --noEmit
 pnpm test           # юніт- і компонентні тести Vitest
 pnpm test:coverage  # з порогами покриття для ops і geometry
 pnpm test:e2e       # Playwright
+pnpm storybook      # усі компоненти в усіх скінах і режимах
 ```
 
 Згенерований код перевіряється компілятором в окремому пакеті, див. [exporter-check](./exporter-check/README.md).
@@ -137,7 +138,7 @@ Polyframe **не тягне в застосунок справжні UI-бібл
 <details>
 <summary><b>Технології</b></summary>
 
-Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) · Zustand + zundo · dnd-kit · Zod · next-intl · idb-keyval · lz-string · html-to-image · fflate · Prettier · Shiki · cmdk · Vitest · Testing Library · Playwright
+Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (Radix) · Zustand + zundo · dnd-kit · Zod · next-intl · idb-keyval · lz-string · html-to-image · fflate · Prettier · Shiki · cmdk · Vitest · Testing Library · Playwright · Storybook
 
 </details>
 
@@ -147,7 +148,8 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] **v0.1 MVP**: полотно, 24 компоненти, 5 скінів + вайрфрейм, інспектор, шари, скасування, експорт PNG/JSON
 - [x] **v0.2**: експорт коду (shadcn/ui, MUI), посилання, ⌘K, розумні напрямні, групи, шаблони
 - [x] **v0.3**: експортери Mantine / Ant / Bootstrap / Chakra, екскурсія й посібник, лендинг, документація, SEO й OG-зображення, PWA (офлайн-редактор)
-- [ ] **Згодом**: Storybook, контейнери з автолейаутом, редактор скінів, імпорт токенів, експорт у SVG
+- [x] Storybook: компоненти × скіни × режими
+- [ ] **Згодом**: контейнери з автолейаутом, редактор скінів, імпорт токенів, експорт у SVG
 
 Є ідея? [Відкрийте обговорення](https://github.com/bvffblvde/polyframe/discussions).
 
