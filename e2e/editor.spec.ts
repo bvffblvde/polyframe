@@ -127,3 +127,25 @@ test("groups and ungroups nodes, aligns a selection", async ({ page }) => {
   await nodes(page, "badge").click();
   await expect(page.getByText("2 layers selected")).toHaveCount(0);
 });
+
+test("shares a project through a link", async ({ page, context }) => {
+  await openEditor(page);
+  await page.getByTestId("palette-button").click();
+  const label = page.getByTestId("prop-label");
+  await label.fill("Shared!");
+  await label.press("Enter");
+  await page.getByRole("button", { name: "Share" }).click();
+  const url = await page.getByTestId("share-url").inputValue();
+  expect(url).toContain("/en/view#/share/");
+
+  const viewer = await context.newPage();
+  await viewer.goto(url);
+  await expect(viewer.getByText("Shared project")).toBeVisible();
+  await expect(nodes(viewer, "button")).toHaveText("Shared!");
+  await viewer.getByRole("button", { name: "Duplicate to my projects" }).click();
+  await expect(viewer).toHaveURL(/\/en\/editor$/);
+  await expect(nodes(viewer, "button")).toHaveText("Shared!");
+
+  await viewer.goto("/en/view#/share/broken");
+  await expect(viewer.getByRole("alert").filter({ hasText: "share link is broken" })).toBeVisible();
+});

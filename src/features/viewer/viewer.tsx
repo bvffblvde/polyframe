@@ -1,26 +1,26 @@
 "use client";
 
-import { Download, Maximize, Minus, Plus } from "lucide-react";
+import { CopyPlus, Download, FileJson, Maximize, Minus, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { SKIN_IDS, type Mode, type SkinId } from "@/core/document/types";
+import { SKIN_IDS, type Mode, type Project, type SkinId } from "@/core/document/types";
+import { decodeShare } from "@/core/serialization/share";
 import { SKIN_LABELS } from "@/core/skins";
-import { Link } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { listProjects, loadProject, getLastProjectId } from "@/lib/persistence/idb";
 import { useDocumentStore } from "@/stores/document-store";
 import { useEditorStore } from "@/stores/editor-store";
-import { useProjectsStore } from "@/stores/projects-store";
+import { importProject, useProjectsStore } from "@/stores/projects-store";
+import { useProjectIO } from "../editor/project-io";
 import { Viewport } from "../editor/canvas/viewport";
 import * as commands from "../editor/commands";
 import { ExportPngDialog } from "../editor/dialogs/export-png-dialog";
 import { LanguageSwitch } from "../editor/toolbar/language-switch";
 
-async function show(id: string) {
-  const p = await loadProject(id);
-  if (!p) return;
+function present(p: Project) {
   useDocumentStore.getState().load(p);
   useEditorStore.getState().set({
     selection: [],
@@ -28,6 +28,11 @@ async function show(id: string) {
     viewOverride: { mode: p.settings.mode, skin: p.settings.skin },
     fitRequest: Date.now(),
   });
+}
+
+async function show(id: string) {
+  const p = await loadProject(id);
+  if (p) present(p);
 }
 
 export function Viewer({ compact = false }: { compact?: boolean }) {
@@ -39,9 +44,21 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
   const allArtboards = useDocumentStore((s) => s.project?.artboards);
   const activeId = useEditorStore((s) => s.activeArtboardId);
   const view = useEditorStore((s) => s.viewOverride);
+  const [shared, setShared] = useState<"none" | "ok" | "invalid">("none");
+  const io = useProjectIO();
+  const router = useRouter();
 
   useEffect(() => {
     let alive = true;
+    const fromLink = decodeShare(window.location.hash);
+    if (fromLink) {
+      if (fromLink.ok) present(fromLink.project);
+      useProjectsStore.setState({ ready: true });
+      queueMicrotask(() => setShared(fromLink.ok ? "ok" : "invalid"));
+      return () => {
+        useEditorStore.getState().set({ viewOverride: null });
+      };
+    }
     void (async () => {
       const items = await listProjects();
       if (!alive) return;
@@ -68,9 +85,9 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
         </div>
       )}
       <header className="flex flex-wrap items-center gap-2 border-b px-3 py-2">
-        <span className="font-semibold">{t("viewer.title")}</span>
+        <span className="font-semibold">{shared === "none" ? t("viewer.title") : t("viewer.shared")}</span>
         <span className="rounded bg-muted px-1.5 py-0.5 text-xs text-muted-foreground">{t("viewer.readOnly")}</span>
-        {list.length > 0 && (
+        {shared === "none" && list.length > 0 && (
           <Select value={projectId} onValueChange={(id) => void show(id)}>
             <SelectTrigger size="sm" aria-label={t("viewer.project")} className="max-w-48">
               <SelectValue />
@@ -135,6 +152,24 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
           <Button variant="ghost" size="icon" aria-label={t("toolbar.zoomIn")} onClick={() => commands.zoomStep(1)}>
             <Plus aria-hidden />
           </Button>
+          {shared === "ok" && (
+            <>
+              <Button
+                size="sm"
+                onClick={async () => {
+                  const p = useDocumentStore.getState().project;
+                  if (!p) return;
+                  await importProject(p);
+                  router.push("/editor");
+                }}
+              >
+                <CopyPlus aria-hidden /> {t("viewer.duplicate")}
+              </Button>
+              <Button variant="outline" size="sm" onClick={io.exportJson}>
+                <FileJson aria-hidden /> {t("viewer.exportJson")}
+              </Button>
+            </>
+          )}
           {projectId && (
             <Button variant="outline" size="sm" onClick={() => useEditorStore.getState().set({ dialog: "exportPng" })}>
               <Download aria-hidden /> PNG
@@ -149,7 +184,11 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
         </div>
       </header>
       <main className="min-h-0 flex-1">
-        {ready && list.length === 0 ? (
+        {shared === "invalid" ? (
+          <p role="alert" className="p-6 text-sm text-destructive">
+            {t("viewer.invalidLink")}
+          </p>
+        ) : shared === "none" && ready && list.length === 0 ? (
           <p className="p-6 text-sm text-muted-foreground">{t("viewer.noProjects")}</p>
         ) : (
           <Viewport readOnly />

@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Download, Grid3x3, Keyboard, Minus, MonitorSmartphone, Plus, Redo2, Undo2 } from "lucide-react";
+import { ChevronDown, Download, Grid3x3, Keyboard, Minus, MonitorSmartphone, Plus, Redo2, Share2, Undo2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -45,7 +45,7 @@ export function Toolbar() {
   const names = useNewProjectNames();
   const io = useProjectIO();
   const fileRef = useRef<HTMLInputElement>(null);
-  const openDialog = (dialog: "projects" | "exportPng" | "shortcuts") => useEditorStore.getState().set({ dialog });
+  const openDialog = (dialog: "projects" | "exportPng" | "shortcuts" | "share") => useEditorStore.getState().set({ dialog });
   if (!settings) return null;
 
   return (
@@ -179,6 +179,9 @@ export function Toolbar() {
             <DropdownMenuItem onSelect={io.exportJson}>JSON</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
+        <Button variant="outline" size="sm" onClick={() => openDialog("share")}>
+          <Share2 aria-hidden /> {t("share")}
+        </Button>
         <IconButton label={t("viewer")} asChild>
           <Link href="/view">
             <MonitorSmartphone aria-hidden />

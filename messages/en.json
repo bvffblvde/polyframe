@@ -145,7 +145,8 @@
     "viewer": "Open viewer",
     "saved": "Saved",
     "saving": "Saving...",
-    "saveError": "Not saved"
+    "saveError": "Not saved",
+    "share": "Share"
   },
   "modes": {
     "wireframe": "Wireframe",
@@ -399,10 +400,24 @@
     "project": "Project",
     "noProjects": "No local projects yet. Create one in the editor on a larger screen.",
     "readOnly": "Read-only",
-    "openEditor": "Open editor"
+    "openEditor": "Open editor",
+    "shared": "Shared project",
+    "duplicate": "Duplicate to my projects",
+    "invalidLink": "This share link is broken or was created with a newer version of Polyframe.",
+    "exportJson": "Export JSON"
   },
   "common": {
     "close": "Close",
     "loading": "Loading..."
+  },
+  "share": {
+    "title": "Share a link",
+    "description": "The whole project is packed into the link. Nothing is uploaded to a server.",
+    "link": "Share link",
+    "copy": "Copy link",
+    "copied": "Link copied",
+    "size": "Link length: {size} KB",
+    "tooLarge": "This link is very long and may not open in every browser or messenger. Consider sharing a JSON file instead.",
+    "exportJson": "Export JSON instead"
   }
 }
