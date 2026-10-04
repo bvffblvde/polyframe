@@ -208,3 +208,15 @@ test("shows the product tour on the first visit only", async ({ page }) => {
   await page.keyboard.press("Escape");
   await expect(tour).toHaveCount(0);
 });
+
+test("renders the user guide in both languages", async ({ page }) => {
+  await page.goto("/en/guide");
+  await expect(page.getByRole("heading", { level: 1, name: "User guide" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Keyboard and ⌘K" })).toBeVisible();
+  await expect(page.getByRole("table")).toContainText("Group / Ungroup");
+  await page.getByRole("navigation", { name: "On this page" }).getByRole("link", { name: "Export" }).click();
+  await expect(page).toHaveURL(/#export$/);
+  await page.goto("/uk/guide");
+  await expect(page.getByRole("heading", { level: 1, name: "Посібник користувача" })).toBeVisible();
+  await expect(page.locator("img[src='/guide/uk/skins.jpg']")).toBeVisible();
+});

@@ -574,5 +574,26 @@
       "title": "Work faster",
       "body": "Press ⌘K for the command palette and ? for all shortcuts. You can restart this tour or open the full guide from the Help menu."
     }
+  },
+  "guide": {
+    "title": "User guide",
+    "description": "Everything you can do in Polyframe, from the first component to code export and share links.",
+    "contents": "On this page",
+    "openEditor": "Open the editor",
+    "toc": {
+      "overview": "Overview",
+      "start": "Start a project",
+      "add": "Add components",
+      "arrange": "Arrange layers",
+      "edit": "Edit properties",
+      "look": "Change the look",
+      "navigate": "Navigate the canvas",
+      "save": "Save and manage projects",
+      "export": "Export",
+      "share": "Share",
+      "keyboard": "Keyboard and ⌘K",
+      "mobile": "Phones and tablets",
+      "faq": "Questions"
+    }
   }
 }

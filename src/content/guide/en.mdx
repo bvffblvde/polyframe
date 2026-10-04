@@ -1,0 +1,184 @@
+<h2 id="overview">Overview</h2>
+
+Polyframe is a drag-and-drop prototyping tool that runs entirely in your browser. You build a screen once and then look at it in different ways: as a grayscale **wireframe** while you think about structure, or **styled** with a skin that imitates shadcn/ui, MUI, Mantine, Ant Design or Bootstrap. When the layout feels right, you export it as an image, a project file or React code.
+
+There is no account and no server. Projects are stored in your browser and never leave your computer unless you export or share them.
+
+<figure>
+  <img src="/guide/en/editor.jpg" alt="The editor with the component palette on the left, the canvas in the middle and the Inspector on the right" />
+  <figcaption>The editor: palette and layers on the left, canvas in the middle, Inspector on the right, toolbar on top.</figcaption>
+</figure>
+
+On your first visit a short tour walks you through the editor. You can run it again any time from **Help → Take the tour**.
+
+<h2 id="start">Start a project</h2>
+
+The editor opens your last project, or creates a new one with a single desktop artboard. Open the project menu (the project name in the top-left corner) to:
+
+- **New project** starts from an empty desktop artboard.
+- **New from template** starts from a ready screen: Login, Dashboard, Landing hero, Settings, Pricing or Mobile profile.
+- **Open projects** lists everything saved in this browser. You can open, rename, duplicate and delete projects there.
+- **Import JSON** and **Export JSON** move projects between browsers and computers.
+
+### Artboards
+
+An artboard is a screen. A project can hold several of them, for example a desktop and a mobile version of the same page.
+
+- Add one from the **Layers** tab with **Add artboard** and pick a preset: Desktop 1440×1024, Laptop 1280×800, Tablet 768×1024 or Mobile 390×844.
+- Click an empty spot on an artboard to make it active. New components go into the active artboard.
+- With nothing selected, the Inspector shows the active artboard: rename it, switch its preset, type a custom width and height, or delete it.
+
+<h2 id="add">Add components</h2>
+
+The **Components** tab holds 24 components grouped into Layout, Inputs, Typography, Media and Data & feedback. Each preview is drawn in the current mode and skin.
+
+- **Drag** a component onto an artboard to drop it exactly where you release the mouse.
+- **Click** a component to place it in the middle of the visible part of the active artboard.
+- **Search** by name or keyword. Both English and Ukrainian words work, so "button" and "кнопка" find the same thing.
+
+Default texts such as "Button" or "Email" come from the interface language at the moment you insert the component. Text you type yourself is never translated.
+
+<h2 id="arrange">Arrange layers</h2>
+
+### Select
+
+- Click a layer to select it. **Shift + click** adds or removes layers from the selection.
+- Drag on an empty spot to draw a selection rectangle.
+- **⌘A** selects everything on the active artboard, **Esc** clears the selection.
+
+### Move and resize
+
+- Drag a selected layer to move it. Arrow keys nudge by 1 px, **Shift + arrows** by 10 px, or by one grid step when snapping is on.
+- Drag one of the eight handles to resize. Hold **Shift** to keep the proportions and **Alt** to resize from the center. Every component has a minimum size.
+
+<figure>
+  <img src="/guide/en/arrange.jpg" alt="A button being dragged, with a red smart guide and distance labels" />
+  <figcaption>Smart guides snap to edges and centers and show the distance to the nearest neighbors.</figcaption>
+</figure>
+
+### Grid and smart guides
+
+The grid menu in the toolbar turns **snap to grid** on or off (shortcut **G**), shows or hides the grid and sets its size to 4, 8 or 16 px. While you drag, **smart guides** snap the selection to the edges and centers of other layers and of the artboard, and show the distance to the nearest layers. Hold **Alt** while dragging to skip all snapping.
+
+### Align, distribute and order
+
+With layers selected, the Inspector shows **Align** buttons: left, center, right, top, middle and bottom. A single layer is aligned to the artboard, several layers to each other. With three or more layers you can also **distribute** them with equal gaps.
+
+The order buttons bring layers forward or backward, or all the way to the front or back. The shortcuts are **⌘]** and **⌘[**, plus **Shift** for front and back.
+
+### Groups, copies and history
+
+- **⌘G** groups the selection, **⌘⇧G** ungroups it. Clicking any member on the canvas selects the whole group. In the Layers tab you can still pick a single member.
+- **⌘D** duplicates, **⌘C** and **⌘V** copy and paste, also between artboards. **Delete** or **Backspace** removes the selection.
+- **⌘Z** undoes and **⌘⇧Z** redoes. A whole drag or resize counts as one step, and the history keeps at least 100 steps.
+
+<h2 id="edit">Edit properties</h2>
+
+The Inspector always shows what is selected.
+
+- **Layer**: name, position and size, lock, hide and opacity.
+- **Properties**: the settings of the component, such as text, variant, size, options, checked or disabled. Lists such as select options or tabs take one item per line. Tables take one row per line with cells separated by `|`.
+- **Style** (in Styled mode): a color role (primary, secondary, neutral, danger, success), a corner radius and a shadow level for the selected layers.
+- **Actions**: duplicate, delete, group and ungroup.
+
+Text fields apply when you press **Enter** or leave the field, so one edit is one undo step.
+
+<figure>
+  <img src="/guide/en/inspector.jpg" alt="The Inspector showing the properties of a selected input" />
+  <figcaption>The Inspector is generated from each component's settings, so every component gets the same controls.</figcaption>
+</figure>
+
+### Layers tab
+
+The **Layers** tab lists artboards and their layers from top to bottom. Click to select, **Shift + click** to add to the selection, double-click or press **F2** to rename, drag the handle to reorder, and use the lock and eye icons to lock or hide a layer. Locked layers cannot be moved on the canvas. Hidden layers are not drawn and are left out of exports.
+
+<h2 id="look">Change the look</h2>
+
+Use the **Wireframe / Styled** switch in the toolbar or press **M**.
+
+- **Wireframe** draws everything in gray with simple strokes. Images become a box with a cross. Turn on **Sketch font** in the project settings for a hand-drawn feel.
+- **Styled** applies the skin selected next to the switch: shadcn/ui, MUI, Mantine, Ant Design or Bootstrap.
+
+<figure>
+  <img src="/guide/en/skins.jpg" alt="The same login screen in the MUI skin" />
+  <figcaption>The Login template in the MUI skin. Switch skins to compare libraries in a second.</figcaption>
+</figure>
+
+Switching mode or skin never changes your layout. Skins are close approximations of each library's look, not pixel-perfect copies.
+
+<h2 id="navigate">Navigate the canvas</h2>
+
+- **Pan**: scroll with a trackpad or mouse wheel, hold **Space** and drag, or drag with the middle mouse button.
+- **Zoom**: **⌘ + scroll** or pinch on a trackpad, the **−** and **+** buttons, or **⌘=** and **⌘−**. The range is 10% to 400%.
+- **⌘0** fits all artboards on screen, **⌘1** sets the zoom to 100%.
+
+<h2 id="save">Save and manage projects</h2>
+
+Every change is saved automatically in your browser. The toolbar shows **Saving...** and then **Saved**. When you come back, your last project opens again.
+
+Because projects live in the browser, clearing site data or using a private window removes them. Use **Export JSON** for backups or to continue on another computer, and **Import JSON** to bring a project back. Imported files are checked first; if a file is broken or comes from a newer version, you get a clear message and nothing is changed.
+
+<h2 id="export">Export</h2>
+
+Open **Export** in the toolbar.
+
+### PNG
+
+Export the active artboard or all artboards (as a ZIP) at 1×, 2× or 3×, with a white or transparent background. Images use the current mode and skin and never include selection outlines or the grid.
+
+### Code
+
+**Export → Code** turns an artboard into a React component.
+
+- **Target**: shadcn/ui + Tailwind, MUI, Mantine, Ant Design, React Bootstrap or Chakra UI.
+- **Layout**: *Absolute* reproduces the canvas exactly with fixed positions. *Stacked* groups layers into rows and uses flex layout, which is closer to how you would write the page by hand. Layers inside a Box or Card are nested into it.
+- Copy the code, download the `.tsx` file, or download every artboard as a ZIP. The header of each file lists the packages to install.
+
+<figure>
+  <img src="/guide/en/export-code.jpg" alt="The code export dialog with a React component for MUI" />
+  <figcaption>The generated code is a starting point. It compiles, but it is not responsive production code.</figcaption>
+</figure>
+
+### JSON
+
+**Export JSON** saves the whole project as a `.polyframe.json` file. It is the most complete backup.
+
+<h2 id="share">Share</h2>
+
+**Share** creates a link that contains the entire project, compressed into the address itself. Nothing is uploaded. Anyone who opens the link sees the project in a read-only viewer, can switch modes and skins, export PNG or JSON, and press **Duplicate to my projects** to save their own copy.
+
+Very large projects make very long links that some apps cut off. Polyframe warns you and offers a JSON file instead.
+
+<h2 id="keyboard">Keyboard and ⌘K</h2>
+
+**⌘K** opens the command palette. Type to insert a component, switch the mode or skin, zoom, export, share, create a project from a template, open a project or change the language. Press **?** to see every shortcut. On Windows and Linux use **Ctrl** instead of **⌘**. Shortcuts are paused while you type in a field.
+
+| Action | Shortcut |
+|---|---|
+| Undo / Redo | ⌘Z / ⌘⇧Z |
+| Duplicate / Delete | ⌘D / Delete |
+| Copy / Paste | ⌘C / ⌘V |
+| Select all | ⌘A |
+| Group / Ungroup | ⌘G / ⌘⇧G |
+| Nudge | Arrows, Shift + arrows |
+| Forward / Backward | ⌘] / ⌘[ |
+| Grid snap / Mode | G / M |
+| Zoom fit / 100% / in / out | ⌘0 / ⌘1 / ⌘= / ⌘− |
+| Pan | Space + drag |
+| Command palette / Shortcuts | ⌘K / ? |
+
+All panels and dialogs work with the keyboard, and important actions are announced to screen readers.
+
+<h2 id="mobile">Phones and tablets</h2>
+
+The editor needs a screen at least 1024 px wide. On smaller screens Polyframe opens the viewer instead: you can browse your projects, pan and zoom, switch modes and skins and export PNG. Share links work on phones too.
+
+<h2 id="faq">Questions</h2>
+
+**Does Polyframe include the real UI libraries?** No. The editor draws its own components and styles them with design tokens taken from each library's public theme. Only the exported code imports the real libraries.
+
+**Where is my data?** In your browser's IndexedDB. Nothing is sent anywhere, and there is no analytics.
+
+**Can I work on two computers?** Yes: export JSON on one and import it on the other, or send yourself a share link and use **Duplicate to my projects**.
+
+**Something does not work.** Please [open an issue on GitHub](https://github.com/bvffblvde/polyframe/issues) with the steps to reproduce it.

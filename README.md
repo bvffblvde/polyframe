@@ -14,6 +14,7 @@ Drag-and-drop UI prototyping in your browser. Build a layout as a wireframe, fli
 **No sign-up. No backend. Your work never leaves your browser.**
 
 [**Open the editor →**](https://polyframe.vercel.app) &nbsp;·&nbsp;
+[User guide](https://polyframe.vercel.app/en/guide) &nbsp;·&nbsp;
 [Spec](./docs/SPEC.md) &nbsp;·&nbsp;
 [Roadmap](#-roadmap) &nbsp;·&nbsp;
 [Contribute](#-contributing)
@@ -144,7 +145,7 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] Spec & architecture
 - [x] **v0.1 MVP**: canvas, 24 components, 5 skins + wireframe, inspector, layers, undo/redo, PNG/JSON export
 - [x] **v0.2**: code export (shadcn/ui, MUI), share links, ⌘K, smart guides, groups, templates
-- [ ] **v0.3**: ~~Mantine / Ant / Bootstrap / Chakra exporters~~ (done), user guide, docs site, PWA
+- [ ] **v0.3**: ~~Mantine / Ant / Bootstrap / Chakra exporters~~ (done), ~~user guide~~ (done), docs site, PWA
 - [ ] **Later**: Storybook matrix, auto-layout containers, custom skin editor, token import, SVG export
 
 Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).

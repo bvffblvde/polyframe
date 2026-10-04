@@ -1,0 +1,15 @@
+export const GUIDE_SECTIONS = [
+  "overview",
+  "start",
+  "add",
+  "arrange",
+  "edit",
+  "look",
+  "navigate",
+  "save",
+  "export",
+  "share",
+  "keyboard",
+  "mobile",
+  "faq",
+] as const;
