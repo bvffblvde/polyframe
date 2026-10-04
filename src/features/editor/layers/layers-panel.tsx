@@ -11,9 +11,10 @@ import {
 } from "@dnd-kit/core";
 import { SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Eye, EyeOff, Frame, GripVertical, Lock, LockOpen, Plus } from "lucide-react";
+import { Eye, EyeOff, Frame, GripVertical, Group, Lock, LockOpen, Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { memo, useState } from "react";
+import { Fragment, memo, useState } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -23,7 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { moveNodeToIndex, updateNode } from "@/core/document/ops";
+import { groupMembers, moveNodeToIndex, updateNode } from "@/core/document/ops";
 import { ARTBOARD_PRESETS, type ID } from "@/core/document/types";
 import { registry } from "@/core/registry";
 import { cn } from "@/lib/utils";
@@ -67,6 +68,9 @@ function ArtboardLayers({ id }: { id: ID }) {
   const t = useTranslations("layers");
   const a = useDocumentStore((s) => s.project?.artboards[id]);
   const active = useEditorStore((s) => s.activeArtboardId === id);
+  const parents = useDocumentStore(
+    useShallow((s) => [...(s.project?.artboards[id]?.childOrder ?? [])].reverse().map((nid) => s.project?.nodes[nid]?.parentId)),
+  );
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
@@ -97,8 +101,11 @@ function ArtboardLayers({ id }: { id: ID }) {
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
             <ul className="mt-0.5 space-y-px">
-              {items.map((nid) => (
-                <LayerRow key={nid} id={nid} />
+              {items.map((nid, i) => (
+                <Fragment key={nid}>
+                  {parents[i] && parents[i] !== parents[i - 1] && <GroupHeader memberId={nid} />}
+                  <LayerRow id={nid} grouped={Boolean(parents[i])} />
+                </Fragment>
               ))}
             </ul>
           </SortableContext>
@@ -108,7 +115,28 @@ function ArtboardLayers({ id }: { id: ID }) {
   );
 }
 
-const LayerRow = memo(function LayerRow({ id }: { id: ID }) {
+function GroupHeader({ memberId }: { memberId: ID }) {
+  const t = useTranslations("layers");
+  const select = () => {
+    const p = useDocumentStore.getState().project;
+    if (p) useEditorStore.getState().set({ selection: groupMembers(p, [memberId]), activeArtboardId: p.nodes[memberId].artboardId });
+  };
+  return (
+    <li>
+      <button
+        type="button"
+        onClick={select}
+        aria-label={t("selectGroup")}
+        className="flex w-full items-center gap-2 rounded-md py-1 pl-6 text-left text-sm text-muted-foreground outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring"
+      >
+        <Group className="size-3.5" aria-hidden />
+        {t("group")}
+      </button>
+    </li>
+  );
+}
+
+const LayerRow = memo(function LayerRow({ id, grouped }: { id: ID; grouped: boolean }) {
   const t = useTranslations("layers");
   const node = useDocumentStore((s) => s.project?.nodes[id]);
   const selected = useEditorStore((s) => s.selection.includes(id));
@@ -134,6 +162,7 @@ const LayerRow = memo(function LayerRow({ id }: { id: ID }) {
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
         "group flex items-center gap-1 rounded-md pr-1 pl-2 text-sm hover:bg-accent",
+        grouped && "ml-4 border-l",
         selected && "bg-sky-100 hover:bg-sky-100 dark:bg-sky-950",
         isDragging && "relative z-10 opacity-80",
         node.hidden && "text-muted-foreground",

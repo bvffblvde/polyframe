@@ -225,3 +225,18 @@ export function distribute(axis: "x" | "y") {
   for (const group of selectionByArtboard().values()) Object.assign(rects, distributeRects(group, axis));
   if (Object.keys(rects).length) apply((pr) => ops.setNodeRects(pr, rects));
 }
+
+export function group(): boolean {
+  const ids = ed().selection;
+  const before = doc().project;
+  apply((p) => ops.groupNodes(p, ids, newId()));
+  const after = doc().project;
+  if (after && after !== before) ed().select(ops.groupMembers(after, ids));
+  return after !== before;
+}
+
+export function ungroup(): boolean {
+  const before = doc().project;
+  apply((p) => ops.ungroupNodes(p, ed().selection));
+  return doc().project !== before;
+}

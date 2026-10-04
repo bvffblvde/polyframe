@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, type RefObject } from "react";
-import { moveNodes, setNodeRects } from "@/core/document/ops";
+import { groupMembers, moveNodes, setNodeRects } from "@/core/document/ops";
 import type { ID, Rect } from "@/core/document/types";
 import { snapToGuides } from "@/core/geometry/guides";
 import { nodesInRect } from "@/core/geometry/hit-test";
@@ -80,8 +80,10 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
       const nodeId = target.closest<HTMLElement>("[data-node-id]")?.dataset.nodeId;
       if (nodeId && p.nodes[nodeId]) {
         const wasSelected = sel.includes(nodeId);
-        if (e.shiftKey) ed().select(wasSelected ? sel.filter((x) => x !== nodeId) : [...sel, nodeId]);
-        else if (!wasSelected) ed().select([nodeId]);
+        const members = groupMembers(p, [nodeId]);
+        if (e.shiftKey) {
+          ed().select(wasSelected ? sel.filter((x) => !members.includes(x)) : [...new Set([...sel, ...members])]);
+        } else if (!wasSelected) ed().select(members);
         ed().set({ activeArtboardId: p.nodes[nodeId].artboardId });
         g = { kind: "pressing", start, nodeId, wasSelected, shift: e.shiftKey };
         return;
@@ -175,7 +177,7 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
             const local = { x: rect.x - ab.x, y: rect.y - ab.y, w: rect.w, h: rect.h };
             for (const id of nodesInRect(ab.childOrder.map((nid) => p.nodes[nid]), local)) hits.add(id);
           }
-          ed().set({ marquee: rect, selection: [...hits] });
+          ed().set({ marquee: rect, selection: groupMembers(p, [...hits]) });
         });
       } else if (g.kind === "panning") {
         const { vp: start } = g;
@@ -201,7 +203,8 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
         const n = cur.next;
         if (n.x !== r.x || n.y !== r.y || n.w !== r.w || n.h !== r.h) apply((p) => setNodeRects(p, { [cur.id]: n }));
       } else if (cur.kind === "pressing") {
-        if (!cur.shift && cur.wasSelected) ed().select([cur.nodeId]);
+        const pr = project();
+        if (!cur.shift && cur.wasSelected && pr) ed().select(groupMembers(pr, [cur.nodeId]));
       } else {
         ed().set({ marquee: null, interaction: "idle" });
       }

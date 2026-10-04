@@ -138,3 +138,51 @@ describe("z-order", () => {
     expect(ops.moveNodeToIndex(p0, "zz", 0)).toBe(p0);
   });
 });
+
+describe("groups", () => {
+  it("groups nodes into a contiguous block at the topmost member", () => {
+    const p = ops.groupNodes(withNodes(["n1", "n2", "n3", "n4"]), ["n1", "n3"], "g1");
+    expect(p.nodes.n1.parentId).toBe("g1");
+    expect(p.nodes.n3.parentId).toBe("g1");
+    expect(p.artboards.a1.childOrder).toEqual(["n2", "n1", "n3", "n4"]);
+    expect(ops.groupMembers(p, ["n1"]).sort()).toEqual(["n1", "n3"]);
+    expect(ops.groupMembers(p, ["n2", "zz"])).toEqual(["n2"]);
+  });
+
+  it("needs two members in one artboard", () => {
+    const p0 = withNodes(["n1"]);
+    expect(ops.groupNodes(p0, ["n1"], "g")).toBe(p0);
+    expect(ops.groupNodes(p0, ["zz"], "g")).toBe(p0);
+  });
+
+  it("merges existing groups when grouping again", () => {
+    let p = ops.groupNodes(withNodes(["n1", "n2", "n3"]), ["n1", "n2"], "g1");
+    p = ops.groupNodes(p, ["n1", "n3"], "g2");
+    expect(["n1", "n2", "n3"].map((id) => p.nodes[id].parentId)).toEqual(["g2", "g2", "g2"]);
+  });
+
+  it("ungroups all members", () => {
+    const p0 = ops.groupNodes(withNodes(["n1", "n2"]), ["n1", "n2"], "g1");
+    const p = ops.ungroupNodes(p0, ["n2"]);
+    expect(p.nodes.n1.parentId).toBeUndefined();
+    expect(p.nodes.n2.parentId).toBeUndefined();
+    expect(ops.ungroupNodes(p, ["n1"])).toBe(p);
+  });
+
+  it("dissolves a group when one member is left", () => {
+    const p = ops.removeNodes(ops.groupNodes(withNodes(["n1", "n2"]), ["n1", "n2"], "g1"), ["n1"]);
+    expect(p.nodes.n2.parentId).toBeUndefined();
+  });
+
+  it("keeps grouping among clones with fresh group ids", () => {
+    const p0 = ops.groupNodes(withNodes(["n1", "n2", "n3"]), ["n1", "n2"], "g1");
+    const r = ops.duplicateNodes(p0, ["n1", "n2", "n3"], counterIds("c"));
+    const clones = r.ids.map((id) => r.project.nodes[id]);
+    expect(clones[0].parentId).toBeDefined();
+    expect(clones[0].parentId).toBe(clones[1].parentId);
+    expect(clones[0].parentId).not.toBe("g1");
+    expect(clones[2].parentId).toBeUndefined();
+    const single = ops.duplicateNodes(p0, ["n1"], counterIds("s"));
+    expect(single.project.nodes[single.ids[0]].parentId).toBeUndefined();
+  });
+});

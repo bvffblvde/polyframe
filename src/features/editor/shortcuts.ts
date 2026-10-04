@@ -47,6 +47,8 @@ export function useShortcuts(cmd: ReturnType<typeof useCommands>) {
         switch (e.code) {
           case "KeyZ":
             return run(e.shiftKey ? cmd.redo : cmd.undo);
+          case "KeyG":
+            return run(e.shiftKey ? cmd.ungroup : cmd.group);
           case "KeyY":
             return run(cmd.redo);
           case "KeyD":

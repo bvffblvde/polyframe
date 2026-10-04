@@ -14,7 +14,9 @@ import {
   ChevronDown,
   ChevronUp,
   Copy,
+  Group,
   Trash2,
+  Ungroup,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useShallow } from "zustand/react/shallow";
@@ -228,9 +230,15 @@ function ActionsSection() {
           </Button>
         ))}
       </div>
-      <div className="flex gap-2">
+      <div className="flex flex-wrap gap-2">
         <Button variant="outline" size="sm" onClick={cmd.duplicate}>
           <Copy aria-hidden /> {t("duplicate")}
+        </Button>
+        <Button variant="outline" size="icon" aria-label={t("group")} title={t("group")} onClick={cmd.group}>
+          <Group aria-hidden />
+        </Button>
+        <Button variant="outline" size="icon" aria-label={t("ungroup")} title={t("ungroup")} onClick={cmd.ungroup}>
+          <Ungroup aria-hidden />
         </Button>
         <Button variant="outline" size="sm" onClick={cmd.remove} className="text-destructive">
           <Trash2 aria-hidden /> {t("delete")}

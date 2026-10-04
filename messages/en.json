@@ -167,7 +167,9 @@
     "show": "Show {name}",
     "rename": "Rename layer",
     "empty": "No layers yet",
-    "dragHandle": "Reorder {name}"
+    "dragHandle": "Reorder {name}",
+    "group": "Group",
+    "selectGroup": "Select group"
   },
   "presets": {
     "desktop": "Desktop",
@@ -235,7 +237,9 @@
     "alignMiddle": "Align vertical centers",
     "alignBottom": "Align bottom",
     "distributeX": "Distribute horizontally",
-    "distributeY": "Distribute vertically"
+    "distributeY": "Distribute vertically",
+    "group": "Group",
+    "ungroup": "Ungroup"
   },
   "fields": {
     "label": "Label",
@@ -358,7 +362,9 @@
     "selected": "{count, plural, one {# item selected} other {# items selected}}",
     "mode": "{mode} mode",
     "snapOn": "Grid snap on",
-    "snapOff": "Grid snap off"
+    "snapOff": "Grid snap off",
+    "grouped": "Grouped",
+    "ungrouped": "Ungrouped"
   },
   "shortcuts": {
     "title": "Keyboard shortcuts",
@@ -377,7 +383,8 @@
     "resize": "Resize: Shift keeps ratio, Alt from center",
     "noSnap": "Hold Alt while dragging to skip snapping",
     "deselect": "Clear selection",
-    "cheatsheet": "Shortcuts cheatsheet"
+    "cheatsheet": "Shortcuts cheatsheet",
+    "group": "Group / Ungroup"
   },
   "canvas": {
     "label": "Canvas",

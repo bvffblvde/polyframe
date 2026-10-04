@@ -33,6 +33,12 @@ export function useCommands() {
         commands.redo();
         announce(t("announce.redo"));
       },
+      group() {
+        if (commands.group()) announce(t("announce.grouped"));
+      },
+      ungroup() {
+        if (commands.ungroup()) announce(t("announce.ungrouped"));
+      },
       toggleMode() {
         const mode = commands.toggleMode();
         if (mode) announce(t("announce.mode", { mode: t(`modes.${mode}`) }));

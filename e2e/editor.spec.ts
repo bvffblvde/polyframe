@@ -108,3 +108,22 @@ test("switches locale", async ({ page }) => {
   await page.getByTestId("palette-button").click();
   await expect(nodes(page, "button")).toHaveText("Кнопка");
 });
+
+test("groups and ungroups nodes, aligns a selection", async ({ page }) => {
+  await openEditor(page);
+  await page.getByTestId("palette-button").click();
+  await page.getByTestId("palette-badge").click();
+  await page.getByTestId("canvas").focus();
+  await page.keyboard.press("ControlOrMeta+a");
+  await page.keyboard.press("ControlOrMeta+g");
+  await page.keyboard.press("Escape");
+  await nodes(page, "badge").click();
+  await expect(page.getByText("2 layers selected")).toBeVisible();
+  await page.getByRole("button", { name: "Align left" }).click();
+  const [a, b] = await Promise.all([nodes(page, "badge").boundingBox(), nodes(page, "button").boundingBox()]);
+  expect(Math.round(a?.x ?? 0)).toBe(Math.round(b?.x ?? 1));
+  await page.keyboard.press("ControlOrMeta+Shift+g");
+  await page.keyboard.press("Escape");
+  await nodes(page, "badge").click();
+  await expect(page.getByText("2 layers selected")).toHaveCount(0);
+});

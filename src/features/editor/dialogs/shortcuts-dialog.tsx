@@ -9,6 +9,7 @@ const ROWS: [string, string][] = [
   ["duplicateDelete", "⌘D / Del"],
   ["copyPaste", "⌘C / ⌘V"],
   ["selectAll", "⌘A"],
+  ["group", "⌘G / ⌘⇧G"],
   ["nudge", "↑↓←→ / ⇧ + ↑↓←→"],
   ["zOrder", "⌘] / ⌘["],
   ["zOrderEdge", "⌘⇧] / ⌘⇧["],
