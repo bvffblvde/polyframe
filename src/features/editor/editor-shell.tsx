@@ -25,6 +25,7 @@ import { Viewport } from "./canvas/viewport";
 import { ExportPngDialog } from "./dialogs/export-png-dialog";
 import { ProjectsDialog } from "./dialogs/projects-dialog";
 import { ShareDialog } from "./dialogs/share-dialog";
+import { CommandPalette } from "./command-palette/command-palette";
 import { ShortcutsDialog } from "./dialogs/shortcuts-dialog";
 import { Inspector } from "./inspector/inspector";
 import { LayersPanel } from "./layers/layers-panel";
@@ -117,6 +118,7 @@ function Editor() {
       <ExportPngDialog />
       <ShortcutsDialog />
       <ShareDialog />
+      <CommandPalette />
     </DndContext>
   );
 }

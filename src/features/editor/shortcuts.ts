@@ -28,8 +28,14 @@ const ARROWS: Record<string, [number, number]> = {
 export function useShortcuts(cmd: ReturnType<typeof useCommands>) {
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (isTypingTarget(e.target) || inComposite(e.target) || useEditorStore.getState().dialog) return;
       const mod = e.metaKey || e.ctrlKey;
+      if (mod && e.code === "KeyK") {
+        e.preventDefault();
+        const ed0 = useEditorStore.getState();
+        ed0.set({ dialog: ed0.dialog === "command" ? null : "command" });
+        return;
+      }
+      if (isTypingTarget(e.target) || inComposite(e.target) || useEditorStore.getState().dialog) return;
       const ed = useEditorStore.getState();
       const run = (fn: () => void) => {
         e.preventDefault();

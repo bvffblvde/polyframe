@@ -1,55 +1,162 @@
+<!-- Replace the placeholders in <> once the MVP is live. Keep the first screen: logo, one-liner, badges, GIF. -->
+
+<div align="center">
+
+<a href="https://polyframe.vercel.app">
+  <img src="./.github/assets/logo.svg" alt="Polyframe" width="96" height="96" />
+</a>
+
 # Polyframe
 
-One canvas, many UI kits. Sketch a layout as a wireframe, switch it to the look of shadcn/ui, MUI, Mantine, Ant Design or Bootstrap, and export it as PNG or JSON.
+### Sketch it once. Wear any UI kit. Ship the code.
 
-Polyframe runs entirely in the browser. There is no account and no backend: projects live in your browser's IndexedDB.
+Drag-and-drop UI prototyping in your browser. Build a layout as a wireframe, flip it into<br/>
+**shadcn/ui · MUI · Mantine · Ant Design · Bootstrap** in one click, export PNG or React code.
 
-## Features
+**No sign-up. No backend. Your work never leaves your browser.**
 
-- 24 canvas components: layout, inputs, typography, media, data and feedback
-- Wireframe mode plus five styled skins built from public design tokens
-- Drag and drop from the palette, move, resize, marquee selection, grid snapping, z-order, copy and paste
-- Schema-driven Inspector, Layers panel with drag reordering, undo and redo
-- Autosave, project manager, JSON import and export, PNG export (1x, 2x, 3x, single artboard or ZIP)
-- English and Ukrainian UI, keyboard shortcuts, screen reader announcements
-- Read-only viewer for small screens
+[**Open the editor →**](https://polyframe.vercel.app) &nbsp;·&nbsp;
+[Docs](https://polyframe.vercel.app/docs) &nbsp;·&nbsp;
+[Roadmap](#-roadmap) &nbsp;·&nbsp;
+[Contribute](#-contributing)
 
-## Development
+[![License: MIT](https://img.shields.io/badge/license-MIT-black?style=flat-square)](./LICENSE)
+[![CI](https://img.shields.io/github/actions/workflow/status/bvffblvde/polyframe/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/bvffblvde/polyframe/actions)
+[![Stars](https://img.shields.io/github/stars/bvffblvde/polyframe?style=flat-square&color=yellow)](https://github.com/bvffblvde/polyframe/stargazers)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](./CONTRIBUTING.md)
+[![Made in Ukraine](https://img.shields.io/badge/made_in-Ukraine-ffd700?style=flat-square&labelColor=0057b7)](https://u24.gov.ua)
 
-Requirements: Node.js 22+, pnpm.
+English · [Українська](./README.uk.md)
+
+<br/>
+
+<!-- The money shot: one layout cycling through Wireframe → shadcn → MUI → Mantine → Ant → Bootstrap. 10–15 s, < 8 MB. -->
+<img src="./.github/assets/hero.gif" alt="One layout switching between wireframe, shadcn/ui, MUI, Mantine, Ant Design and Bootstrap" width="900" />
+
+</div>
+
+---
+
+## ✨ Why Polyframe?
+
+Most wireframe tools give you gray boxes. Most UI builders lock you into one design system.
+Polyframe keeps **one layout** and lets you see it in **many visual languages**, so you can think about structure first and pick a look later.
+
+- 🧠 **Wireframe first.** Sketchy, grayscale, distraction-free. Focus on layout, not pixels.
+- 🎭 **One click, six looks.** The same screen in shadcn/ui, MUI, Mantine, Ant Design and Bootstrap. Your data never changes; only the skin does.
+- 🧾 **Export real code.** Get a React component for **shadcn/ui + Tailwind** or **MUI** (more targets coming) as a starting point, not a screenshot.
+- 🔒 **Local-first.** Projects live in IndexedDB. Share via a link that stores the whole layout in the URL itself, with no server involved.
+- ⌨️ **Keyboard-driven.** Undo/redo, nudge, align, duplicate, ⌘K for everything.
+- 🌍 **English & Ukrainian** out of the box.
+
+## 🎬 See it in action
+
+| Wireframe → Styled | Drag, snap & guides | Export to code |
+|:---:|:---:|:---:|
+| <img src="./.github/assets/demo-skins.gif" width="280" alt="Skin switching" /> | <img src="./.github/assets/demo-canvas.gif" width="280" alt="Canvas interactions" /> | <img src="./.github/assets/demo-export.gif" width="280" alt="Code export" /> |
+
+## 🧩 Features
+
+**Canvas**
+- Infinite pan & zoom canvas with **artboards** (Desktop, Laptop, Tablet, Mobile, custom)
+- Free drag or **grid snap** (4 / 8 / 16 px), **smart guides** with distance labels
+- Multi-select, marquee, resize with handles, align & distribute, z-order, groups
+- Undo/redo for every gesture
+
+**Components (22 and growing)**
+`Box` `Card` `Divider` `Navbar` `Sidebar` · `Button` `Input` `Textarea` `Select` `Checkbox` `Radio` `Switch` `Slider` · `Heading` `Text` `Link` `Badge` · `Image` `Avatar` `Icon` · `Table` `Tabs` `Alert` `Progress`
+
+**Inspector & layers**
+- Property panel generated from each component's schema
+- Layers tree with rename, lock, hide, drag to reorder
+
+**Export & share**
+- PNG at 1× / 2× / 3×, a single artboard or all of them as a zip
+- JSON project files with schema validation and migrations
+- React code: absolute layout (faithful) or stacked layout (flex rows)
+- Read-only share links
+
+## 🚀 Quick start
+
+Just use it: **[polyframe.vercel.app](https://polyframe.vercel.app)**
+
+Or run it locally:
 
 ```bash
+git clone https://github.com/bvffblvde/polyframe.git
+cd polyframe
 pnpm install
-pnpm dev          # http://localhost:3000
-pnpm lint
-pnpm typecheck
-pnpm test         # unit and component tests
-pnpm test:e2e     # Playwright
-pnpm build
+pnpm dev
 ```
 
-The product and technical spec lives in [docs/SPEC.md](docs/SPEC.md).
+Open http://localhost:3000. Requires Node 20+ and pnpm 9+.
 
-## Project layout
+## ⌨️ Shortcuts
 
-- `src/core` holds the framework-agnostic engine: document model, pure ops, geometry, component registry, skins and serialization.
-- `src/features/editor` holds the editor UI: canvas, interactions, palette, layers, inspector, toolbar and dialogs.
-- `src/stores` holds Zustand stores. Document history uses zundo.
-- `messages` holds the `en` and `uk` translations.
+| Action | Mac | Windows / Linux |
+|---|---|---|
+| Undo / Redo | `⌘Z` / `⌘⇧Z` | `Ctrl+Z` / `Ctrl+Shift+Z` |
+| Duplicate | `⌘D` | `Ctrl+D` |
+| Toggle grid snap | `G` | `G` |
+| Toggle wireframe / styled | `M` | `M` |
+| Zoom to fit | `⌘0` | `Ctrl+0` |
+| Command palette | `⌘K` | `Ctrl+K` |
+| All shortcuts | `?` | `?` |
 
-## Contributing
+## 🏗️ How it works
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+```
+            ┌──────────────┐
+  drag  ──▶ │  JSON layout │ ──▶ skin tokens (CSS vars) ──▶ Wireframe · shadcn · MUI · Mantine · Ant · Bootstrap
+            │ (one source) │
+            └──────┬───────┘
+                   └──────▶ exporters ──▶ React code for shadcn/ui · MUI · …
+```
 
-## Disclaimer
+Polyframe **does not bundle the real UI libraries**. Each component is rendered once from a JSON schema and styled with **design tokens** that imitate each kit. This keeps the app fast, makes skin switching instant, and lets the exporters emit real library code.
 
-Polyframe is not affiliated with shadcn/ui, MUI, Mantine, Ant Design or Bootstrap. Skins are approximations built from the public default theme values of these MIT-licensed projects:
-[shadcn/ui](https://github.com/shadcn-ui/ui/blob/main/LICENSE.md),
-[MUI](https://github.com/mui/material-ui/blob/master/LICENSE),
-[Mantine](https://github.com/mantinedev/mantine/blob/master/LICENSE),
-[Ant Design](https://github.com/ant-design/ant-design/blob/master/LICENSE),
-[Bootstrap](https://github.com/twbs/bootstrap/blob/main/LICENSE).
+<details>
+<summary><b>Tech stack</b></summary>
 
-## License
+Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui · Zustand + zundo · dnd-kit · Zod · next-intl · IndexedDB · html-to-image · Vitest · Playwright · Storybook
 
-[MIT](LICENSE)
+</details>
+
+## 🗺️ Roadmap
+
+- [x] Spec & architecture
+- [ ] **v0.1 MVP**: canvas, 22 components, 5 skins + wireframe, inspector, layers, undo/redo, PNG/JSON export
+- [ ] **v0.2**: code export (shadcn/ui, MUI), share links, ⌘K, smart guides, templates
+- [ ] **v0.3**: Mantine / Ant / Bootstrap / Chakra exporters, docs site, PWA
+- [ ] **Later**: auto-layout containers, custom skin editor, token import, SVG export
+
+Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).
+
+## 🤝 Contributing
+
+Contributions are very welcome, and the codebase is designed for it. Each **component**, **skin** and **export target** is a single folder following a documented contract.
+
+- 🟢 Start with a [`good first issue`](https://github.com/bvffblvde/polyframe/labels/good%20first%20issue)
+- 📦 [Add a new component](./docs/contributing/add-component.md) in ~30 minutes
+- 🎨 [Add a new skin](./docs/contributing/add-skin.md)
+- 🧾 [Add an export target](./docs/contributing/add-exporter.md)
+
+Please read [CONTRIBUTING.md](./CONTRIBUTING.md) first. We use Conventional Commits.
+
+## ⭐ Support
+
+If Polyframe saves you time, **give it a star**. It really helps the project get discovered.
+
+<a href="https://star-history.com/#bvffblvde/polyframe&Date">
+  <img src="https://api.star-history.com/svg?repos=bvffblvde/polyframe&type=Date" alt="Star history" width="600" />
+</a>
+
+## 📄 License
+
+[MIT](./LICENSE) © [Vladyslav Horba](https://vladyslav-horba-portfolio.vercel.app)
+
+<sub>Polyframe is not affiliated with shadcn/ui, MUI, Mantine, Ant Design or Bootstrap. Skins are visual approximations; all trademarks belong to their owners.</sub>
+
+<div align="center">
+<sub>Built with ☕ in Kharkiv, Ukraine 🇺🇦</sub>
+</div>

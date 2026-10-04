@@ -146,7 +146,8 @@
     "saved": "Saved",
     "saving": "Saving...",
     "saveError": "Not saved",
-    "share": "Share"
+    "share": "Share",
+    "command": "Command palette"
   },
   "modes": {
     "wireframe": "Wireframe",
@@ -385,7 +386,8 @@
     "noSnap": "Hold Alt while dragging to skip snapping",
     "deselect": "Clear selection",
     "cheatsheet": "Shortcuts cheatsheet",
-    "group": "Group / Ungroup"
+    "group": "Group / Ungroup",
+    "command": "Command palette"
   },
   "canvas": {
     "label": "Canvas",
@@ -488,5 +490,24 @@
       "notify": "Push notifications",
       "complete": "Profile completed"
     }
+  },
+  "command": {
+    "title": "Command palette",
+    "placeholder": "Type a command or search...",
+    "empty": "No results",
+    "insert": "Insert",
+    "view": "View",
+    "export": "Export",
+    "project": "Project",
+    "open": "Open projects",
+    "language": "Language",
+    "help": "Help",
+    "mode": "Mode: {name}",
+    "skin": "Skin: {name}",
+    "template": "New from template: {name}",
+    "openProject": "Open {name}",
+    "exportJson": "Export JSON",
+    "exportPng": "Export PNG...",
+    "exportCode": "Export code..."
   }
 }

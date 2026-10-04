@@ -149,3 +149,21 @@ test("shares a project through a link", async ({ page, context }) => {
   await viewer.goto("/en/view#/share/broken");
   await expect(viewer.getByRole("alert").filter({ hasText: "share link is broken" })).toBeVisible();
 });
+
+test("runs commands from the command palette", async ({ page }) => {
+  await openEditor(page);
+  await page.keyboard.press("ControlOrMeta+k");
+  await page.getByPlaceholder("Type a command or search...").fill("skin: mui");
+  await page.keyboard.press("Enter");
+  const root = page.locator("[data-export-root]").first();
+  await expect(root).toHaveAttribute("data-skin", "mui");
+  await expect(root).toHaveAttribute("data-mode", "styled");
+  await page.keyboard.press("ControlOrMeta+k");
+  await page.getByPlaceholder("Type a command or search...").fill("кнопка");
+  await page.keyboard.press("Enter");
+  await expect(nodes(page, "button")).toHaveCount(1);
+  await page.keyboard.press("ControlOrMeta+k");
+  await page.getByPlaceholder("Type a command or search...").fill("template: login");
+  await page.keyboard.press("Enter");
+  await expect(nodes(page, "checkbox")).toHaveCount(1);
+});

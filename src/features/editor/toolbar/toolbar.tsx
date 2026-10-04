@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Download, Grid3x3, Keyboard, Minus, MonitorSmartphone, Plus, Redo2, Share2, Undo2 } from "lucide-react";
+import { ChevronDown, Command, Download, Grid3x3, Keyboard, Minus, MonitorSmartphone, Plus, Redo2, Share2, Undo2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -51,7 +51,7 @@ export function Toolbar() {
   const templates = useTemplates();
   const tt = useTranslations("templates");
   const fileRef = useRef<HTMLInputElement>(null);
-  const openDialog = (dialog: "projects" | "exportPng" | "shortcuts" | "share") => useEditorStore.getState().set({ dialog });
+  const openDialog = (dialog: "projects" | "exportPng" | "exportCode" | "shortcuts" | "share" | "command") => useEditorStore.getState().set({ dialog });
   if (!settings) return null;
 
   return (
@@ -202,6 +202,9 @@ export function Toolbar() {
           <Link href="/view">
             <MonitorSmartphone aria-hidden />
           </Link>
+        </IconButton>
+        <IconButton label={t("command")} shortcut="⌘K" onClick={() => openDialog("command")}>
+          <Command aria-hidden />
         </IconButton>
         <IconButton label={t("shortcuts")} shortcut="?" onClick={() => openDialog("shortcuts")}>
           <Keyboard aria-hidden />

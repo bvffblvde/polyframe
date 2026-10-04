@@ -21,6 +21,7 @@ const ROWS: [string, string][] = [
   ["noSnap", "⌥"],
   ["deselect", "Esc"],
   ["cheatsheet", "?"],
+  ["command", "⌘K"],
 ];
 
 export function ShortcutsDialog() {

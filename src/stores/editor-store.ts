@@ -4,7 +4,7 @@ import type { DistanceLabel, GuideLine } from "@/core/geometry/guides";
 import type { Viewport } from "@/core/geometry/viewport";
 
 export type Interaction = "idle" | "dragging" | "resizing" | "marquee" | "panning";
-export type DialogId = "projects" | "exportPng" | "shortcuts" | "share" | null;
+export type DialogId = "projects" | "exportPng" | "exportCode" | "shortcuts" | "share" | "command" | null;
 
 interface EditorState {
   selection: ID[];
