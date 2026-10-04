@@ -10,17 +10,11 @@ Thanks for helping. Please read [docs/SPEC.md](docs/SPEC.md) and [CLAUDE.md](CLA
 4. Use Conventional Commits, for example `feat(canvas): smart guides` or `fix(export): keep fonts`.
 5. Open a pull request and fill in the template.
 
-## Adding a canvas component
+## Guides
 
-1. Create `src/core/registry/components/<type>/` with `schema.ts`, `render.tsx` and `definition.tsx`.
-2. Describe props with a Zod schema. The Inspector form is generated from it.
-3. Add the type to `COMPONENT_TYPES` and register the definition in `src/core/registry/index.ts`.
-4. Add the label and default texts to both `messages/en.json` and `messages/uk.json`.
-5. Style it in `src/styles/canvas.css` using only `--pf-*` skin variables and `data-*` attributes.
-
-## Adding a skin
-
-Add tokens, component variables and structure flags in `src/core/skins/<id>.ts`, register the id in `SKIN_IDS` and in `src/core/skins/index.ts`. Use public default theme values only, never copied CSS.
+- [Add a canvas component](docs/contributing/add-component.md)
+- [Add a skin](docs/contributing/add-skin.md)
+- [Add an export target](docs/contributing/add-exporter.md)
 
 ## Rules of thumb
 
