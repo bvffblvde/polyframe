@@ -419,5 +419,74 @@
     "size": "Link length: {size} KB",
     "tooLarge": "This link is very long and may not open in every browser or messenger. Consider sharing a JSON file instead.",
     "exportJson": "Export JSON instead"
+  },
+  "templates": {
+    "names": {
+      "login": "Login",
+      "dashboard": "Dashboard",
+      "landing": "Landing hero",
+      "settings": "Settings",
+      "pricing": "Pricing",
+      "mobileProfile": "Mobile profile"
+    },
+    "newFrom": "New from template",
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to your account",
+      "password": "Password",
+      "forgot": "Forgot password?",
+      "submit": "Sign in",
+      "signup": "No account yet? Sign up"
+    },
+    "dashboard": {
+      "title": "Overview",
+      "action": "New report",
+      "stats": "Revenue this month|Active users|New orders",
+      "goal": "Quarterly goal"
+    },
+    "landing": {
+      "badge": "New release",
+      "title": "Build interfaces faster",
+      "subtitle": "Sketch a screen once and see it in the style of your favorite UI kit.",
+      "primary": "Get started",
+      "secondary": "Learn more"
+    },
+    "settings": {
+      "menu": "Settings",
+      "items": "General|Security|Profile|Billing|Integrations",
+      "title": "Profile",
+      "tabs": "Personal|Notifications|Privacy",
+      "name": "Full name",
+      "nameValue": "Olena Koval",
+      "email": "Email",
+      "bio": "Bio",
+      "notify": "Email notifications",
+      "newsletter": "Product newsletter",
+      "save": "Save",
+      "cancel": "Cancel"
+    },
+    "pricing": {
+      "title": "Simple pricing",
+      "subtitle": "Pick a plan that fits your team. Upgrade any time.",
+      "plans": "Starter|Pro|Team",
+      "features1": "1 project\nCommunity support\nPNG export",
+      "features2": "Unlimited projects\nAll skins\nCode export\nPriority support",
+      "features3": "Everything in Pro\nShared libraries\nSSO\nDedicated manager",
+      "cta": "Choose plan",
+      "popular": "Popular"
+    },
+    "mobile": {
+      "title": "Profile",
+      "initials": "OK",
+      "name": "Olena Koval",
+      "role": "Product designer, Kyiv",
+      "follow": "Follow",
+      "message": "Message",
+      "tabs": "About|Posts|Photos",
+      "about": "Designing calm and clear interfaces for ten years.",
+      "private": "Private account",
+      "notify": "Push notifications",
+      "complete": "Profile completed"
+    }
   }
 }

@@ -13,8 +13,12 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TEMPLATES } from "@/core/templates";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
@@ -28,7 +32,7 @@ import { useEditorStore } from "@/stores/editor-store";
 import { createAndOpenProject, useProjectsStore } from "@/stores/projects-store";
 import * as commands from "../commands";
 import { useProjectIO } from "../project-io";
-import { useCommands, useNewProjectNames } from "../use-commands";
+import { useCommands, useNewProjectNames, useTemplates } from "../use-commands";
 import { IconButton } from "./icon-button";
 import { LanguageSwitch } from "./language-switch";
 
@@ -44,6 +48,8 @@ export function Toolbar() {
   const cmd = useCommands();
   const names = useNewProjectNames();
   const io = useProjectIO();
+  const templates = useTemplates();
+  const tt = useTranslations("templates");
   const fileRef = useRef<HTMLInputElement>(null);
   const openDialog = (dialog: "projects" | "exportPng" | "shortcuts" | "share") => useEditorStore.getState().set({ dialog });
   if (!settings) return null;
@@ -60,6 +66,16 @@ export function Toolbar() {
         <DropdownMenuContent align="start">
           <DropdownMenuLabel>{t("project")}</DropdownMenuLabel>
           <DropdownMenuItem onSelect={() => createAndOpenProject(names)}>{t("newProject")}</DropdownMenuItem>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>{tt("newFrom")}</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              {TEMPLATES.map((tpl) => (
+                <DropdownMenuItem key={tpl.id} onSelect={() => templates.create(tpl.id)}>
+                  {tt(`names.${tpl.id}`)}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
           <DropdownMenuItem onSelect={() => openDialog("projects")}>{t("openProjects")}</DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem onSelect={() => fileRef.current?.click()}>{t("importJson")}</DropdownMenuItem>

@@ -59,7 +59,11 @@ export async function openProject(id: ID): Promise<boolean> {
 }
 
 export async function createAndOpenProject(names: NewProjectNames): Promise<Project> {
-  const p = buildProject(names);
+  return saveAndOpen(buildProject(names));
+}
+
+export async function saveAndOpen(p: Project): Promise<Project> {
+  await flushSave();
   await idb.saveProject(p);
   await idb.setLastProjectId(p.id);
   show(p);

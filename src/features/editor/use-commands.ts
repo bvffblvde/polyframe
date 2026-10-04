@@ -4,6 +4,9 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import type { ArtboardPreset, ComponentType, ID } from "@/core/document/types";
 import { registry } from "@/core/registry";
+import { getTemplate, instantiateTemplate } from "@/core/templates";
+import { newId } from "@/lib/ids";
+import { saveAndOpen } from "@/stores/projects-store";
 import { announce } from "@/lib/announce";
 import { useDocumentStore } from "@/stores/document-store";
 import * as commands from "./commands";
@@ -63,6 +66,27 @@ export function useNewProjectNames() {
       project: t("defaults.project.name"),
       artboard: (preset: ArtboardPreset, index: number) =>
         t("defaults.artboard.name", { preset: t(`presets.${preset}`), index }),
+    }),
+    [t],
+  );
+}
+
+export function useTemplates() {
+  const t = useTranslations();
+  return useMemo(
+    () => ({
+      async create(id: string) {
+        const tpl = getTemplate(id);
+        if (!tpl) return;
+        const p = instantiateTemplate(tpl, {
+          t: (k) => t(k),
+          genId: newId,
+          now: new Date().toISOString(),
+          projectName: t(`templates.names.${id}`),
+          artboardName: t("defaults.artboard.name", { preset: t(`presets.${tpl.preset}`), index: 1 }),
+        });
+        await saveAndOpen(p);
+      },
     }),
     [t],
   );
