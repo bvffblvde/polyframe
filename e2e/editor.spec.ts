@@ -235,3 +235,14 @@ test("landing page demo and call to action", async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/editor$/);
   await expect(page.getByTestId("canvas")).toBeVisible();
 });
+
+test("serves developer docs from the repository markdown", async ({ page }) => {
+  await page.goto("/en/docs");
+  await expect(page.getByRole("heading", { level: 1, name: "Getting started" })).toBeVisible();
+  await page.getByRole("navigation", { name: "Documentation pages" }).getByRole("link", { name: "Add a skin" }).click();
+  await expect(page).toHaveURL(/\/en\/docs\/add-skin$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Add a skin" })).toBeVisible();
+  await page.goto("/uk/docs/architecture");
+  await expect(page.getByRole("note")).toContainText("англійською");
+  await expect(page.getByRole("table")).toContainText("src/core/document");
+});

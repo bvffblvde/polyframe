@@ -15,6 +15,7 @@
 
 [**Відкрити редактор →**](https://polyframe.vercel.app) &nbsp;·&nbsp;
 [Посібник](https://polyframe.vercel.app/uk/guide) &nbsp;·&nbsp;
+[Документація](https://polyframe.vercel.app/uk/docs) &nbsp;·&nbsp;
 [Специфікація](./docs/SPEC.md) &nbsp;·&nbsp;
 [Дорожня карта](#-дорожня-карта) &nbsp;·&nbsp;
 [Долучитися](#-як-долучитися)

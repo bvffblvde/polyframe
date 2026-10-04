@@ -673,5 +673,20 @@
       "star": "Star on GitHub",
       "contribute": "How to contribute"
     }
+  },
+  "docs": {
+    "title": "Documentation",
+    "description": "Set up Polyframe locally, learn the architecture and add components, skins or export targets.",
+    "nav": "Documentation pages",
+    "englishOnly": "",
+    "userGuide": "User guide",
+    "pages": {
+      "getting-started": "Getting started",
+      "architecture": "Architecture",
+      "add-component": "Add a component",
+      "add-skin": "Add a skin",
+      "add-exporter": "Add an export target"
+    },
+    "edit": "Edit this page on GitHub"
   }
 }

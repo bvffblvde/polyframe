@@ -15,6 +15,7 @@ Drag-and-drop UI prototyping in your browser. Build a layout as a wireframe, fli
 
 [**Open the editor →**](https://polyframe.vercel.app) &nbsp;·&nbsp;
 [User guide](https://polyframe.vercel.app/en/guide) &nbsp;·&nbsp;
+[Docs](https://polyframe.vercel.app/en/docs) &nbsp;·&nbsp;
 [Spec](./docs/SPEC.md) &nbsp;·&nbsp;
 [Roadmap](#-roadmap) &nbsp;·&nbsp;
 [Contribute](#-contributing)

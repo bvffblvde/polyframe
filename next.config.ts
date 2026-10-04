@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
-const withMDX = createMDX({ options: { remarkPlugins: ["remark-gfm"] } });
+const withMDX = createMDX({ extension: /\.(md|mdx)$/, options: { remarkPlugins: ["remark-gfm"] } });
 
 const nextConfig: NextConfig = {
   devIndicators: false,
