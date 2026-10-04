@@ -151,7 +151,8 @@
     "exportCode": "Code...",
     "help": "Help",
     "tour": "Take the tour",
-    "guide": "User guide"
+    "guide": "User guide",
+    "exportSvg": "SVG..."
   },
   "modes": {
     "wireframe": "Wireframe",
@@ -336,7 +337,7 @@
     "cancel": "Cancel"
   },
   "exportPng": {
-    "title": "Export PNG",
+    "title": "Export image",
     "description": "The image uses the current mode and skin, without selection overlays.",
     "scope": "Artboards",
     "active": "Active artboard",
@@ -345,7 +346,9 @@
     "transparent": "Transparent background",
     "download": "Download",
     "exporting": "Exporting...",
-    "failed": "Export failed. Try again."
+    "failed": "Export failed. Try again.",
+    "format": "Format",
+    "svgHint": "SVG is drawn from vector shapes and text, so it opens as editable layers in Figma and other design tools. Shadows and some details are simplified."
   },
   "import": {
     "success": "Project imported",
@@ -512,7 +515,8 @@
     "openProject": "Open {name}",
     "exportJson": "Export JSON",
     "exportPng": "Export PNG...",
-    "exportCode": "Export code..."
+    "exportCode": "Export code...",
+    "exportSvg": "Export SVG..."
   },
   "exportCode": {
     "title": "Export code",

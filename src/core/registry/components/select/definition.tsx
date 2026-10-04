@@ -1,5 +1,6 @@
 import { ChevronsUpDown } from "lucide-react";
 import { selectExporters } from "./exporters";
+import { selectSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { SelectRender } from "./render";
 import { selectSchema } from "./schema";
@@ -21,4 +22,5 @@ export const selectDefinition = defineComponent(selectSchema)({
   }),
   Render: SelectRender,
   exporters: selectExporters,
+  svg: selectSvg,
 });

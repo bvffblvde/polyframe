@@ -373,7 +373,7 @@ interface ComponentDefinition<P> {
 ### Phase 4: Ideas backlog
 - Auto-layout containers (flex/grid) for a cleaner export.
 - More skins (Chakra, Fluent, Radix Themes), a custom skin editor, and import of design tokens.
-- SVG and Figma-compatible export.
+- SVG and Figma-compatible export. Done: every component has an SVG drawer in its folder (`svg.ts`) that uses only rect, circle, line, path and text, styled with the active skin tokens, so the file imports into Figma as editable layers.
 - Optional backend for cloud projects and collaboration.
 
 ---

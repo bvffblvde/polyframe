@@ -1,5 +1,6 @@
 import { Gauge } from "lucide-react";
 import { progressExporters } from "./exporters";
+import { progressSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { ProgressRender } from "./render";
 import { progressSchema } from "./schema";
@@ -15,4 +16,5 @@ export const progressDefinition = defineComponent(progressSchema)({
   defaultProps: (t) => ({ label: t("progress.label"), value: 60, showValue: true }),
   Render: ProgressRender,
   exporters: progressExporters,
+  svg: progressSvg,
 });

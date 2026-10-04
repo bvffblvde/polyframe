@@ -1,5 +1,6 @@
 import { Table } from "lucide-react";
 import { tableExporters } from "./exporters";
+import { tableSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { TableRender } from "./render";
 import { tableSchema } from "./schema";
@@ -20,4 +21,5 @@ export const tableDefinition = defineComponent(tableSchema)({
   }),
   Render: TableRender,
   exporters: tableExporters,
+  svg: tableSvg,
 });

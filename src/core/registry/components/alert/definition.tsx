@@ -1,5 +1,6 @@
 import { TriangleAlert } from "lucide-react";
 import { alertExporters } from "./exporters";
+import { alertSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { AlertRender } from "./render";
 import { alertSchema } from "./schema";
@@ -15,4 +16,5 @@ export const alertDefinition = defineComponent(alertSchema)({
   defaultProps: (t) => ({ title: t("alert.title"), description: t("alert.description"), variant: "info" }),
   Render: AlertRender,
   exporters: alertExporters,
+  svg: alertSvg,
 });

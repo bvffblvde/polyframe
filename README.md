@@ -73,6 +73,7 @@ Polyframe keeps **one layout** and lets you see it in **many visual languages**,
 
 **Export & share**
 - PNG at 1× / 2× / 3×, a single artboard or all of them as a zip
+- Vector SVG that opens as editable layers in Figma
 - JSON project files with schema validation and migrations
 - React code: absolute layout (faithful) or stacked layout (flex rows)
 - Read-only share links and a viewer for phones and tablets

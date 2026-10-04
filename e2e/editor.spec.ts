@@ -279,3 +279,23 @@ test("creates a custom skin from imported tokens", async ({ page }) => {
   await expect(page.locator("[data-export-root]").first()).toHaveAttribute("data-skin", "custom");
   await expect(nodes(page, "button").locator(".pf-btn")).toHaveCSS("border-radius", "16px");
 });
+
+test("exports a vector SVG", async ({ page }) => {
+  await openEditor(page);
+  await page.locator("header button").first().click();
+  await page.getByRole("menuitem", { name: "New from template" }).click();
+  await page.getByRole("menuitem", { name: "Login", exact: true }).click();
+  await page.getByRole("radio", { name: "Styled" }).click();
+  await page.getByRole("button", { name: "Export" }).click();
+  await page.getByRole("menuitem", { name: "SVG..." }).click();
+  await expect(page.getByRole("radio", { name: "SVG" })).toHaveAttribute("aria-checked", "true");
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download" }).click();
+  const file = await download;
+  expect(file.suggestedFilename()).toMatch(/\.svg$/);
+  const path = await file.path();
+  const svg = (await import("node:fs")).readFileSync(path, "utf8");
+  expect(svg).toContain("<svg");
+  expect(svg).toContain("Welcome back");
+  (await import("node:fs")).writeFileSync("test-results/login.svg", svg);
+});

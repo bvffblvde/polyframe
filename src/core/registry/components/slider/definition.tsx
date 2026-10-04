@@ -1,5 +1,6 @@
 import { SlidersHorizontal } from "lucide-react";
 import { sliderExporters } from "./exporters";
+import { sliderSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { SliderRender } from "./render";
 import { sliderSchema } from "./schema";
@@ -15,4 +16,5 @@ export const sliderDefinition = defineComponent(sliderSchema)({
   defaultProps: (t) => ({ label: t("slider.label"), value: 40, showValue: true, disabled: false }),
   Render: SliderRender,
   exporters: sliderExporters,
+  svg: sliderSvg,
 });

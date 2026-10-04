@@ -1,5 +1,6 @@
 import { Minus } from "lucide-react";
 import { dividerExporters } from "./exporters";
+import { dividerSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { DividerRender } from "./render";
 import { dividerSchema } from "./schema";
@@ -15,4 +16,5 @@ export const dividerDefinition = defineComponent(dividerSchema)({
   defaultProps: () => ({ orientation: "horizontal", label: "" }),
   Render: DividerRender,
   exporters: dividerExporters,
+  svg: dividerSvg,
 });

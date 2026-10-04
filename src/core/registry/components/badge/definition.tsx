@@ -1,5 +1,6 @@
 import { Tag } from "lucide-react";
 import { badgeExporters } from "./exporters";
+import { badgeSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { BadgeRender } from "./render";
 import { badgeSchema } from "./schema";
@@ -15,4 +16,5 @@ export const badgeDefinition = defineComponent(badgeSchema)({
   defaultProps: (t) => ({ text: t("badge.text"), variant: "solid" }),
   Render: BadgeRender,
   exporters: badgeExporters,
+  svg: badgeSvg,
 });

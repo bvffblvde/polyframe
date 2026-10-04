@@ -1,5 +1,6 @@
 import { PanelsTopLeft } from "lucide-react";
 import { tabsExporters } from "./exporters";
+import { tabsSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { TabsRender } from "./render";
 import { tabsSchema } from "./schema";
@@ -15,4 +16,5 @@ export const tabsDefinition = defineComponent(tabsSchema)({
   defaultProps: (t) => ({ tabs: list(t, "tabs.tabs"), activeIndex: 0, content: t("tabs.content") }),
   Render: TabsRender,
   exporters: tabsExporters,
+  svg: tabsSvg,
 });

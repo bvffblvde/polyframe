@@ -1,5 +1,6 @@
 import { Link } from "lucide-react";
 import { linkExporters } from "./exporters";
+import { linkSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { LinkRender } from "./render";
 import { linkSchema } from "./schema";
@@ -15,4 +16,5 @@ export const linkDefinition = defineComponent(linkSchema)({
   defaultProps: (t) => ({ text: t("link.text"), underline: true }),
   Render: LinkRender,
   exporters: linkExporters,
+  svg: linkSvg,
 });

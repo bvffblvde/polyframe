@@ -1,5 +1,6 @@
 import { Square } from "lucide-react";
 import { boxExporters } from "./exporters";
+import { boxSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { BoxRender } from "./render";
 import { boxSchema } from "./schema";
@@ -15,4 +16,5 @@ export const boxDefinition = defineComponent(boxSchema)({
   defaultProps: () => ({ label: "", variant: "outline" }),
   Render: BoxRender,
   exporters: boxExporters,
+  svg: boxSvg,
 });

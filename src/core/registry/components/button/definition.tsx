@@ -1,5 +1,6 @@
 import { RectangleHorizontal } from "lucide-react";
 import { buttonExporters } from "./exporters";
+import { buttonSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { ButtonRender } from "./render";
 import { buttonSchema } from "./schema";
@@ -15,4 +16,5 @@ export const buttonDefinition = defineComponent(buttonSchema)({
   defaultProps: (t) => ({ label: t("button.label"), variant: "solid", size: "md", disabled: false }),
   Render: ButtonRender,
   exporters: buttonExporters,
+  svg: buttonSvg,
 });

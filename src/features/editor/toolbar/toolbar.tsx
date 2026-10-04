@@ -257,8 +257,21 @@ export function Toolbar() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem onSelect={() => openDialog("exportPng")}>
+            <DropdownMenuItem
+              onSelect={() => (
+                useEditorStore.getState().set({ imageFormat: "png" }),
+                openDialog("exportPng")
+              )}
+            >
               {t("exportPng")}
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onSelect={() => (
+                useEditorStore.getState().set({ imageFormat: "svg" }),
+                openDialog("exportPng")
+              )}
+            >
+              {t("exportSvg")}
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => openDialog("exportCode")}>
               {t("exportCode")}

@@ -22,6 +22,7 @@ interface EditorState {
   clipboard: Node[];
   fitRequest: number;
   tour: number | null;
+  imageFormat: "png" | "svg";
   viewOverride: { mode: Mode; skin: SkinChoice } | null;
   set: (patch: Partial<Omit<EditorState, "set">>) => void;
   select: (ids: ID[]) => void;
@@ -43,6 +44,7 @@ export const useEditorStore = create<EditorState>()((set) => ({
   clipboard: [],
   fitRequest: 0,
   tour: null,
+  imageFormat: "png",
   viewOverride: null,
   set: (patch) => set(patch),
   select: (selection) => set({ selection }),

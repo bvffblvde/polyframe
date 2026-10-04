@@ -1,5 +1,6 @@
 import { CreditCard } from "lucide-react";
 import { cardExporters } from "./exporters";
+import { cardSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { CardRender } from "./render";
 import { cardSchema } from "./schema";
@@ -20,4 +21,5 @@ export const cardDefinition = defineComponent(cardSchema)({
   }),
   Render: CardRender,
   exporters: cardExporters,
+  svg: cardSvg,
 });

@@ -2,6 +2,7 @@ import type { FC } from "react";
 import type { LucideIcon } from "lucide-react";
 import type { z } from "zod";
 import type { ComponentType, Mode, Node, SkinId } from "../document/types";
+import type { SvgDrawer } from "../exporters/svg/types";
 import type { ComponentExporters } from "../exporters/types";
 
 export type Translator = (key: string) => string;
@@ -27,6 +28,7 @@ export interface ComponentDefinition<P = Record<string, unknown>> {
   defaultProps: (t: Translator) => P;
   Render: FC<RenderProps<P>>;
   exporters?: ComponentExporters<P>;
+  svg?: SvgDrawer<P>;
 }
 
 export type AnyDefinition = ComponentDefinition<Record<string, unknown>>;

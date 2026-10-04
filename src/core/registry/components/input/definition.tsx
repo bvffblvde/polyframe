@@ -1,5 +1,6 @@
 import { TextCursorInput } from "lucide-react";
 import { inputExporters } from "./exporters";
+import { inputSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { InputRender } from "./render";
 import { inputSchema } from "./schema";
@@ -23,4 +24,5 @@ export const inputDefinition = defineComponent(inputSchema)({
   }),
   Render: InputRender,
   exporters: inputExporters,
+  svg: inputSvg,
 });
