@@ -1,6 +1,7 @@
 import { newArtboard } from "@/core/document/factory";
 import * as ops from "@/core/document/ops";
-import type { ArtboardPreset, ComponentType, ID, Mode, Node, ProjectSettings } from "@/core/document/types";
+import type { ArtboardPreset, ComponentType, ID, Mode, Node, ProjectSettings, Rect } from "@/core/document/types";
+import { alignRects, distributeRects, type AlignKind } from "@/core/geometry/align";
 import { boundsOf, centerRectAt } from "@/core/geometry/rect";
 import { intersectRect } from "@/core/geometry/hit-test";
 import { snapValue } from "@/core/geometry/snap";
@@ -191,4 +192,36 @@ export function removeArtboard(id: ID) {
   if (!p || p.artboardOrder.length <= 1) return;
   apply((pr) => ops.removeArtboard(pr, id));
   pruneSelection();
+}
+
+function selectionByArtboard(): Map<ID, Record<ID, Rect>> {
+  const p = doc().project;
+  const groups = new Map<ID, Record<ID, Rect>>();
+  if (!p) return groups;
+  for (const id of ed().selection) {
+    const n = p.nodes[id];
+    if (!n || n.locked) continue;
+    const g = groups.get(n.artboardId) ?? {};
+    g[id] = { x: n.x, y: n.y, w: n.w, h: n.h };
+    groups.set(n.artboardId, g);
+  }
+  return groups;
+}
+
+export function align(kind: AlignKind) {
+  const p = doc().project;
+  if (!p) return;
+  const rects: Record<ID, Rect> = {};
+  for (const [aid, group] of selectionByArtboard()) {
+    const a = p.artboards[aid];
+    const container = Object.keys(group).length === 1 ? { x: 0, y: 0, w: a.width, h: a.height } : undefined;
+    Object.assign(rects, alignRects(group, kind, container));
+  }
+  if (Object.keys(rects).length) apply((pr) => ops.setNodeRects(pr, rects));
+}
+
+export function distribute(axis: "x" | "y") {
+  const rects: Record<ID, Rect> = {};
+  for (const group of selectionByArtboard().values()) Object.assign(rects, distributeRects(group, axis));
+  if (Object.keys(rects).length) apply((pr) => ops.setNodeRects(pr, rects));
 }

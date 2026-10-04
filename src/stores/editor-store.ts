@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import type { ID, Mode, Node, Rect, SkinId } from "@/core/document/types";
+import type { DistanceLabel, GuideLine } from "@/core/geometry/guides";
 import type { Viewport } from "@/core/geometry/viewport";
 
 export type Interaction = "idle" | "dragging" | "resizing" | "marquee" | "panning";
@@ -13,6 +14,7 @@ interface EditorState {
   activeArtboardId: ID | null;
   preview: Record<ID, Rect> | null;
   marquee: Rect | null;
+  guides: { artboardId: ID; lines: GuideLine[]; labels: DistanceLabel[] } | null;
   interaction: Interaction;
   spaceDown: boolean;
   leftTab: "components" | "layers";
@@ -32,6 +34,7 @@ export const useEditorStore = create<EditorState>()((set) => ({
   activeArtboardId: null,
   preview: null,
   marquee: null,
+  guides: null,
   interaction: "idle",
   spaceDown: false,
   leftTab: "components",

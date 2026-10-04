@@ -1,7 +1,8 @@
 "use client";
 
 import { useShallow } from "zustand/react/shallow";
-import type { Rect } from "@/core/document/types";
+import type { Artboard, Rect } from "@/core/document/types";
+import type { DistanceLabel, GuideLine } from "@/core/geometry/guides";
 import { boundsOf } from "@/core/geometry/rect";
 import { HANDLES, type Handle } from "@/core/geometry/resize";
 import type { Viewport } from "@/core/geometry/viewport";
@@ -36,6 +37,7 @@ export function SelectionOverlay() {
   const preview = useEditorStore((s) => s.preview);
   const marquee = useEditorStore((s) => s.marquee);
   const interaction = useEditorStore((s) => s.interaction);
+  const guides = useEditorStore((s) => s.guides);
   const ids = hoveredId && !selection.includes(hoveredId) ? [...selection, hoveredId] : selection;
   const nodes = useDocumentStore(useShallow((s) => ids.map((id) => s.project?.nodes[id])));
   const artboards = useDocumentStore((s) => s.project?.artboards);
@@ -77,6 +79,7 @@ export function SelectionOverlay() {
       {single && interaction === "resizing" && (
         <SizeLabel rect={toScreen(single.world, vp)} w={single.world.w} h={single.world.h} />
       )}
+      {guides && artboards[guides.artboardId] && <Guides guides={guides} origin={artboards[guides.artboardId]} vp={vp} />}
       {marquee && <Box rect={toScreen(marquee, vp)} className="border border-sky-500 bg-sky-500/10" />}
     </div>
   );
@@ -99,5 +102,45 @@ function SizeLabel({ rect, w, h }: { rect: Rect; w: number; h: number }) {
     >
       {Math.round(w)} × {Math.round(h)}
     </div>
+  );
+}
+
+function Guides({ guides, origin, vp }: { guides: { lines: GuideLine[]; labels: DistanceLabel[] }; origin: Artboard; vp: Viewport }) {
+  const sx = (x: number) => (origin.x + x) * vp.zoom + vp.x;
+  const sy = (y: number) => (origin.y + y) * vp.zoom + vp.y;
+  return (
+    <>
+      {guides.lines.map((l, i) =>
+        l.axis === "x" ? (
+          <div key={i} className="absolute w-px bg-rose-500" style={{ left: sx(l.pos), top: sy(l.from), height: (l.to - l.from) * vp.zoom }} />
+        ) : (
+          <div key={i} className="absolute h-px bg-rose-500" style={{ top: sy(l.pos), left: sx(l.from), width: (l.to - l.from) * vp.zoom }} />
+        ),
+      )}
+      {guides.labels.map((l, i) => {
+        const horizontal = l.axis === "x";
+        const len = (l.to - l.from) * vp.zoom;
+        const left = horizontal ? sx(l.from) : sx(l.at);
+        const top = horizontal ? sy(l.at) : sy(l.from);
+        return (
+          <div key={`d${i}`}>
+            <div
+              className={horizontal ? "absolute h-px bg-rose-400" : "absolute w-px bg-rose-400"}
+              style={horizontal ? { left, top, width: len } : { left, top, height: len }}
+            />
+            <div
+              className="absolute rounded bg-rose-500 px-1 text-[10px] text-white tabular-nums"
+              style={{
+                left: horizontal ? left + len / 2 : left + 4,
+                top: horizontal ? top + 4 : top + len / 2,
+                transform: horizontal ? "translateX(-50%)" : "translateY(-50%)",
+              }}
+            >
+              {Math.round(l.value)}
+            </div>
+          </div>
+        );
+      })}
+    </>
   );
 }

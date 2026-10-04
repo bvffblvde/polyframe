@@ -3,8 +3,9 @@
 import { useEffect, type RefObject } from "react";
 import { moveNodes, setNodeRects } from "@/core/document/ops";
 import type { ID, Rect } from "@/core/document/types";
+import { snapToGuides } from "@/core/geometry/guides";
 import { nodesInRect } from "@/core/geometry/hit-test";
-import { normalizeRect, offsetRect, type Point } from "@/core/geometry/rect";
+import { boundsOf, normalizeRect, offsetRect, type Point } from "@/core/geometry/rect";
 import { resizeRect, type Handle } from "@/core/geometry/resize";
 import { snapDelta } from "@/core/geometry/snap";
 import { screenToWorld, type Viewport } from "@/core/geometry/viewport";
@@ -125,15 +126,30 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
       }
       if (g.kind === "dragging") {
         const pr = g.rects[g.primary];
-        const sx = snap ? snapDelta(pr.x, dx, snap) : Math.round(dx);
-        const sy = snap ? snapDelta(pr.y, dy, snap) : Math.round(dy);
+        let sx = snap ? snapDelta(pr.x, dx, snap) : Math.round(dx);
+        let sy = snap ? snapDelta(pr.y, dy, snap) : Math.round(dy);
+        const artboardId = p.nodes[g.primary].artboardId;
+        const ab = p.artboards[artboardId];
+        const moving = new Set(g.ids);
+        const bounds = boundsOf(Object.values(g.rects).map((r) => offsetRect(r, sx, sy)));
+        let guides = null;
+        if (bounds && !e.altKey) {
+          const targets = ab.childOrder
+            .filter((id) => !moving.has(id) && !p.nodes[id].hidden)
+            .map((id) => p.nodes[id] as Rect);
+          targets.push({ x: 0, y: 0, w: ab.width, h: ab.height });
+          const res = snapToGuides(bounds, targets, 5 / vp.zoom);
+          sx += res.dx;
+          sy += res.dy;
+          guides = { artboardId, lines: res.lines, labels: res.labels };
+        }
         g.dx = sx;
         g.dy = sy;
         const rects = g.rects;
         schedule(() => {
           const preview: Record<ID, Rect> = {};
           for (const [id, r] of Object.entries(rects)) preview[id] = offsetRect(r, sx, sy);
-          ed().set({ preview });
+          ed().set({ preview, guides });
         });
       } else if (g.kind === "resizing") {
         const n = p.nodes[g.id];
@@ -177,7 +193,7 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
       if (!cur) return;
       const apply = useDocumentStore.getState().apply;
       if (cur.kind === "dragging") {
-        ed().set({ preview: null, interaction: "idle" });
+        ed().set({ preview: null, guides: null, interaction: "idle" });
         if (cur.dx || cur.dy) apply((p) => moveNodes(p, cur.ids, cur.dx, cur.dy));
       } else if (cur.kind === "resizing") {
         ed().set({ preview: null, interaction: "idle" });

@@ -37,33 +37,87 @@
     "data": "Data & feedback"
   },
   "defaults": {
-    "card": { "title": "Card title", "body": "A short description that explains what this card is about.", "action": "Action" },
-    "navbar": { "brand": "Brand", "links": "Home|Products|Pricing|About", "action": "Sign in" },
-    "sidebar": { "title": "Menu", "items": "Dashboard|Projects|Team|Reports|Settings" },
-    "button": { "label": "Button" },
-    "input": { "label": "Email", "placeholder": "you@example.com" },
-    "textarea": { "label": "Message", "placeholder": "Type your message..." },
-    "select": { "label": "Country", "placeholder": "Select an option", "options": "Ukraine|Poland|Germany" },
-    "checkbox": { "label": "Remember me" },
-    "radio": { "label": "Plan", "options": "Free|Pro|Enterprise" },
-    "switch": { "label": "Notifications" },
-    "slider": { "label": "Volume" },
-    "heading": { "text": "Page heading" },
-    "text": { "text": "This is a paragraph of text. Select it and edit the content in the Inspector." },
-    "link": { "text": "Learn more" },
-    "badge": { "text": "New" },
-    "avatar": { "initials": "AB" },
+    "card": {
+      "title": "Card title",
+      "body": "A short description that explains what this card is about.",
+      "action": "Action"
+    },
+    "navbar": {
+      "brand": "Brand",
+      "links": "Home|Products|Pricing|About",
+      "action": "Sign in"
+    },
+    "sidebar": {
+      "title": "Menu",
+      "items": "Dashboard|Projects|Team|Reports|Settings"
+    },
+    "button": {
+      "label": "Button"
+    },
+    "input": {
+      "label": "Email",
+      "placeholder": "you@example.com"
+    },
+    "textarea": {
+      "label": "Message",
+      "placeholder": "Type your message..."
+    },
+    "select": {
+      "label": "Country",
+      "placeholder": "Select an option",
+      "options": "Ukraine|Poland|Germany"
+    },
+    "checkbox": {
+      "label": "Remember me"
+    },
+    "radio": {
+      "label": "Plan",
+      "options": "Free|Pro|Enterprise"
+    },
+    "switch": {
+      "label": "Notifications"
+    },
+    "slider": {
+      "label": "Volume"
+    },
+    "heading": {
+      "text": "Page heading"
+    },
+    "text": {
+      "text": "This is a paragraph of text. Select it and edit the content in the Inspector."
+    },
+    "link": {
+      "text": "Learn more"
+    },
+    "badge": {
+      "text": "New"
+    },
+    "avatar": {
+      "initials": "AB"
+    },
     "table": {
       "columns": "Name|Status|Role",
       "row1": "Alice Smith|Active|Admin",
       "row2": "Bob Johnson|Invited|Editor",
       "row3": "Carol White|Inactive|Viewer"
     },
-    "tabs": { "tabs": "Account|Password|Billing", "content": "Tab content goes here." },
-    "alert": { "title": "Heads up!", "description": "You can add components to your layout from the palette." },
-    "progress": { "label": "Uploading" },
-    "project": { "name": "Untitled project" },
-    "artboard": { "name": "{preset} {index}" }
+    "tabs": {
+      "tabs": "Account|Password|Billing",
+      "content": "Tab content goes here."
+    },
+    "alert": {
+      "title": "Heads up!",
+      "description": "You can add components to your layout from the palette."
+    },
+    "progress": {
+      "label": "Uploading"
+    },
+    "project": {
+      "name": "Untitled project"
+    },
+    "artboard": {
+      "name": "{preset} {index}"
+    }
   },
   "toolbar": {
     "project": "Project",
@@ -93,7 +147,10 @@
     "saving": "Saving...",
     "saveError": "Not saved"
   },
-  "modes": { "wireframe": "Wireframe", "styled": "Styled" },
+  "modes": {
+    "wireframe": "Wireframe",
+    "styled": "Styled"
+  },
   "panels": {
     "components": "Components",
     "layers": "Layers",
@@ -169,7 +226,16 @@
     "deleteArtboard": "Delete artboard",
     "listHint": "One item per line",
     "tableHint": "One row per line, cells separated by |",
-    "styleHint": "Style overrides apply in Styled mode."
+    "styleHint": "Style overrides apply in Styled mode.",
+    "align": "Align",
+    "alignLeft": "Align left",
+    "alignCenter": "Align horizontal centers",
+    "alignRight": "Align right",
+    "alignTop": "Align top",
+    "alignMiddle": "Align vertical centers",
+    "alignBottom": "Align bottom",
+    "distributeX": "Distribute horizontally",
+    "distributeY": "Distribute vertically"
   },
   "fields": {
     "label": "Label",

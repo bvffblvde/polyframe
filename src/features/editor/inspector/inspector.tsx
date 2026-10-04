@@ -1,6 +1,21 @@
 "use client";
 
-import { ArrowDownToLine, ArrowUpToLine, ChevronDown, ChevronUp, Copy, Trash2 } from "lucide-react";
+import {
+  AlignCenterHorizontal,
+  AlignCenterVertical,
+  AlignEndHorizontal,
+  AlignEndVertical,
+  AlignHorizontalDistributeCenter,
+  AlignStartHorizontal,
+  AlignStartVertical,
+  AlignVerticalDistributeCenter,
+  ArrowDownToLine,
+  ArrowUpToLine,
+  ChevronDown,
+  ChevronUp,
+  Copy,
+  Trash2,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useShallow } from "zustand/react/shallow";
 import { Button } from "@/components/ui/button";
@@ -67,6 +82,7 @@ function NodeInspector({ id }: { id: ID }) {
         />
       </Section>
       <StyleSection nodes={[node]} />
+      <AlignSection count={1} />
       <ActionsSection />
     </>
   );
@@ -82,6 +98,7 @@ function MultiInspector({ ids }: { ids: ID[] }) {
         <SharedLayerFields nodes={nodes} />
       </Section>
       <StyleSection nodes={nodes} />
+      <AlignSection count={nodes.length} />
       <ActionsSection />
     </>
   );
@@ -156,6 +173,39 @@ function StyleSection({ nodes }: { nodes: Node[] }) {
         ]}
         onChange={(v) => setStyle({ shadow: v === "auto" ? undefined : (Number(v) as 0 | 1 | 2 | 3) })}
       />
+    </Section>
+  );
+}
+
+function AlignSection({ count }: { count: number }) {
+  const t = useTranslations("inspector");
+  const aligns = [
+    { label: t("alignLeft"), icon: AlignStartVertical, run: () => commands.align("left") },
+    { label: t("alignCenter"), icon: AlignCenterVertical, run: () => commands.align("center") },
+    { label: t("alignRight"), icon: AlignEndVertical, run: () => commands.align("right") },
+    { label: t("alignTop"), icon: AlignStartHorizontal, run: () => commands.align("top") },
+    { label: t("alignMiddle"), icon: AlignCenterHorizontal, run: () => commands.align("middle") },
+    { label: t("alignBottom"), icon: AlignEndHorizontal, run: () => commands.align("bottom") },
+  ];
+  const distributes = [
+    { label: t("distributeX"), icon: AlignHorizontalDistributeCenter, run: () => commands.distribute("x") },
+    { label: t("distributeY"), icon: AlignVerticalDistributeCenter, run: () => commands.distribute("y") },
+  ];
+  return (
+    <Section title={t("align")}>
+      <div className="flex flex-wrap gap-1">
+        {aligns.map((a) => (
+          <Button key={a.label} variant="outline" size="icon" aria-label={a.label} title={a.label} onClick={a.run}>
+            <a.icon aria-hidden />
+          </Button>
+        ))}
+        {count >= 3 &&
+          distributes.map((a) => (
+            <Button key={a.label} variant="outline" size="icon" aria-label={a.label} title={a.label} onClick={a.run}>
+              <a.icon aria-hidden />
+            </Button>
+          ))}
+      </div>
     </Section>
   );
 }
