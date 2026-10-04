@@ -220,3 +220,18 @@ test("renders the user guide in both languages", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: "Посібник користувача" })).toBeVisible();
   await expect(page.locator("img[src='/guide/uk/skins.jpg']")).toBeVisible();
 });
+
+test("landing page demo and call to action", async ({ page }) => {
+  await page.context().addInitScript(() => window.localStorage.setItem("polyframe:tour-done", "1"));
+  await page.goto("/en");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Sketch it once. Wear any UI kit. Ship the code.");
+  const preview = page.getByRole("img", { name: "Login screen preview" }).locator(".pf-root");
+  await expect(preview).toHaveAttribute("data-skin", "mui");
+  await page.getByRole("radio", { name: "Ant Design" }).click();
+  await expect(preview).toHaveAttribute("data-skin", "antd");
+  await page.getByRole("radio", { name: "Wireframe" }).click();
+  await expect(preview).toHaveAttribute("data-mode", "wireframe");
+  await page.getByRole("link", { name: "Open the editor" }).click();
+  await expect(page).toHaveURL(/\/en\/editor$/);
+  await expect(page.getByTestId("canvas")).toBeVisible();
+});

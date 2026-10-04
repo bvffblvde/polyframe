@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { buttonVariants } from "@/components/ui/button";
 import GuideEn from "@/content/guide/en.mdx";
 import GuideUk from "@/content/guide/uk.mdx";
-import { Link } from "@/i18n/navigation";
-import { LocaleSwitch } from "@/components/locale-switch";
+import { SiteFooter, SiteHeader } from "@/components/site-header";
 import { GUIDE_SECTIONS } from "@/content/guide/sections";
 
 const CONTENT = { en: GuideEn, uk: GuideUk } as const;
@@ -22,20 +20,7 @@ export default async function GuidePage({ params }: PageProps<"/[locale]/guide">
   const Content = CONTENT[locale as keyof typeof CONTENT] ?? GuideEn;
   return (
     <div className="min-h-dvh bg-background">
-      <header className="sticky top-0 z-10 border-b bg-background/90 backdrop-blur">
-        <div className="mx-auto flex h-14 max-w-6xl items-center gap-4 px-4">
-          <Link href="/" className="font-semibold">
-            Polyframe
-          </Link>
-          <span className="text-sm text-muted-foreground">{t("title")}</span>
-          <div className="ml-auto flex items-center gap-2">
-            <Link href="/editor" className={buttonVariants({ size: "sm" })}>
-              {t("openEditor")}
-            </Link>
-            <LocaleSwitch />
-          </div>
-        </div>
-      </header>
+      <SiteHeader section={t("title")} />
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-10 lg:grid-cols-[220px_1fr]">
         <nav aria-label={t("contents")} className="hidden lg:block">
           <div className="sticky top-24 space-y-1 text-sm">
@@ -53,6 +38,7 @@ export default async function GuidePage({ params }: PageProps<"/[locale]/guide">
           <Content />
         </article>
       </div>
+      <SiteFooter />
     </div>
   );
 }

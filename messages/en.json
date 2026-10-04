@@ -595,5 +595,83 @@
       "mobile": "Phones and tablets",
       "faq": "Questions"
     }
+  },
+  "site": {
+    "nav": "Main",
+    "guide": "Guide",
+    "docs": "Docs",
+    "github": "GitHub",
+    "openEditor": "Open editor",
+    "disclaimer": "Polyframe is not affiliated with shadcn/ui, MUI, Mantine, Ant Design, Bootstrap or Chakra UI. Skins are visual approximations; all trademarks belong to their owners.",
+    "madeIn": "Made in Kharkiv, Ukraine",
+    "license": "MIT license"
+  },
+  "landing": {
+    "eyebrow": "Open source · No sign-up · Works offline",
+    "title": "Sketch it once. Wear any UI kit. Ship the code.",
+    "subtitle": "Drag-and-drop UI prototyping in your browser. Build a layout as a wireframe, switch it to shadcn/ui, MUI, Mantine, Ant Design or Bootstrap in one click, and export PNG or React code.",
+    "cta": "Open the editor",
+    "ctaGuide": "Read the guide",
+    "privacy": "Your work never leaves your browser.",
+    "demo": {
+      "title": "One layout, six looks",
+      "subtitle": "This is the real renderer from the editor. Pick a look and the same screen changes instantly.",
+      "label": "Choose a look",
+      "preview": "Login screen preview"
+    },
+    "features": {
+      "title": "Everything you need to sketch a screen",
+      "wireframe": {
+        "title": "Wireframe first",
+        "body": "Grayscale, sketchy and distraction-free. Think about structure before pixels."
+      },
+      "skins": {
+        "title": "Five real-looking skins",
+        "body": "shadcn/ui, MUI, Mantine, Ant Design and Bootstrap, built from public design tokens. Your layout never changes."
+      },
+      "code": {
+        "title": "Code for six libraries",
+        "body": "Export a React component for shadcn/ui, MUI, Mantine, Ant Design, React Bootstrap or Chakra UI."
+      },
+      "local": {
+        "title": "Local-first and private",
+        "body": "Projects live in your browser. Share links carry the whole layout, with no server in between."
+      },
+      "keyboard": {
+        "title": "Fast with the keyboard",
+        "body": "Smart guides, align, groups, undo for every gesture, and ⌘K for everything else."
+      },
+      "templates": {
+        "title": "Templates to start from",
+        "body": "Login, dashboard, landing hero, settings, pricing and a mobile profile, in English and Ukrainian."
+      }
+    },
+    "steps": {
+      "title": "How it works",
+      "sketch": {
+        "title": "Sketch",
+        "body": "Drag components onto an artboard. Snap to the grid and smart guides."
+      },
+      "style": {
+        "title": "Style",
+        "body": "Flip to Styled and try every skin to see which library fits."
+      },
+      "ship": {
+        "title": "Ship",
+        "body": "Export PNG for the team or React code as a starting point for the build."
+      }
+    },
+    "export": {
+      "title": "From canvas to code",
+      "body": "Choose a library and a layout strategy. Absolute keeps the canvas pixel-exact, Stacked groups layers into flex rows. Every target is type-checked in CI.",
+      "canvasAlt": "Dragging components and snapping with smart guides",
+      "codeAlt": "Exporting a screen as React code"
+    },
+    "oss": {
+      "title": "Free and open source",
+      "body": "Polyframe is MIT licensed. Every component, skin and export target is one folder with a documented contract, so adding your own is easy.",
+      "star": "Star on GitHub",
+      "contribute": "How to contribute"
+    }
   }
 }
