@@ -9,6 +9,7 @@ import {
   Keyboard,
   Minus,
   MonitorSmartphone,
+  Paintbrush,
   Plus,
   Redo2,
   Share2,
@@ -41,24 +42,25 @@ import {
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { GRID_SIZES, SKIN_IDS, type GridSize, type Mode, type SkinId } from "@/core/document/types";
+import { GRID_SIZES, type GridSize, type Mode, type SkinChoice } from "@/core/document/types";
 import { ZOOM_STEPS } from "@/core/geometry/viewport";
-import { SKIN_LABELS } from "@/core/skins";
 import { FILE_EXTENSION } from "@/core/serialization/json";
 import { Link } from "@/i18n/navigation";
 import { useDocumentStore, useHistory } from "@/stores/document-store";
-import { useEditorStore } from "@/stores/editor-store";
+import { useEditorStore, type DialogId } from "@/stores/editor-store";
 import { createAndOpenProject, useProjectsStore } from "@/stores/projects-store";
 import * as commands from "../commands";
 import { useProjectIO } from "../project-io";
 import { useCommands, useNewProjectNames, useTemplates } from "../use-commands";
 import { IconButton } from "./icon-button";
+import { skinOptions } from "../skin-options";
 import { LanguageSwitch } from "./language-switch";
 
 export function Toolbar() {
   const t = useTranslations("toolbar");
   const tm = useTranslations("modes");
   const tMeta = useTranslations("meta");
+  const tSkin = useTranslations("skinEditor");
   const settings = useDocumentStore((s) => s.project?.settings);
   const name = useDocumentStore((s) => s.project?.name);
   const zoom = useEditorStore((s) => s.viewport.zoom);
@@ -70,9 +72,7 @@ export function Toolbar() {
   const templates = useTemplates();
   const tt = useTranslations("templates");
   const fileRef = useRef<HTMLInputElement>(null);
-  const openDialog = (
-    dialog: "projects" | "exportPng" | "exportCode" | "shortcuts" | "share" | "command",
-  ) => useEditorStore.getState().set({ dialog });
+  const openDialog = (dialog: Exclude<DialogId, null>) => useEditorStore.getState().set({ dialog });
   if (!settings) return null;
 
   return (
@@ -146,24 +146,27 @@ export function Toolbar() {
         </ToggleGroup>
         <Select
           value={settings.skin}
-          onValueChange={(v) => commands.updateSettings({ skin: v as SkinId })}
+          onValueChange={(v) => commands.updateSettings({ skin: v as SkinChoice })}
         >
           <SelectTrigger
             size="sm"
             aria-label={t("skin")}
-            className="w-[130px]"
+            className="w-[150px]"
             data-testid="skin-select"
           >
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {SKIN_IDS.map((id) => (
-              <SelectItem key={id} value={id}>
-                {SKIN_LABELS[id]}
+            {skinOptions(settings.customSkin, (name) => tSkin("custom", { name })).map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
+        <IconButton label={tSkin("open")} onClick={() => openDialog("customSkin")}>
+          <Paintbrush aria-hidden />
+        </IconButton>
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>

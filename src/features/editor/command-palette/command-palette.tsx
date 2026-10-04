@@ -66,6 +66,7 @@ export function CommandPalette() {
               {SKIN_IDS.map((s) =>
                 item(`skin-${s}`, t("command.skin", { name: SKIN_LABELS[s] }), () => commands.updateSettings({ skin: s, mode: "styled" }), <Palette aria-hidden />),
               )}
+              {item("customSkin", t("skinEditor.open"), () => setDialog("customSkin"), <Palette aria-hidden />)}
               {item("snap", t("toolbar.snapToGrid"), cmd.toggleSnap, <Grid3x3 aria-hidden />, "G")}
               {item("fit", t("toolbar.zoomFit"), commands.fitAll, <ZoomIn aria-hidden />, "⌘0")}
               {item("zoom100", t("toolbar.zoom100"), () => commands.zoomTo(1), <ZoomIn aria-hidden />, "⌘1")}

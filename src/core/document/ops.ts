@@ -10,7 +10,7 @@ export function createProject(opts: {
   settings?: Partial<ProjectSettings>;
 }): Project {
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     id: opts.id,
     name: opts.name,
     createdAt: opts.now,

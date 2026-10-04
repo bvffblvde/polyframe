@@ -16,7 +16,7 @@ export const ArtboardView = memo(function ArtboardView({ id, readOnly }: { id: I
   const grid = useDocumentStore((s) => s.project?.settings.grid);
   const active = useEditorStore((s) => s.activeArtboardId === id);
   const zoom = useEditorStore((s) => s.viewport.zoom);
-  const { mode, skin, sketch } = useViewSettings();
+  const { mode, skin, structure, sketch } = useViewSettings();
   if (!a) return null;
   return (
     <div
@@ -40,7 +40,7 @@ export const ArtboardView = memo(function ArtboardView({ id, readOnly }: { id: I
         className="size-full shadow-sm"
       >
         {a.childOrder.map((nid) => (
-          <NodeView key={nid} id={nid} mode={mode} skin={skin} />
+          <NodeView key={nid} id={nid} mode={mode} skin={structure} />
         ))}
       </ArtboardRoot>
       {!readOnly && grid?.visible && (

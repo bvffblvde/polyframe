@@ -144,7 +144,10 @@ Each skin is made of tokens (palette, radii, shadows, font family and sizes, con
 | Mantine | ✅ | |
 | Ant Design | ✅ | |
 | Bootstrap | ✅ | |
-| Chakra UI, others | later | |
+| Chakra UI | Phase 4 ✅ | |
+| Fluent 2 | Phase 4 ✅ | |
+| Radix Themes | Phase 4 ✅ | |
+| Custom | Phase 4 ✅ | Per project: a base skin plus token overrides, editable in a dialog or imported from CSS variables, W3C design tokens or Tokens Studio JSON |
 
 Skins are approximations. The README states that the project is "not affiliated with" any of these libraries and links to each library's MIT license where tokens are referenced.
 
@@ -257,14 +260,15 @@ docs/SPEC.md  CLAUDE.md
 type ID = string; // nanoid
 
 interface Project {
-  schemaVersion: 1;
+  schemaVersion: 2;               // v2 adds the custom skin; v1 files migrate without changes
   id: ID;
   name: string;
   createdAt: string;   // ISO
   updatedAt: string;
   settings: {
     mode: 'wireframe' | 'styled';
-    skin: SkinId;      // 'shadcn' | 'mui' | 'mantine' | 'antd' | 'bootstrap'
+    skin: SkinId | 'custom'; // 'shadcn' | 'mui' | 'mantine' | 'antd' | 'bootstrap' | 'chakra' | 'fluent' | 'radix'
+    customSkin?: { name: string; base: SkinId; tokens: Partial<SkinTokens> }; // values are validated as safe CSS
     grid: { enabled: boolean; size: 4 | 8 | 16; visible: boolean };
     sketchFont: boolean;
   };

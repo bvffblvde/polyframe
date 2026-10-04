@@ -2,7 +2,9 @@ import { CURRENT_SCHEMA_VERSION } from "./schema";
 
 type Migration = (doc: Record<string, unknown>) => Record<string, unknown>;
 
-export const migrations: Record<number, Migration> = {};
+export const migrations: Record<number, Migration> = {
+  1: (doc) => doc,
+};
 
 export class MigrationError extends Error {
   constructor(public readonly code: "unsupportedVersion" | "invalidShape") {

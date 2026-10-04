@@ -1,8 +1,11 @@
+import type { TokenOverrides } from "../skins/tokens";
+
 export type ID = string;
 
 export type Mode = "wireframe" | "styled";
-export const SKIN_IDS = ["shadcn", "mui", "mantine", "antd", "bootstrap"] as const;
+export const SKIN_IDS = ["shadcn", "mui", "mantine", "antd", "bootstrap", "chakra", "fluent", "radix"] as const;
 export type SkinId = (typeof SKIN_IDS)[number];
+export type SkinChoice = SkinId | "custom";
 export const COLOR_ROLES = ["primary", "secondary", "neutral", "danger", "success"] as const;
 export type ColorRole = (typeof COLOR_ROLES)[number];
 export const GRID_SIZES = [4, 8, 16] as const;
@@ -87,15 +90,22 @@ export interface Artboard {
   childOrder: ID[];
 }
 
+export interface CustomSkin {
+  name: string;
+  base: SkinId;
+  tokens: TokenOverrides;
+}
+
 export interface ProjectSettings {
   mode: Mode;
-  skin: SkinId;
+  skin: SkinChoice;
+  customSkin?: CustomSkin;
   grid: { enabled: boolean; size: GridSize; visible: boolean };
   sketchFont: boolean;
 }
 
 export interface Project {
-  schemaVersion: 1;
+  schemaVersion: 2;
   id: ID;
   name: string;
   createdAt: string;

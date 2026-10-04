@@ -1,9 +1,26 @@
 import { z } from "zod";
+import { COLOR_TOKENS, isSafeCssValue, NUMBER_LIMITS, NUMBER_TOKENS, TEXT_TOKENS } from "../skins/tokens";
 import { ARTBOARD_PRESETS, COLOR_ROLES, COMPONENT_TYPES, SKIN_IDS } from "./types";
 
-export const CURRENT_SCHEMA_VERSION = 1;
+export const CURRENT_SCHEMA_VERSION = 2;
 
 const int = z.number().int();
+
+const cssValue = z.string().refine(isSafeCssValue, "Unsafe CSS value");
+
+export const customSkinSchema = z.object({
+  name: z.string().trim().min(1).max(60),
+  base: z.enum(SKIN_IDS),
+  tokens: z
+    .object({
+      ...Object.fromEntries(COLOR_TOKENS.map((k) => [k, cssValue.optional()])),
+      ...Object.fromEntries(TEXT_TOKENS.map((k) => [k, cssValue.optional()])),
+      ...Object.fromEntries(
+        NUMBER_TOKENS.map((k) => [k, z.number().min(NUMBER_LIMITS[k][0]).max(NUMBER_LIMITS[k][1]).optional()]),
+      ),
+    })
+    .strict(),
+});
 
 export const nodeSchema = z.object({
   id: z.string().min(1),
@@ -49,7 +66,8 @@ export const projectSchema = z
     updatedAt: z.string(),
     settings: z.object({
       mode: z.enum(["wireframe", "styled"]),
-      skin: z.enum(SKIN_IDS),
+      skin: z.enum([...SKIN_IDS, "custom"]),
+      customSkin: customSkinSchema.optional(),
       grid: z.object({
         enabled: z.boolean(),
         size: z.union([z.literal(4), z.literal(8), z.literal(16)]),
@@ -62,6 +80,9 @@ export const projectSchema = z
     nodes: z.record(z.string(), nodeSchema),
   })
   .superRefine((p, ctx) => {
+    if (p.settings.skin === "custom" && !p.settings.customSkin) {
+      ctx.addIssue({ code: "custom", path: ["settings", "customSkin"], message: "Missing custom skin" });
+    }
     for (const id of p.artboardOrder) {
       if (!p.artboards[id]) ctx.addIssue({ code: "custom", path: ["artboardOrder"], message: `Unknown artboard ${id}` });
     }

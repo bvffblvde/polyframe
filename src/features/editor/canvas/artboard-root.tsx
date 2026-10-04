@@ -1,10 +1,10 @@
 import type { ComponentProps } from "react";
-import type { Mode, SkinId } from "@/core/document/types";
+import type { Mode, SkinChoice } from "@/core/document/types";
 import { cn } from "@/lib/utils";
 
 interface ArtboardRootProps extends ComponentProps<"div"> {
   mode: Mode;
-  skin: SkinId;
+  skin: SkinChoice;
   sketch?: boolean;
 }
 

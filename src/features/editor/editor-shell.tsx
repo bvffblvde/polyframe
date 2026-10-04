@@ -23,6 +23,8 @@ import { initProjects, startAutosave, useProjectsStore } from "@/stores/projects
 import { Viewer } from "../viewer/viewer";
 import { Viewport } from "./canvas/viewport";
 import { ExportCodeDialog } from "./dialogs/export-code-dialog";
+import { CustomSkinDialog } from "./dialogs/custom-skin-dialog";
+import { ProjectSkinStyle } from "./canvas/project-skin-style";
 import { ExportPngDialog } from "./dialogs/export-png-dialog";
 import { ProjectsDialog } from "./dialogs/projects-dialog";
 import { ShareDialog } from "./dialogs/share-dialog";
@@ -126,6 +128,8 @@ function Editor() {
       <ProjectsDialog />
       <ExportPngDialog />
       <ExportCodeDialog />
+      <CustomSkinDialog />
+      <ProjectSkinStyle />
       <ShortcutsDialog />
       <ShareDialog />
       <CommandPalette />

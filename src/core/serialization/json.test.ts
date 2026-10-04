@@ -27,7 +27,7 @@ describe("json serialization", () => {
   });
 
   it("reports schema issues with a path", () => {
-    const bad = { ...valid(), settings: { ...valid().settings, skin: "chakra" } };
+    const bad = { ...valid(), settings: { ...valid().settings, skin: "material3" } };
     const r = parseProjectJson(JSON.stringify(bad));
     expect(r).toMatchObject({ ok: false, error: { code: "invalidSchema", params: { path: "settings.skin" } } });
   });
@@ -47,10 +47,28 @@ describe("json serialization", () => {
   });
 });
 
+describe("schema v2", () => {
+  it("opens version 1 projects", () => {
+    const v1 = { ...valid(), schemaVersion: 1 };
+    expect(parseProjectJson(JSON.stringify(v1))).toMatchObject({ ok: true, project: { schemaVersion: 2 } });
+  });
+
+  it("accepts a custom skin and rejects unsafe token values", () => {
+    const p = valid();
+    p.settings = { ...p.settings, skin: "custom", customSkin: { name: "Brand", base: "mui", tokens: { primary: "#ff0066", radius: 12 } } };
+    expect(parseProjectJson(JSON.stringify(p)).ok).toBe(true);
+    const unsafe = structuredClone(p);
+    unsafe.settings.customSkin = { name: "x", base: "mui", tokens: { primary: "red;}body{background:url(x)" } };
+    expect(parseProjectJson(JSON.stringify(unsafe))).toMatchObject({ ok: false, error: { code: "invalidSchema" } });
+    const missing = { ...p, settings: { ...p.settings, customSkin: undefined } };
+    expect(parseProjectJson(JSON.stringify(missing))).toMatchObject({ ok: false });
+  });
+});
+
 describe("migrations", () => {
   it("runs migration steps in order", () => {
-    const out = migrate({ schemaVersion: 0, a: 1 }, { 0: (d) => ({ ...d, b: 2 }) });
-    expect(out).toEqual({ schemaVersion: 1, a: 1, b: 2 });
+    const out = migrate({ schemaVersion: 0, a: 1 }, { 0: (d) => ({ ...d, b: 2 }), 1: (d) => ({ ...d, c: 3 }) });
+    expect(out).toEqual({ schemaVersion: 2, a: 1, b: 2, c: 3 });
   });
   it("fails when a step is missing", () => {
     expect(() => migrate({ a: 1 })).toThrow(MigrationError);

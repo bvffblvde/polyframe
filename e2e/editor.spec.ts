@@ -259,3 +259,23 @@ test("exposes SEO and PWA metadata", async ({ request, page }) => {
   await page.goto("/uk/guide");
   await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute("href", /\/en\/guide$/);
 });
+
+test("creates a custom skin from imported tokens", async ({ page }) => {
+  await openEditor(page);
+  await page.getByTestId("palette-button").click();
+  await page.getByRole("button", { name: "Customize skin..." }).first().click();
+  const dialog = page.getByRole("dialog", { name: "Custom skin" });
+  await dialog.getByRole("textbox", { name: "Import tokens" }).fill(":root { --primary: #ff0066; --radius: 1rem; --spacing: 4px; }");
+  await dialog.getByRole("button", { name: "Import", exact: true }).click();
+  await expect(dialog.getByRole("status")).toHaveText("Imported 2 tokens");
+  await expect(dialog.getByLabel("Primary", { exact: true })).toHaveValue("#ff0066");
+  await page.screenshot({ path: "test-results/custom-skin-dialog.png" });
+  await dialog.getByRole("button", { name: "Apply skin" }).click();
+  const root = page.locator("[data-export-root]").first();
+  await expect(root).toHaveAttribute("data-skin", "custom");
+  await expect(nodes(page, "button").locator(".pf-btn")).toHaveCSS("background-color", "rgb(255, 0, 102)");
+  await expect(page.getByTestId("save-status")).toHaveText("Saved");
+  await page.reload();
+  await expect(page.locator("[data-export-root]").first()).toHaveAttribute("data-skin", "custom");
+  await expect(nodes(page, "button").locator(".pf-btn")).toHaveCSS("border-radius", "16px");
+});

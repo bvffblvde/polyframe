@@ -42,7 +42,7 @@ Most wireframe tools give you gray boxes. Most UI builders lock you into one des
 Polyframe keeps **one layout** and lets you see it in **many visual languages**, so you can think about structure first and pick a look later.
 
 - 🧠 **Wireframe first.** Sketchy, grayscale, distraction-free. Focus on layout, not pixels.
-- 🎭 **One click, six looks.** The same screen in shadcn/ui, MUI, Mantine, Ant Design and Bootstrap. Your data never changes; only the skin does.
+- 🎭 **One click, nine looks.** The same screen in shadcn/ui, MUI, Mantine, Ant Design, Bootstrap, Chakra UI, Fluent 2 and Radix Themes, or in your own skin built from imported design tokens. Your data never changes; only the skin does.
 - 🧾 **Export real code.** Get a React component for **shadcn/ui + Tailwind**, **MUI**, **Mantine**, **Ant Design**, **React Bootstrap** or **Chakra UI** as a starting point, not a screenshot.
 - 🔒 **Local-first.** Projects live in IndexedDB. Share via a link that stores the whole layout in the URL itself, with no server involved.
 - ⌨️ **Keyboard-driven.** Undo/redo, nudge, align, group, duplicate, ⌘K for everything.

@@ -6,9 +6,8 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { SKIN_IDS, type Mode, type Project, type SkinId } from "@/core/document/types";
+import { type Mode, type Project, type SkinChoice } from "@/core/document/types";
 import { decodeShare } from "@/core/serialization/share";
-import { SKIN_LABELS } from "@/core/skins";
 import { Link, useRouter } from "@/i18n/navigation";
 import { listProjects, loadProject, getLastProjectId } from "@/lib/persistence/idb";
 import { useDocumentStore } from "@/stores/document-store";
@@ -18,6 +17,8 @@ import { useProjectIO } from "../editor/project-io";
 import { Viewport } from "../editor/canvas/viewport";
 import * as commands from "../editor/commands";
 import { ExportPngDialog } from "../editor/dialogs/export-png-dialog";
+import { ProjectSkinStyle } from "../editor/canvas/project-skin-style";
+import { skinOptions } from "../editor/skin-options";
 import { LanguageSwitch } from "../editor/toolbar/language-switch";
 
 function present(p: Project) {
@@ -44,6 +45,7 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
   const allArtboards = useDocumentStore((s) => s.project?.artboards);
   const activeId = useEditorStore((s) => s.activeArtboardId);
   const view = useEditorStore((s) => s.viewOverride);
+  const custom = useDocumentStore((s) => s.project?.settings.customSkin);
   const [shared, setShared] = useState<"none" | "ok" | "invalid">("none");
   const io = useProjectIO();
   const router = useRouter();
@@ -73,7 +75,7 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
     };
   }, []);
 
-  const setView = (patch: Partial<{ mode: Mode; skin: SkinId }>) =>
+  const setView = (patch: Partial<{ mode: Mode; skin: SkinChoice }>) =>
     view && useEditorStore.getState().set({ viewOverride: { ...view, ...patch } });
 
   return (
@@ -114,14 +116,14 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
               <ToggleGroupItem value="wireframe">{t("modes.wireframe")}</ToggleGroupItem>
               <ToggleGroupItem value="styled">{t("modes.styled")}</ToggleGroupItem>
             </ToggleGroup>
-            <Select value={view.skin} onValueChange={(v) => setView({ skin: v as SkinId })}>
+            <Select value={view.skin} onValueChange={(v) => setView({ skin: v as SkinChoice })}>
               <SelectTrigger size="sm" aria-label={t("toolbar.skin")} className="w-[130px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {SKIN_IDS.map((id) => (
-                  <SelectItem key={id} value={id}>
-                    {SKIN_LABELS[id]}
+                {skinOptions(custom, (name) => t("skinEditor.custom", { name })).map((o) => (
+                  <SelectItem key={o.value} value={o.value}>
+                    {o.label}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -195,6 +197,7 @@ export function Viewer({ compact = false }: { compact?: boolean }) {
         )}
       </main>
       <ExportPngDialog />
+      <ProjectSkinStyle />
     </div>
   );
 }

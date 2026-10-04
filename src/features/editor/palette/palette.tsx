@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { memo, useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import type { ComponentType, Mode, SkinId } from "@/core/document/types";
+import type { ComponentType, Mode, SkinChoice, SkinId } from "@/core/document/types";
 import { CATEGORIES, registry, searchDefinitions, type AnyDefinition } from "@/core/registry";
 import { ArtboardRoot } from "../canvas/artboard-root";
 import { useViewSettings } from "../canvas/use-view-settings";
@@ -17,7 +17,7 @@ export function Palette() {
   const t = useTranslations();
   const [query, setQuery] = useState("");
   const results = useMemo(() => searchDefinitions(query, (d) => t(d.labelKey)), [query, t]);
-  const { mode, skin } = useViewSettings();
+  const { mode, skin, structure } = useViewSettings();
   const cmd = useCommands();
 
   return (
@@ -51,6 +51,7 @@ export function Palette() {
                       insertLabel={t("panels.insert", { name: t(d.labelKey) })}
                       mode={mode}
                       skin={skin}
+                      structure={structure}
                       onInsert={() => cmd.insert(d.type)}
                     />
                   ))}
@@ -69,11 +70,12 @@ interface ItemProps {
   label: string;
   insertLabel: string;
   mode: Mode;
-  skin: SkinId;
+  skin: SkinChoice;
+  structure: SkinId;
   onInsert: () => void;
 }
 
-function PaletteItem({ def, label, insertLabel, mode, skin, onInsert }: ItemProps) {
+function PaletteItem({ def, label, insertLabel, mode, skin, structure, onInsert }: ItemProps) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
     id: `palette-${def.type}`,
     data: { type: def.type },
@@ -91,13 +93,13 @@ function PaletteItem({ def, label, insertLabel, mode, skin, onInsert }: ItemProp
       data-dragging={isDragging}
       data-testid={`palette-${def.type}`}
     >
-      <Thumb type={def.type} mode={mode} skin={skin} />
+      <Thumb type={def.type} mode={mode} skin={skin} structure={structure} />
       <span className="truncate px-0.5">{label}</span>
     </button>
   );
 }
 
-export const Thumb = memo(function Thumb({ type, mode, skin }: { type: ComponentType; mode: Mode; skin: SkinId }) {
+export const Thumb = memo(function Thumb({ type, mode, skin, structure }: { type: ComponentType; mode: Mode; skin: SkinChoice; structure: SkinId }) {
   const t = useTranslations("defaults");
   const def = registry[type];
   const props = useMemo(() => def.defaultProps((k) => t(k)), [def, t]);
@@ -118,7 +120,7 @@ export const Thumb = memo(function Thumb({ type, mode, skin }: { type: Component
           style={{ width: w, height: h, transform: `scale(${scale})` }}
         >
           <div className="pf-node" style={{ left: 0, top: 0, width: w, height: h }}>
-            <Render props={props} node={node} mode={mode} skin={skin} />
+            <Render props={props} node={node} mode={mode} skin={structure} />
           </div>
         </ArtboardRoot>
       </span>

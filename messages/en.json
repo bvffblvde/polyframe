@@ -560,7 +560,7 @@
     },
     "mode": {
       "title": "Switch the look",
-      "body": "Wireframe keeps you focused on structure. Styled applies a skin: shadcn/ui, MUI, Mantine, Ant Design or Bootstrap. Your layout never changes, only the look."
+      "body": "Wireframe keeps you focused on structure. Styled applies a skin: shadcn/ui, MUI, Mantine, Ant Design, Bootstrap, Chakra UI, Fluent 2, Radix Themes or your own. Your layout never changes, only the look."
     },
     "export": {
       "title": "Export your work",
@@ -609,12 +609,12 @@
   "landing": {
     "eyebrow": "Open source · No sign-up · Works offline",
     "title": "Sketch it once. Wear any UI kit. Ship the code.",
-    "subtitle": "Drag-and-drop UI prototyping in your browser. Build a layout as a wireframe, switch it to shadcn/ui, MUI, Mantine, Ant Design or Bootstrap in one click, and export PNG or React code.",
+    "subtitle": "Drag-and-drop UI prototyping in your browser. Build a layout as a wireframe, switch it to shadcn/ui, MUI, Mantine, Ant Design, Chakra and more in one click, and export PNG, SVG or React code.",
     "cta": "Open the editor",
     "ctaGuide": "Read the guide",
     "privacy": "Your work never leaves your browser.",
     "demo": {
-      "title": "One layout, six looks",
+      "title": "One layout, nine looks",
       "subtitle": "This is the real renderer from the editor. Pick a look and the same screen changes instantly.",
       "label": "Choose a look",
       "preview": "Login screen preview"
@@ -626,8 +626,8 @@
         "body": "Grayscale, sketchy and distraction-free. Think about structure before pixels."
       },
       "skins": {
-        "title": "Five real-looking skins",
-        "body": "shadcn/ui, MUI, Mantine, Ant Design and Bootstrap, built from public design tokens. Your layout never changes."
+        "title": "Eight skins, plus your own",
+        "body": "shadcn/ui, MUI, Mantine, Ant Design, Bootstrap, Chakra UI, Fluent 2 and Radix Themes. Or import your design tokens and build a custom skin."
       },
       "code": {
         "title": "Code for six libraries",
@@ -688,5 +688,49 @@
       "add-exporter": "Add an export target"
     },
     "edit": "Edit this page on GitHub"
+  },
+  "skinEditor": {
+    "title": "Custom skin",
+    "description": "Start from a skin, then change colors, corners and type. Import tokens from your design system to match it.",
+    "open": "Customize skin...",
+    "name": "Name",
+    "defaultName": "My skin",
+    "base": "Based on",
+    "colors": "Colors",
+    "shape": "Shape and type",
+    "import": "Import tokens",
+    "importHint": "Paste CSS variables (for example a shadcn/ui theme) or JSON in the W3C design tokens or Tokens Studio format.",
+    "importAction": "Import",
+    "importFile": "From file...",
+    "imported": "{count, plural, =0 {No matching tokens found} one {Imported # token} other {Imported # tokens}}",
+    "importFailed": "This is neither JSON nor CSS variables.",
+    "reset": "Reset changes",
+    "apply": "Apply skin",
+    "invalid": "Some values are not valid CSS. Check the highlighted fields.",
+    "preview": "Preview",
+    "custom": "Custom: {name}",
+    "tokens": {
+      "primary": "Primary",
+      "primaryFg": "On primary",
+      "secondary": "Secondary",
+      "secondaryFg": "On secondary",
+      "text": "Text",
+      "textMuted": "Muted text",
+      "bg": "Background",
+      "surface": "Surface",
+      "mutedBg": "Muted background",
+      "border": "Border",
+      "danger": "Danger",
+      "success": "Success",
+      "warning": "Warning",
+      "info": "Info",
+      "radius": "Radius",
+      "radiusLg": "Large radius",
+      "borderWidth": "Border width",
+      "controlH": "Control height",
+      "fontSize": "Font size",
+      "font": "Font family"
+    },
+    "colorPicker": "Pick {name}"
   }
 }

@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import type { ID, Mode, Node, Rect, SkinId } from "@/core/document/types";
+import type { ID, Mode, Node, Rect, SkinChoice } from "@/core/document/types";
 import type { DistanceLabel, GuideLine } from "@/core/geometry/guides";
 import type { Viewport } from "@/core/geometry/viewport";
 
 export type Interaction = "idle" | "dragging" | "resizing" | "marquee" | "panning";
-export type DialogId = "projects" | "exportPng" | "exportCode" | "shortcuts" | "share" | "command" | null;
+export type DialogId = "projects" | "exportPng" | "exportCode" | "shortcuts" | "share" | "command" | "customSkin" | null;
 
 interface EditorState {
   selection: ID[];
@@ -22,7 +22,7 @@ interface EditorState {
   clipboard: Node[];
   fitRequest: number;
   tour: number | null;
-  viewOverride: { mode: Mode; skin: SkinId } | null;
+  viewOverride: { mode: Mode; skin: SkinChoice } | null;
   set: (patch: Partial<Omit<EditorState, "set">>) => void;
   select: (ids: ID[]) => void;
 }

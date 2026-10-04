@@ -1,13 +1,16 @@
-import type { Mode, SkinId } from "../document/types";
+import type { CustomSkin, Mode, SkinChoice, SkinId } from "../document/types";
 import type { SkinDefinition, SkinStructure } from "./tokens";
 import { antd } from "./antd";
 import { bootstrap } from "./bootstrap";
+import { chakra } from "./chakra";
+import { fluent } from "./fluent";
 import { mantine } from "./mantine";
 import { mui } from "./mui";
+import { radix } from "./radix";
 import { shadcn } from "./shadcn";
 import { wireframe } from "./wireframe";
 
-export const skins: Record<SkinId, SkinDefinition> = { shadcn, mui, mantine, antd, bootstrap };
+export const skins: Record<SkinId, SkinDefinition> = { shadcn, mui, mantine, antd, bootstrap, chakra, fluent, radix };
 export { wireframe };
 
 export const SKIN_LABELS: Record<SkinId, string> = {
@@ -16,6 +19,9 @@ export const SKIN_LABELS: Record<SkinId, string> = {
   mantine: "Mantine",
   antd: "Ant Design",
   bootstrap: "Bootstrap",
+  chakra: "Chakra UI",
+  fluent: "Fluent 2",
+  radix: "Radix Themes",
 };
 
 export function activeSkin(mode: Mode, skin: SkinId): SkinDefinition {
@@ -86,4 +92,17 @@ export function buildSkinCss(): string {
     parts.push(block(`.pf-root[data-mode="styled"][data-skin="${id}"]`, skinCssVars(def)));
   }
   return parts.join("\n");
+}
+
+export function structureSkin(choice: SkinChoice, custom?: CustomSkin): SkinId {
+  return choice === "custom" ? (custom?.base ?? "shadcn") : choice;
+}
+
+export function mergeCustomSkin(custom: CustomSkin): SkinDefinition {
+  const base = skins[custom.base];
+  return { ...base, tokens: { ...base.tokens, ...custom.tokens } };
+}
+
+export function customSkinCss(custom: CustomSkin, skinAttr = "custom"): string {
+  return block(`.pf-root[data-mode="styled"][data-skin="${skinAttr}"]`, skinCssVars(mergeCustomSkin(custom)));
 }
