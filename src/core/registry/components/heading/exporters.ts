@@ -19,4 +19,19 @@ export const headingExporters: ComponentExporters<HeadingProps> = {
     jsx: `<Typography variant="${MUI[p.level]}" component="h${p.level}"${p.align === "left" ? "" : ` align="${p.align}"`}>${text(p.text)}</Typography>`,
     imports: [{ from: "@mui/material", names: ["Typography"] }],
   }),
+  mantine: ({ props: p }) => ({
+    jsx: `<Title order={${p.level}}${p.align === "left" ? "" : ` ta="${p.align}"`}>${text(p.text)}</Title>`,
+    imports: [{ from: "@mantine/core", names: ["Title"] }],
+  }),
+  antd: ({ props: p }) => ({
+    jsx: `<Typography.Title level={${p.level}} style={{ margin: 0${p.align === "left" ? "" : `, textAlign: "${p.align}"`} }}>${text(p.text)}</Typography.Title>`,
+    imports: [{ from: "antd", names: ["Typography"] }],
+  }),
+  bootstrap: ({ props: p }) => ({
+    jsx: `<h${p.level} className="mb-0${{ left: "", center: " text-center", right: " text-end" }[p.align]}">${text(p.text)}</h${p.level}>`,
+  }),
+  chakra: ({ props: p }) => ({
+    jsx: `<Heading as="h${p.level}" size="${{ "1": "4xl", "2": "3xl", "3": "2xl", "4": "xl" }[p.level]}"${p.align === "left" ? "" : ` textAlign="${p.align}"`}>${text(p.text)}</Heading>`,
+    imports: [{ from: "@chakra-ui/react", names: ["Heading"] }],
+  }),
 };

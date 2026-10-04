@@ -25,4 +25,35 @@ export const buttonExporters: ComponentExporters<ButtonProps> = {
       imports: [{ from: "@mui/material", names: ["Button"] }],
     };
   },
+  mantine: ({ props: p, style }) => {
+    const variant = { solid: "filled", outline: "outline", ghost: "subtle" }[p.variant];
+    const color = { primary: "", secondary: "grape", neutral: "gray", danger: "red", success: "green" }[style?.colorRole ?? "primary"];
+    return {
+      jsx: `<Button variant="${variant}" size="${p.size}"${color ? ` color="${color}"` : ""}${bool("disabled", p.disabled)} fullWidth h="100%">${text(p.label)}</Button>`,
+      imports: [{ from: "@mantine/core", names: ["Button"] }],
+    };
+  },
+  antd: ({ props: p, style }) => {
+    const type = { solid: "primary", outline: "default", ghost: "text" }[p.variant];
+    const size = { sm: "small", md: "middle", lg: "large" }[p.size];
+    return {
+      jsx: `<Button type="${type}" size="${size}"${bool("danger", style?.colorRole === "danger")}${bool("disabled", p.disabled)} block style={{ height: "100%" }}>${text(p.label)}</Button>`,
+      imports: [{ from: "antd", names: ["Button"] }],
+    };
+  },
+  bootstrap: ({ props: p, style }) => {
+    const color = { primary: "primary", secondary: "secondary", neutral: "light", danger: "danger", success: "success" }[style?.colorRole ?? "primary"];
+    const variant = p.variant === "solid" ? color : p.variant === "outline" ? `outline-${color}` : "link";
+    return {
+      jsx: `<Button variant="${variant}"${p.size === "md" ? "" : ` size="${p.size}"`}${bool("disabled", p.disabled)} className="w-100 h-100">${text(p.label)}</Button>`,
+      imports: [{ from: "react-bootstrap", names: ["Button"] }],
+    };
+  },
+  chakra: ({ props: p, style }) => {
+    const palette = { primary: "", secondary: "purple", neutral: "gray", danger: "red", success: "green" }[style?.colorRole ?? "primary"];
+    return {
+      jsx: `<Button variant="${p.variant}" size="${p.size}"${palette ? ` colorPalette="${palette}"` : ""}${bool("disabled", p.disabled)} w="full" h="full">${text(p.label)}</Button>`,
+      imports: [{ from: "@chakra-ui/react", names: ["Button"] }],
+    };
+  },
 };

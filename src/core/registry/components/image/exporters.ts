@@ -28,4 +28,57 @@ export const imageExporters: ComponentExporters<ImageProps> = {
       { from: "@mui/icons-material", names: ["Image as ImageIcon"] },
     ],
   }),
+  mantine: ({ props: p }) => ({
+    jsx: [
+      `<Center pos="relative" w="100%" h="100%" bg="gray.1" c="dimmed"${p.rounded ? ' bdrs="md"' : ""}>`,
+      "<ImageIcon size={32} />",
+      p.caption && `<Text size="xs" pos="absolute" left={8} bottom={4}>${text(p.caption)}</Text>`,
+      "</Center>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [
+      { from: "@mantine/core", names: ["Center", ...(p.caption ? ["Text"] : [])] },
+      { from: "lucide-react", names: ["ImageIcon"] },
+    ],
+  }),
+  antd: ({ props: p }) => ({
+    jsx: [
+      `<Flex align="center" justify="center" style={{ position: "relative", width: "100%", height: "100%", background: "rgba(0, 0, 0, 0.04)", color: "rgba(0, 0, 0, 0.25)"${p.rounded ? ", borderRadius: 8" : ""} }}>`,
+      "<PictureOutlined style={{ fontSize: 32 }} />",
+      p.caption && `<Typography.Text type="secondary" style={{ position: "absolute", left: 8, bottom: 4, fontSize: 12 }}>${text(p.caption)}</Typography.Text>`,
+      "</Flex>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [
+      { from: "antd", names: ["Flex", ...(p.caption ? ["Typography"] : [])] },
+      { from: "@ant-design/icons", names: ["PictureOutlined"] },
+    ],
+  }),
+  bootstrap: ({ props: p }) => ({
+    jsx: [
+      `<div className="position-relative d-flex align-items-center justify-content-center w-100 h-100 bg-body-secondary text-secondary${p.rounded ? " rounded-3" : ""}">`,
+      "<ImageIcon size={32} />",
+      p.caption && `<span className="position-absolute bottom-0 start-0 m-2 small">${text(p.caption)}</span>`,
+      "</div>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [{ from: "lucide-react", names: ["ImageIcon"] }],
+  }),
+  chakra: ({ props: p }) => ({
+    jsx: [
+      `<Center position="relative" w="full" h="full" bg="bg.muted" color="fg.muted"${p.rounded ? ' borderRadius="lg"' : ""}>`,
+      "<ImageIcon size={32} />",
+      p.caption && `<Text position="absolute" left="2" bottom="1" textStyle="xs">${text(p.caption)}</Text>`,
+      "</Center>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [
+      { from: "@chakra-ui/react", names: ["Center", ...(p.caption ? ["Text"] : [])] },
+      { from: "lucide-react", names: ["ImageIcon"] },
+    ],
+  }),
 };

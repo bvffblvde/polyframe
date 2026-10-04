@@ -26,4 +26,54 @@ export const tabsExporters: ComponentExporters<TabsProps> = {
     ].join("\n"),
     imports: [{ from: "@mui/material", names: ["Box", "Tab", "Tabs", "Typography"] }],
   }),
+  mantine: ({ props: p }) => {
+    const active = Math.min(p.activeIndex, Math.max(0, p.tabs.length - 1));
+    return {
+      jsx: [
+        `<Tabs defaultValue="tab-${active}">`,
+        `<Tabs.List>${p.tabs.map((t, i) => `<Tabs.Tab value="tab-${i}">${text(t)}</Tabs.Tab>`).join("")}</Tabs.List>`,
+        p.content && `<Tabs.Panel value="tab-${active}" pt="md" style={{ whiteSpace: "pre-line" }}>${text(p.content)}</Tabs.Panel>`,
+        "</Tabs>",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+      imports: [{ from: "@mantine/core", names: ["Tabs"] }],
+    };
+  },
+  antd: ({ props: p }) => {
+    const active = Math.min(p.activeIndex, Math.max(0, p.tabs.length - 1));
+    return {
+      jsx: `<Tabs defaultActiveKey="tab-${active}" items={[${p.tabs.map((t, i) => `{ key: "tab-${i}", label: ${JSON.stringify(t)}, children: ${JSON.stringify(i === active ? p.content : "")} }`).join(", ")}]} />`,
+      imports: [{ from: "antd", names: ["Tabs"] }],
+    };
+  },
+  bootstrap: ({ props: p }) => {
+    const active = Math.min(p.activeIndex, Math.max(0, p.tabs.length - 1));
+    return {
+      jsx: [
+        `<Tabs defaultActiveKey="tab-${active}">`,
+        ...p.tabs.map((t, i) =>
+          i === active && p.content
+            ? `<Tab eventKey="tab-${i}" title=${str(t)}><div className="pt-3" style={{ whiteSpace: "pre-line" }}>${text(p.content)}</div></Tab>`
+            : `<Tab eventKey="tab-${i}" title=${str(t)} />`,
+        ),
+        "</Tabs>",
+      ].join("\n"),
+      imports: [{ from: "react-bootstrap", names: ["Tab", "Tabs"] }],
+    };
+  },
+  chakra: ({ props: p }) => {
+    const active = Math.min(p.activeIndex, Math.max(0, p.tabs.length - 1));
+    return {
+      jsx: [
+        `<Tabs.Root defaultValue="tab-${active}">`,
+        `<Tabs.List>${p.tabs.map((t, i) => `<Tabs.Trigger value="tab-${i}">${text(t)}</Tabs.Trigger>`).join("")}</Tabs.List>`,
+        p.content && `<Tabs.Content value="tab-${active}" whiteSpace="pre-line">${text(p.content)}</Tabs.Content>`,
+        "</Tabs.Root>",
+      ]
+        .filter(Boolean)
+        .join("\n"),
+      imports: [{ from: "@chakra-ui/react", names: ["Tabs"] }],
+    };
+  },
 };

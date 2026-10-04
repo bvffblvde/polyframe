@@ -1,6 +1,6 @@
 import type { Node } from "../document/types";
 
-export const EXPORT_TARGETS = ["shadcn", "mui"] as const;
+export const EXPORT_TARGETS = ["shadcn", "mui", "mantine", "antd", "bootstrap", "chakra"] as const;
 export type ExportTarget = (typeof EXPORT_TARGETS)[number];
 export const LAYOUT_STRATEGIES = ["absolute", "stacked"] as const;
 export type LayoutStrategy = (typeof LAYOUT_STRATEGIES)[number];

@@ -41,7 +41,7 @@ Polyframe keeps **one layout** and lets you see it in **many visual languages**,
 
 - 🧠 **Wireframe first.** Sketchy, grayscale, distraction-free. Focus on layout, not pixels.
 - 🎭 **One click, six looks.** The same screen in shadcn/ui, MUI, Mantine, Ant Design and Bootstrap. Your data never changes; only the skin does.
-- 🧾 **Export real code.** Get a React component for **shadcn/ui + Tailwind** or **MUI** (more targets coming) as a starting point, not a screenshot.
+- 🧾 **Export real code.** Get a React component for **shadcn/ui + Tailwind**, **MUI**, **Mantine**, **Ant Design**, **React Bootstrap** or **Chakra UI** as a starting point, not a screenshot.
 - 🔒 **Local-first.** Projects live in IndexedDB. Share via a link that stores the whole layout in the URL itself, with no server involved.
 - ⌨️ **Keyboard-driven.** Undo/redo, nudge, align, group, duplicate, ⌘K for everything.
 - 🚀 **Starter templates.** Login, dashboard, landing hero, settings, pricing and a mobile profile.
@@ -144,7 +144,7 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] Spec & architecture
 - [x] **v0.1 MVP**: canvas, 24 components, 5 skins + wireframe, inspector, layers, undo/redo, PNG/JSON export
 - [x] **v0.2**: code export (shadcn/ui, MUI), share links, ⌘K, smart guides, groups, templates
-- [ ] **v0.3**: Mantine / Ant / Bootstrap / Chakra exporters, docs site, PWA
+- [ ] **v0.3**: ~~Mantine / Ant / Bootstrap / Chakra exporters~~ (done), user guide, docs site, PWA
 - [ ] **Later**: Storybook matrix, auto-layout containers, custom skin editor, token import, SVG export
 
 Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).

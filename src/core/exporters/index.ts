@@ -3,6 +3,7 @@ import { registry } from "../registry";
 import { applyLayout, type LayoutAdapter, type LayoutEntry } from "./layout/layout";
 import { MUI_BOX, muiHeader, muiLayout } from "./targets/mui";
 import { shadcnHeader, shadcnLayout } from "./targets/shadcn";
+import { chakraLayout, packageHeader, styleLayout } from "./targets/style";
 import type { ExportTarget, ImportSpec, LayoutStrategy } from "./types";
 
 export * from "./types";
@@ -20,6 +21,28 @@ export interface TargetDefinition {
 export const targets: Record<ExportTarget, TargetDefinition> = {
   shadcn: { id: "shadcn", label: "shadcn/ui + Tailwind", layout: shadcnLayout, baseImports: [], header: shadcnHeader },
   mui: { id: "mui", label: "MUI", layout: muiLayout, baseImports: [MUI_BOX], header: muiHeader },
+  mantine: {
+    id: "mantine",
+    label: "Mantine",
+    layout: styleLayout,
+    baseImports: [],
+    header: packageHeader(["@mantine/core", "@mantine/hooks"], ["Wrap the app in MantineProvider and import \"@mantine/core/styles.css\"."]),
+  },
+  antd: { id: "antd", label: "Ant Design", layout: styleLayout, baseImports: [], header: packageHeader(["antd"], []) },
+  bootstrap: {
+    id: "bootstrap",
+    label: "React Bootstrap",
+    layout: styleLayout,
+    baseImports: [],
+    header: packageHeader(["react-bootstrap", "bootstrap"], ["Import \"bootstrap/dist/css/bootstrap.min.css\" once in the app."]),
+  },
+  chakra: {
+    id: "chakra",
+    label: "Chakra UI",
+    layout: chakraLayout,
+    baseImports: [{ from: "@chakra-ui/react", names: ["Box", "Flex"] }],
+    header: packageHeader(["@chakra-ui/react", "@emotion/react"], ["Wrap the app in ChakraProvider with the default system."]),
+  },
 };
 
 export interface GeneratedFile {

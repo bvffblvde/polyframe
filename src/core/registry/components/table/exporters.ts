@@ -1,4 +1,4 @@
-import { text } from "../../../exporters/jsx";
+import { bool, text } from "../../../exporters/jsx";
 import type { ComponentExporters } from "../../../exporters/types";
 import type { TableProps } from "./schema";
 
@@ -34,5 +34,42 @@ export const tableExporters: ComponentExporters<TableProps> = {
       "</TableContainer>",
     ].join("\n"),
     imports: [{ from: "@mui/material", names: ["Paper", "Table", "TableBody", "TableCell", "TableContainer", "TableHead", "TableRow"] }],
+  }),
+  mantine: ({ props: p }) => ({
+    jsx: [
+      `<Table${bool("striped", p.striped)} withTableBorder${bool("withColumnBorders", p.bordered)}>`,
+      `<Table.Thead><Table.Tr>${p.columns.map((c) => `<Table.Th>${text(c)}</Table.Th>`).join("")}</Table.Tr></Table.Thead>`,
+      "<Table.Tbody>",
+      ...p.rows.map((r) => `<Table.Tr>${p.columns.map((_, ci) => `<Table.Td>${text(r[ci] ?? "")}</Table.Td>`).join("")}</Table.Tr>`),
+      "</Table.Tbody>",
+      "</Table>",
+    ].join("\n"),
+    imports: [{ from: "@mantine/core", names: ["Table"] }],
+  }),
+  antd: ({ props: p }) => ({
+    jsx: `<Table size="small" pagination={false}${bool("bordered", p.bordered)} columns={[${p.columns.map((c, i) => `{ title: ${JSON.stringify(c)}, dataIndex: "c${i}", key: "c${i}" }`).join(", ")}]} dataSource={[${p.rows.map((r, ri) => `{ key: "r${ri}", ${p.columns.map((_, ci) => `c${ci}: ${JSON.stringify(r[ci] ?? "")}`).join(", ")} }`).join(", ")}]} />`,
+    imports: [{ from: "antd", names: ["Table"] }],
+  }),
+  bootstrap: ({ props: p }) => ({
+    jsx: [
+      `<Table size="sm"${bool("striped", p.striped)}${bool("bordered", p.bordered)} className="mb-0">`,
+      `<thead><tr>${p.columns.map((c) => `<th>${text(c)}</th>`).join("")}</tr></thead>`,
+      "<tbody>",
+      ...p.rows.map((r) => `<tr>${p.columns.map((_, ci) => `<td>${text(r[ci] ?? "")}</td>`).join("")}</tr>`),
+      "</tbody>",
+      "</Table>",
+    ].join("\n"),
+    imports: [{ from: "react-bootstrap", names: ["Table"] }],
+  }),
+  chakra: ({ props: p }) => ({
+    jsx: [
+      `<Table.Root size="sm" variant="outline"${bool("striped", p.striped)}${bool("showColumnBorder", p.bordered)}>`,
+      `<Table.Header><Table.Row>${p.columns.map((c) => `<Table.ColumnHeader>${text(c)}</Table.ColumnHeader>`).join("")}</Table.Row></Table.Header>`,
+      "<Table.Body>",
+      ...p.rows.map((r) => `<Table.Row>${p.columns.map((_, ci) => `<Table.Cell>${text(r[ci] ?? "")}</Table.Cell>`).join("")}</Table.Row>`),
+      "</Table.Body>",
+      "</Table.Root>",
+    ].join("\n"),
+    imports: [{ from: "@chakra-ui/react", names: ["Table"] }],
   }),
 };

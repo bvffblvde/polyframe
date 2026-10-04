@@ -27,4 +27,52 @@ export const progressExporters: ComponentExporters<ProgressProps> = {
       .join("\n"),
     imports: [{ from: "@mui/material", names: ["Box", "LinearProgress", ...(p.label || p.showValue ? ["Typography"] : [])] }],
   }),
+  mantine: ({ props: p }) => ({
+    jsx: [
+      '<Stack gap={6} justify="center" h="100%">',
+      (p.label || p.showValue) &&
+        `<Group justify="space-between"><Text size="sm" fw={500}>${text(p.label)}</Text>${p.showValue ? `<Text size="sm" c="dimmed">${p.value}%</Text>` : ""}</Group>`,
+      `<Progress value={${p.value}} />`,
+      "</Stack>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [{ from: "@mantine/core", names: ["Progress", "Stack", ...(p.label || p.showValue ? ["Group", "Text"] : [])] }],
+  }),
+  antd: ({ props: p }) => ({
+    jsx: [
+      '<Flex vertical justify="center" style={{ height: "100%" }}>',
+      p.label && `<Typography.Text>${text(p.label)}</Typography.Text>`,
+      `<Progress percent={${p.value}}${p.showValue ? "" : " showInfo={false}"} />`,
+      "</Flex>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [{ from: "antd", names: ["Flex", "Progress", ...(p.label ? ["Typography"] : [])] }],
+  }),
+  bootstrap: ({ props: p }) => ({
+    jsx: [
+      '<div className="d-flex flex-column justify-content-center h-100">',
+      (p.label || p.showValue) &&
+        `<div className="d-flex justify-content-between small mb-1"><span>${text(p.label)}</span>${p.showValue ? `<span className="text-secondary">${p.value}%</span>` : ""}</div>`,
+      `<ProgressBar now={${p.value}} />`,
+      "</div>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [{ from: "react-bootstrap", names: ["ProgressBar"] }],
+  }),
+  chakra: ({ props: p }) => ({
+    jsx: [
+      '<Flex direction="column" justify="center" h="full">',
+      `<Progress.Root value={${p.value}} w="full">`,
+      (p.label || p.showValue) && `<HStack justify="space-between" mb="1">${p.label ? `<Progress.Label>${text(p.label)}</Progress.Label>` : ""}${p.showValue ? "<Progress.ValueText />" : ""}</HStack>`,
+      "<Progress.Track><Progress.Range /></Progress.Track>",
+      "</Progress.Root>",
+      "</Flex>",
+    ]
+      .filter(Boolean)
+      .join("\n"),
+    imports: [{ from: "@chakra-ui/react", names: ["Flex", "Progress", ...(p.label || p.showValue ? ["HStack"] : [])] }],
+  }),
 };

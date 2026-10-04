@@ -361,7 +361,7 @@ interface ComponentDefinition<P> {
 - ✅ Done when: the exported code for each template compiles in a fresh Vite project with the target library installed (checked by a CI job that type-checks the generated output).
 
 ### Phase 3: Reach
-- More exporters (Mantine, Ant Design, Bootstrap, Chakra).
+- More exporters (Mantine, Ant Design, Bootstrap, Chakra). Done: Bootstrap targets React Bootstrap, Chakra targets v3; every target is type-checked in `exporter-check`.
 - Product landing page and `/docs` (MDX): getting started, shortcuts, how to add a component, skin or exporter.
 - OG images, SEO, PWA (offline editor).
 
