@@ -8,6 +8,9 @@ const withMDX = createMDX({ extension: /\.(md|mdx)$/, options: { remarkPlugins: 
 const nextConfig: NextConfig = {
   devIndicators: false,
   pageExtensions: ["ts", "tsx", "md", "mdx"],
+  async headers() {
+    return [{ source: "/sw.js", headers: [{ key: "Cache-Control", value: "no-cache" }] }];
+  },
 };
 
 export default withNextIntl(withMDX(nextConfig));

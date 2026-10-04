@@ -146,7 +146,7 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] Spec & architecture
 - [x] **v0.1 MVP**: canvas, 24 components, 5 skins + wireframe, inspector, layers, undo/redo, PNG/JSON export
 - [x] **v0.2**: code export (shadcn/ui, MUI), share links, ⌘K, smart guides, groups, templates
-- [ ] **v0.3**: ~~Mantine / Ant / Bootstrap / Chakra exporters~~ (done), ~~user guide~~ (done), docs site, PWA
+- [x] **v0.3**: Mantine / Ant / Bootstrap / Chakra exporters, product tour and user guide, landing page, docs site, SEO and OG images, PWA (offline editor)
 - [ ] **Later**: Storybook matrix, auto-layout containers, custom skin editor, token import, SVG export
 
 Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).

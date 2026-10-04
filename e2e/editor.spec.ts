@@ -246,3 +246,16 @@ test("serves developer docs from the repository markdown", async ({ page }) => {
   await expect(page.getByRole("note")).toContainText("англійською");
   await expect(page.getByRole("table")).toContainText("src/core/document");
 });
+
+test("exposes SEO and PWA metadata", async ({ request, page }) => {
+  const manifest = await (await request.get("/manifest.webmanifest")).json();
+  expect(manifest).toMatchObject({ name: "Polyframe", start_url: "/en/editor", display: "standalone" });
+  expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap:");
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  expect(sitemap).toContain("/uk/docs/add-exporter");
+  const og = await request.get("/en/opengraph-image");
+  expect(og.headers()["content-type"]).toBe("image/png");
+  expect((await request.get("/sw.js")).ok()).toBe(true);
+  await page.goto("/uk/guide");
+  await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute("href", /\/en\/guide$/);
+});

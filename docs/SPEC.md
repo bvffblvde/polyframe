@@ -363,7 +363,8 @@ interface ComponentDefinition<P> {
 ### Phase 3: Reach
 - More exporters (Mantine, Ant Design, Bootstrap, Chakra). Done: Bootstrap targets React Bootstrap, Chakra targets v3; every target is type-checked in `exporter-check`.
 - Product landing page and `/docs` (MDX): getting started, shortcuts, how to add a component, skin or exporter.
-- OG images, SEO, PWA (offline editor).
+- OG images, SEO, PWA (offline editor). Done: localized OG images, hreflang alternates, sitemap and robots, a web manifest and a service worker that serves the editor offline after the first visit. The site URL comes from `NEXT_PUBLIC_SITE_URL` (default `https://polyframe.vercel.app`).
+- Done before the landing: a first-visit product tour in the editor and a user guide at `/guide`.
 
 ### Phase 4: Ideas backlog
 - Auto-layout containers (flex/grid) for a cleaner export.

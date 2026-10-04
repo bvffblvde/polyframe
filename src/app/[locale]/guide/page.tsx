@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { localeAlternates } from "@/lib/site";
 import GuideEn from "@/content/guide/en.mdx";
 import GuideUk from "@/content/guide/uk.mdx";
 import { SiteFooter, SiteHeader } from "@/components/site-header";
@@ -10,7 +11,7 @@ const CONTENT = { en: GuideEn, uk: GuideUk } as const;
 export async function generateMetadata({ params }: PageProps<"/[locale]/guide">): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "guide" });
-  return { title: `${t("title")} · Polyframe`, description: t("description") };
+  return { title: `${t("title")} · Polyframe`, description: t("description"), alternates: localeAlternates(locale, "/guide") };
 }
 
 export default async function GuidePage({ params }: PageProps<"/[locale]/guide">) {
