@@ -22,6 +22,7 @@ import { useEditorStore } from "@/stores/editor-store";
 import { initProjects, startAutosave, useProjectsStore } from "@/stores/projects-store";
 import { Viewer } from "../viewer/viewer";
 import { Viewport } from "./canvas/viewport";
+import { ExportCodeDialog } from "./dialogs/export-code-dialog";
 import { ExportPngDialog } from "./dialogs/export-png-dialog";
 import { ProjectsDialog } from "./dialogs/projects-dialog";
 import { ShareDialog } from "./dialogs/share-dialog";
@@ -116,6 +117,7 @@ function Editor() {
       <DragOverlay dropAnimation={null}>{dragType && <PaletteDragPreview type={dragType} />}</DragOverlay>
       <ProjectsDialog />
       <ExportPngDialog />
+      <ExportCodeDialog />
       <ShortcutsDialog />
       <ShareDialog />
       <CommandPalette />

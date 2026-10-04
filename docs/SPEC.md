@@ -163,10 +163,11 @@ Switching mode or skin **never mutates the document data**. It only changes the 
   - Targets: **shadcn/ui + Tailwind** and **MUI** first, then Mantine, Ant Design, Bootstrap and Chakra.
   - Layout strategies:
     - *Absolute* (faithful to the canvas, wrapper with `position: relative`).
-    - *Stacked* (rows inferred by vertical-overlap clustering, then flex rows sorted by x; an approximation).
+    - *Stacked* (rows inferred by vertical-overlap clustering, then flex rows sorted by x; an approximation). Nodes fully inside a Box or Card are nested into that container and laid out relative to it.
   - The output is one `.tsx` component per artboard, formatted with Prettier, with an import list and a header comment listing the dependencies to install.
   - UI: a dialog with target and strategy selectors, a highlighted preview, copy and download buttons.
   - Each component definition supplies an exporter per target. If a target has no exporter for a component, the export falls back to a commented `<div>` placeholder with a warning.
+  - `exporter-check/` is a separate package that type-checks the generated code for every template, target and strategy against real shadcn/ui sources and MUI.
 
 ### 4.9 Sharing (Phase 2)
 - **Share** compresses the document into the URL hash: `#/share/<lz-string>`. Nothing is sent to a server.
@@ -352,7 +353,7 @@ interface ComponentDefinition<P> {
 
 ### Phase 2: Power features
 - Smart guides with distance labels, align and distribute.
-- Groups (`⌘G` / `⌘⇧G`).
+- Groups (`⌘G` / `⌘⇧G`). Group members share a `parentId` (the group id); there is no separate group node. Clicking a member on the canvas selects the whole group, the Layers panel selects single members.
 - **Code export: shadcn/ui + Tailwind and MUI**, with absolute and stacked strategies.
 - Share links and the viewer for them.
 - ⌘K command palette.

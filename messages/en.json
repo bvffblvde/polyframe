@@ -147,7 +147,8 @@
     "saving": "Saving...",
     "saveError": "Not saved",
     "share": "Share",
-    "command": "Command palette"
+    "command": "Command palette",
+    "exportCode": "Code..."
   },
   "modes": {
     "wireframe": "Wireframe",
@@ -509,5 +510,21 @@
     "exportJson": "Export JSON",
     "exportPng": "Export PNG...",
     "exportCode": "Export code..."
+  },
+  "exportCode": {
+    "title": "Export code",
+    "description": "One React component per artboard. Treat it as a starting point, not production code.",
+    "target": "Target",
+    "strategy": "Layout",
+    "absolute": "Absolute",
+    "stacked": "Stacked",
+    "artboard": "Artboard",
+    "copy": "Copy",
+    "copied": "Code copied",
+    "download": "Download .tsx",
+    "downloadAll": "All artboards (ZIP)",
+    "loading": "Generating...",
+    "warnings": "These layers have no exporter for this target and became placeholders: {list}",
+    "preview": "Code preview"
   }
 }

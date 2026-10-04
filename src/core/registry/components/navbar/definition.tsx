@@ -1,4 +1,5 @@
 import { PanelTop } from "lucide-react";
+import { navbarExporters } from "./exporters";
 import { defineComponent, list } from "../../types";
 import { NavbarRender } from "./render";
 import { navbarSchema } from "./schema";
@@ -18,4 +19,5 @@ export const navbarDefinition = defineComponent(navbarSchema)({
     showAvatar: false,
   }),
   Render: NavbarRender,
+  exporters: navbarExporters,
 });

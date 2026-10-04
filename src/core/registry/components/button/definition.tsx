@@ -1,4 +1,5 @@
 import { RectangleHorizontal } from "lucide-react";
+import { buttonExporters } from "./exporters";
 import { defineComponent } from "../../types";
 import { ButtonRender } from "./render";
 import { buttonSchema } from "./schema";
@@ -13,4 +14,5 @@ export const buttonDefinition = defineComponent(buttonSchema)({
   minSize: { w: 24, h: 20 },
   defaultProps: (t) => ({ label: t("button.label"), variant: "solid", size: "md", disabled: false }),
   Render: ButtonRender,
+  exporters: buttonExporters,
 });

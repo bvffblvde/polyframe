@@ -1,4 +1,5 @@
 import { SquareCheck } from "lucide-react";
+import { checkboxExporters } from "./exporters";
 import { defineComponent } from "../../types";
 import { CheckboxRender } from "./render";
 import { checkboxSchema } from "./schema";
@@ -13,4 +14,5 @@ export const checkboxDefinition = defineComponent(checkboxSchema)({
   minSize: { w: 20, h: 16 },
   defaultProps: (t) => ({ label: t("checkbox.label"), checked: true, disabled: false }),
   Render: CheckboxRender,
+  exporters: checkboxExporters,
 });

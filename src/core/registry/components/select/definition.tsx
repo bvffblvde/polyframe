@@ -1,4 +1,5 @@
 import { ChevronsUpDown } from "lucide-react";
+import { selectExporters } from "./exporters";
 import { defineComponent, list } from "../../types";
 import { SelectRender } from "./render";
 import { selectSchema } from "./schema";
@@ -19,4 +20,5 @@ export const selectDefinition = defineComponent(selectSchema)({
     disabled: false,
   }),
   Render: SelectRender,
+  exporters: selectExporters,
 });

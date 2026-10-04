@@ -1,4 +1,5 @@
 import { TriangleAlert } from "lucide-react";
+import { alertExporters } from "./exporters";
 import { defineComponent } from "../../types";
 import { AlertRender } from "./render";
 import { alertSchema } from "./schema";
@@ -13,4 +14,5 @@ export const alertDefinition = defineComponent(alertSchema)({
   minSize: { w: 80, h: 32 },
   defaultProps: (t) => ({ title: t("alert.title"), description: t("alert.description"), variant: "info" }),
   Render: AlertRender,
+  exporters: alertExporters,
 });

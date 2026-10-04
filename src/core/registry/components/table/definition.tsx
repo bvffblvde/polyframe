@@ -1,4 +1,5 @@
 import { Table } from "lucide-react";
+import { tableExporters } from "./exporters";
 import { defineComponent, list } from "../../types";
 import { TableRender } from "./render";
 import { tableSchema } from "./schema";
@@ -18,4 +19,5 @@ export const tableDefinition = defineComponent(tableSchema)({
     bordered: false,
   }),
   Render: TableRender,
+  exporters: tableExporters,
 });

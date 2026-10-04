@@ -1,4 +1,5 @@
 import { CircleDot } from "lucide-react";
+import { radioExporters } from "./exporters";
 import { defineComponent, list } from "../../types";
 import { RadioRender } from "./render";
 import { radioSchema } from "./schema";
@@ -19,4 +20,5 @@ export const radioDefinition = defineComponent(radioSchema)({
     disabled: false,
   }),
   Render: RadioRender,
+  exporters: radioExporters,
 });

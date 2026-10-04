@@ -34,3 +34,19 @@ jobs:
           name: playwright-report
           path: playwright-report
           retention-days: 7
+
+  exported-code:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm vitest run src/core/exporters
+        env:
+          EXPORT_FIXTURE_DIR: exporter-check/generated
+      - run: pnpm --dir exporter-check install --ignore-workspace
+      - run: pnpm --dir exporter-check check

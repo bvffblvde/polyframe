@@ -167,3 +167,22 @@ test("runs commands from the command palette", async ({ page }) => {
   await page.keyboard.press("Enter");
   await expect(nodes(page, "checkbox")).toHaveCount(1);
 });
+
+test("exports code for shadcn and MUI", async ({ page }) => {
+  await openEditor(page);
+  await page.getByTestId("palette-button").click();
+  await page.getByRole("button", { name: "Export" }).click();
+  await page.getByRole("menuitem", { name: "Code..." }).click();
+  const preview = page.getByTestId("code-preview");
+  await expect(preview).toContainText('from "@/components/ui/button"');
+  await expect(preview).toContainText("export default function Desktop1()");
+  await page.getByRole("combobox", { name: "Target" }).click();
+  await page.getByRole("option", { name: "MUI" }).click();
+  await expect(preview).toContainText('from "@mui/material"');
+  await page.getByRole("combobox", { name: "Layout" }).click();
+  await page.getByRole("option", { name: "Stacked" }).click();
+  await expect(preview).toContainText('flexDirection: "column"');
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download .tsx" }).click();
+  expect((await download).suggestedFilename()).toBe("Desktop1.tsx");
+});

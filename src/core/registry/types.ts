@@ -2,6 +2,7 @@ import type { FC } from "react";
 import type { LucideIcon } from "lucide-react";
 import type { z } from "zod";
 import type { ComponentType, Mode, Node, SkinId } from "../document/types";
+import type { ComponentExporters } from "../exporters/types";
 
 export type Translator = (key: string) => string;
 export type Category = "layout" | "inputs" | "typography" | "media" | "data";
@@ -25,6 +26,7 @@ export interface ComponentDefinition<P = Record<string, unknown>> {
   propsSchema: z.ZodType<P>;
   defaultProps: (t: Translator) => P;
   Render: FC<RenderProps<P>>;
+  exporters?: ComponentExporters<P>;
 }
 
 export type AnyDefinition = ComponentDefinition<Record<string, unknown>>;

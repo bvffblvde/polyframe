@@ -1,4 +1,5 @@
 import { PanelLeft } from "lucide-react";
+import { sidebarExporters } from "./exporters";
 import { defineComponent, list } from "../../types";
 import { SidebarRender } from "./render";
 import { sidebarSchema } from "./schema";
@@ -13,4 +14,5 @@ export const sidebarDefinition = defineComponent(sidebarSchema)({
   minSize: { w: 80, h: 80 },
   defaultProps: (t) => ({ title: t("sidebar.title"), items: list(t, "sidebar.items"), activeIndex: 0 }),
   Render: SidebarRender,
+  exporters: sidebarExporters,
 });

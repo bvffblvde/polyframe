@@ -192,6 +192,7 @@ export function Toolbar() {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem onSelect={() => openDialog("exportPng")}>{t("exportPng")}</DropdownMenuItem>
+            <DropdownMenuItem onSelect={() => openDialog("exportCode")}>{t("exportCode")}</DropdownMenuItem>
             <DropdownMenuItem onSelect={io.exportJson}>JSON</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

@@ -1,4 +1,5 @@
 import { Image } from "lucide-react";
+import { imageExporters } from "./exporters";
 import { defineComponent } from "../../types";
 import { ImageRender } from "./render";
 import { imageSchema } from "./schema";
@@ -13,4 +14,5 @@ export const imageDefinition = defineComponent(imageSchema)({
   minSize: { w: 16, h: 16 },
   defaultProps: () => ({ caption: "", rounded: false }),
   Render: ImageRender,
+  exporters: imageExporters,
 });
