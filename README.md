@@ -153,7 +153,8 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] Storybook matrix of components × skins × modes
 - [x] **v0.4**: Chakra, Fluent 2 and Radix Themes skins, custom skin editor with token import, SVG export, auto-layout stacks
 - [x] Grid containers
-- [ ] **Later**: context menu with layer actions on right click, more export targets, plugins
+- [x] Context menu with layer actions on right click
+- [ ] **Later**: more export targets, plugins
 
 Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).
 

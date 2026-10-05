@@ -401,14 +401,15 @@
     "ungrouped": "Ungrouped",
     "wrapped": "Wrapped in a stack",
     "unwrapped": "Stack removed",
-    "wrappedGrid": "Wrapped in a grid"
+    "wrappedGrid": "Wrapped in a grid",
+    "cut": "{count, plural, one {# item cut} other {# items cut}}"
   },
   "shortcuts": {
     "title": "Keyboard shortcuts",
     "description": "On Windows and Linux use Ctrl instead of ⌘.",
     "undoRedo": "Undo / Redo",
     "duplicateDelete": "Duplicate / Delete",
-    "copyPaste": "Copy / Paste",
+    "copyPaste": "Cut / Copy / Paste",
     "selectAll": "Select all in artboard",
     "nudge": "Nudge 1px / 10px or grid step",
     "zOrder": "Bring forward / Send backward",
@@ -768,5 +769,19 @@
       "font": "Font family"
     },
     "colorPicker": "Pick {name}"
+  },
+  "contextMenu": {
+    "cut": "Cut",
+    "copy": "Copy",
+    "paste": "Paste",
+    "order": "Order",
+    "layout": "Auto layout",
+    "align": "Align",
+    "selectAll": "Select all",
+    "lock": "Lock",
+    "unlock": "Unlock",
+    "hide": "Hide",
+    "show": "Show",
+    "label": "Layer actions"
   }
 }

@@ -31,6 +31,7 @@ import { registry } from "@/core/registry";
 import { cn } from "@/lib/utils";
 import { applyOp as apply, useDocumentStore } from "@/stores/document-store";
 import { useEditorStore } from "@/stores/editor-store";
+import { EditorContextMenu } from "../context-menu/editor-context-menu";
 import { useCommands } from "../use-commands";
 
 
@@ -57,9 +58,11 @@ export function LayersPanel() {
         </DropdownMenu>
       </div>
       <ScrollArea className="min-h-0 flex-1">
-        <div className="space-y-3 px-2 pb-4">
-          {order?.map((id) => <ArtboardLayers key={id} id={id} />)}
-        </div>
+        <EditorContextMenu>
+          <div className="min-h-full space-y-3 px-2 pb-4">
+            {order?.map((id) => <ArtboardLayers key={id} id={id} />)}
+          </div>
+        </EditorContextMenu>
       </ScrollArea>
     </div>
   );
@@ -195,6 +198,7 @@ const LayerRow = memo(function LayerRow({ id, grouped, depth }: { id: ID; groupe
   return (
     <li
       ref={setNodeRef}
+      data-layer-id={id}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
         "group flex items-center gap-1 rounded-md pr-1 pl-2 text-sm hover:bg-accent",

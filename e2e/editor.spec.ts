@@ -338,7 +338,9 @@ test("wraps cards in a grid container", async ({ page }) => {
   for (const t of ["card", "card", "card", "card"]) await page.getByTestId(`palette-${t}`).click();
   await page.getByTestId("canvas").focus();
   await page.keyboard.press("ControlOrMeta+a");
-  await page.getByRole("button", { name: "Wrap in grid" }).click();
+  await nodes(page, "card").last().click({ button: "right" });
+  await page.getByRole("menuitem", { name: "Auto layout" }).click();
+  await page.getByRole("menuitem", { name: "Wrap in grid" }).click();
   await expect(nodes(page, "grid")).toHaveCount(1);
   const columns = page.getByLabel("Columns");
   await columns.fill("2");
@@ -348,4 +350,30 @@ test("wraps cards in a grid container", async ({ page }) => {
   const ys = new Set(boxes.map((b) => b[1]));
   expect(xs.size).toBe(2);
   expect(ys.size).toBe(2);
+});
+
+test("context menu runs layer and canvas actions", async ({ page }) => {
+  await openEditor(page);
+  await page.getByTestId("palette-button").click();
+  await page.keyboard.press("Escape");
+  await nodes(page, "button").click({ button: "right" });
+  const menu = page.getByTestId("context-menu");
+  await expect(menu).toBeVisible();
+  await menu.getByRole("menuitem", { name: /Duplicate/ }).click();
+  await expect(nodes(page, "button")).toHaveCount(2);
+  await nodes(page, "button").last().click({ button: "right" });
+  await menu.getByRole("menuitem", { name: /^Hide/ }).click();
+  await expect(nodes(page, "button")).toHaveCount(1);
+  await nodes(page, "button").click({ button: "right" });
+  await menu.getByRole("menuitem", { name: /Copy/ }).click();
+  const canvas = await page.getByTestId("canvas").boundingBox();
+  if (!canvas) throw new Error("no canvas");
+  await page.mouse.click(canvas.x + 20, canvas.y + 20, { button: "right" });
+  await expect(menu.getByRole("menuitem", { name: /Select all/ })).toBeVisible();
+  await menu.getByRole("menuitem", { name: /Paste/ }).click();
+  await expect(nodes(page, "button")).toHaveCount(2);
+  await page.getByRole("tab", { name: "Layers" }).click();
+  await page.locator("[data-layer-id]").first().click({ button: "right" });
+  await menu.getByRole("menuitem", { name: /Delete/ }).click();
+  await expect(page.locator("[data-layer-id]")).toHaveCount(2);
 });

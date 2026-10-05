@@ -375,7 +375,7 @@ interface ComponentDefinition<P> {
 - More skins (Chakra, Fluent, Radix Themes), a custom skin editor, and import of design tokens.
 - SVG and Figma-compatible export. Done: every component has an SVG drawer in its folder (`svg.ts`) that uses only rect, circle, line, path and text, styled with the active skin tokens, so the file imports into Figma as editable layers.
 - Optional backend for cloud projects and collaboration.
-- Context menu (right click) on canvas layers and Layers panel rows. It shows the actions for the clicked selection, moved out of the Inspector's Actions section: copy, paste, duplicate, delete; bring forward, send backward, to front, to back; group, ungroup, wrap in stack or grid, unwrap, remove from container; lock, hide; align and distribute for several layers. Right click on empty canvas offers paste, select all and add artboard. Shortcuts are shown next to each item. Built with the shadcn/ui context menu (Radix), reachable from the keyboard with Shift+F10 or the Menu key, labels in both languages.
+- Context menu (right click) on canvas layers and Layers panel rows. It shows the actions for the clicked selection, moved out of the Inspector's Actions section: copy, paste, duplicate, delete; bring forward, send backward, to front, to back; group, ungroup, wrap in stack or grid, unwrap, remove from container; lock, hide; align and distribute for several layers. Right click on empty canvas offers paste, select all and add artboard. Shortcuts are shown next to each item. Built with the shadcn/ui context menu (Radix), reachable from the keyboard with Shift+F10 or the Menu key, labels in both languages. Done: the Inspector keeps the Align section, all other layer actions moved to the context menu.
 
 ---
 

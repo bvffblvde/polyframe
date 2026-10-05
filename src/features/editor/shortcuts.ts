@@ -62,6 +62,8 @@ export function useShortcuts(cmd: ReturnType<typeof useCommands>) {
             return run(cmd.duplicate);
           case "KeyC":
             return run(cmd.copy);
+          case "KeyX":
+            return run(cmd.cut);
           case "KeyV":
             return run(cmd.paste);
           case "KeyA":

@@ -265,3 +265,13 @@ export function removeFromStack() {
   const ids = ed().selection;
   apply((p) => setParent(p, ids, undefined));
 }
+
+export function setLocked(locked: boolean) {
+  const ids = ed().selection;
+  if (ids.length) apply((p) => ops.updateNodes(p, ids, { locked }));
+}
+
+export function setHidden(hidden: boolean) {
+  const ids = ed().selection;
+  if (ids.length) apply((p) => ops.updateNodes(p, ids, { hidden }));
+}

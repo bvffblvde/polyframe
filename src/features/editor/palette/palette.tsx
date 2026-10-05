@@ -6,6 +6,7 @@ import { memo, useMemo, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { ComponentType, Mode, SkinChoice, SkinId } from "@/core/document/types";
+import { LAYOUT_TYPES } from "@/core/document/autolayout";
 import { CATEGORIES, registry, searchDefinitions, type AnyDefinition } from "@/core/registry";
 import { ArtboardRoot } from "../canvas/artboard-root";
 import { useViewSettings } from "../canvas/use-view-settings";
@@ -110,6 +111,14 @@ export const Thumb = memo(function Thumb({ type, mode, skin, structure }: { type
     () => ({ id: "thumb", type, artboardId: "", name: "", x: 0, y: 0, w, h, locked: false, hidden: false, opacity: 1, props }),
     [type, w, h, props],
   );
+  if (LAYOUT_TYPES.has(type)) {
+    const Icon = def.icon;
+    return (
+      <span className="pointer-events-none flex h-14 items-center justify-center rounded-sm border border-dashed border-violet-400/60 bg-muted/50 text-violet-500" aria-hidden>
+        <Icon className="size-6" />
+      </span>
+    );
+  }
   return (
     <span className="pointer-events-none flex h-14 items-center justify-center overflow-hidden rounded-sm bg-muted/50" aria-hidden>
       <span style={{ width: w * scale, height: h * scale }} className="relative block">

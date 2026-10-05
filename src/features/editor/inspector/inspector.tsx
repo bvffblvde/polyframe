@@ -9,17 +9,7 @@ import {
   AlignStartHorizontal,
   AlignStartVertical,
   AlignVerticalDistributeCenter,
-  ArrowDownToLine,
-  ArrowUpToLine,
-  ChevronDown,
-  ChevronUp,
-  Copy,
-  Group,
-  LayoutGrid,
-  Rows3,
-  SquareDashed,
   Trash2,
-  Ungroup,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useShallow } from "zustand/react/shallow";
@@ -44,7 +34,6 @@ import { layoutParent } from "@/core/document/autolayout";
 import { applyOp as apply, useDocumentStore } from "@/stores/document-store";
 import { useEditorStore } from "@/stores/editor-store";
 import * as commands from "../commands";
-import { useCommands } from "../use-commands";
 import { NumberField, Section, SelectField, SwitchField, TextField } from "./fields";
 import { SchemaForm } from "./schema-form";
 import { skinOptions } from "../skin-options";
@@ -125,7 +114,6 @@ function NodeInspector({ id }: { id: ID }) {
       </Section>
       <StyleSection nodes={[node]} />
       <AlignSection count={1} />
-      <ActionsSection />
     </>
   );
 }
@@ -143,7 +131,6 @@ function MultiInspector({ ids }: { ids: ID[] }) {
       </Section>
       <StyleSection nodes={nodes} />
       <AlignSection count={nodes.length} />
-      <ActionsSection />
     </>
   );
 }
@@ -278,88 +265,6 @@ function AlignSection({ count }: { count: number }) {
               <a.icon aria-hidden />
             </Button>
           ))}
-      </div>
-    </Section>
-  );
-}
-
-function ActionsSection() {
-  const t = useTranslations("inspector");
-  const cmd = useCommands();
-  const actions = [
-    { label: t("bringToFront"), icon: ArrowUpToLine, run: () => commands.reorder("front") },
-    { label: t("bringForward"), icon: ChevronUp, run: () => commands.reorder("forward") },
-    { label: t("sendBackward"), icon: ChevronDown, run: () => commands.reorder("backward") },
-    { label: t("sendToBack"), icon: ArrowDownToLine, run: () => commands.reorder("back") },
-  ];
-  return (
-    <Section title={t("actions")}>
-      <div className="flex gap-1">
-        {actions.map((a) => (
-          <Button
-            key={a.label}
-            variant="outline"
-            size="icon"
-            aria-label={a.label}
-            title={a.label}
-            onClick={a.run}
-          >
-            <a.icon aria-hidden />
-          </Button>
-        ))}
-      </div>
-      <div className="flex flex-wrap gap-2">
-        <Button variant="outline" size="sm" onClick={cmd.duplicate}>
-          <Copy aria-hidden /> {t("duplicate")}
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label={t("group")}
-          title={t("group")}
-          onClick={cmd.group}
-        >
-          <Group aria-hidden />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label={t("ungroup")}
-          title={t("ungroup")}
-          onClick={cmd.ungroup}
-        >
-          <Ungroup aria-hidden />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label={t("wrapInStack")}
-          title={`${t("wrapInStack")} (⇧A)`}
-          onClick={cmd.wrap}
-        >
-          <Rows3 aria-hidden />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label={t("wrapInGrid")}
-          title={t("wrapInGrid")}
-          onClick={cmd.wrapGrid}
-        >
-          <LayoutGrid aria-hidden />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          aria-label={t("unwrapLayout")}
-          title={t("unwrapLayout")}
-          onClick={cmd.ungroup}
-        >
-          <SquareDashed aria-hidden />
-        </Button>
-        <Button variant="outline" size="sm" onClick={cmd.remove} className="text-destructive">
-          <Trash2 aria-hidden /> {t("delete")}
-        </Button>
       </div>
     </Section>
   );

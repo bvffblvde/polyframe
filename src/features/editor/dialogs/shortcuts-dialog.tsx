@@ -7,7 +7,7 @@ import { useEditorStore } from "@/stores/editor-store";
 const ROWS: [string, string][] = [
   ["undoRedo", "⌘Z / ⌘⇧Z"],
   ["duplicateDelete", "⌘D / Del"],
-  ["copyPaste", "⌘C / ⌘V"],
+  ["copyPaste", "⌘X / ⌘C / ⌘V"],
   ["selectAll", "⌘A"],
   ["group", "⌘G / ⌘⇧G"],
   ["wrap", "⇧A"],

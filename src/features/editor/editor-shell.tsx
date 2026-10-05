@@ -29,6 +29,7 @@ import { ExportPngDialog } from "./dialogs/export-png-dialog";
 import { ProjectsDialog } from "./dialogs/projects-dialog";
 import { ShareDialog } from "./dialogs/share-dialog";
 import { CommandPalette } from "./command-palette/command-palette";
+import { EditorContextMenu } from "./context-menu/editor-context-menu";
 import { Tour } from "./tour/tour";
 import { tourDone } from "./tour/steps";
 import { ShortcutsDialog } from "./dialogs/shortcuts-dialog";
@@ -117,7 +118,11 @@ function Editor() {
             </Tabs>
           </aside>
           <main className="min-w-0 flex-1" data-tour="canvas">
-            <CanvasDropZone />
+            <EditorContextMenu>
+              <div className="size-full">
+                <CanvasDropZone />
+              </div>
+            </EditorContextMenu>
           </main>
           <aside className="w-72 shrink-0 border-l bg-background" aria-label={t("panels.inspector")} data-tour="inspector">
             <Inspector />

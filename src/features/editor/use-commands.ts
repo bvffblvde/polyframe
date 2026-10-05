@@ -26,6 +26,11 @@ export function useCommands() {
       remove: () => count("announce.deleted", commands.deleteSelection()),
       duplicate: () => count("announce.duplicated", commands.duplicateSelection()),
       copy: () => count("announce.copied", commands.copySelection()),
+      cut() {
+        const n = commands.copySelection();
+        commands.deleteSelection();
+        count("announce.cut", n);
+      },
       paste: () => count("announce.pasted", commands.paste()),
       selectAll: () => count("announce.selected", commands.selectAll()),
       undo() {
