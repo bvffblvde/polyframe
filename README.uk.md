@@ -153,7 +153,7 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] Storybook: компоненти × скіни × режими
 - [x] **v0.4**: скіни Chakra, Fluent 2 і Radix Themes, редактор скінів з імпортом токенів, експорт у SVG, стеки з автолейаутом
 - [x] Grid-контейнери
-- [ ] **Згодом**: нові цілі експорту, плагіни
+- [ ] **Згодом**: контекстне меню з діями для шарів по правому кліку, нові цілі експорту, плагіни
 
 Є ідея? [Відкрийте обговорення](https://github.com/bvffblvde/polyframe/discussions).
 
