@@ -116,6 +116,7 @@ export function CommandPalette() {
                   <Palette aria-hidden />,
                 ),
               )}
+              {item("wrap", t("command.wrap"), cmd.wrap, <Layers aria-hidden />, "⇧A")}
               {item(
                 "customSkin",
                 t("skinEditor.open"),

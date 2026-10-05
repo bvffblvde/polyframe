@@ -45,6 +45,7 @@ export const COMPONENT_TYPES = [
   "tabs",
   "alert",
   "progress",
+  "stack",
 ] as const;
 export type ComponentType = (typeof COMPONENT_TYPES)[number];
 

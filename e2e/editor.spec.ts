@@ -155,7 +155,7 @@ test("runs commands from the command palette", async ({ page }) => {
   await openEditor(page);
   await page.keyboard.press("ControlOrMeta+k");
   await page.getByPlaceholder("Type a command or search...").fill("skin: mui");
-  await page.keyboard.press("Enter");
+  await page.getByRole("option", { name: "Skin: MUI" }).click();
   const root = page.locator("[data-export-root]").first();
   await expect(root).toHaveAttribute("data-skin", "mui");
   await expect(root).toHaveAttribute("data-mode", "styled");
@@ -298,4 +298,37 @@ test("exports a vector SVG", async ({ page }) => {
   expect(svg).toContain("<svg");
   expect(svg).toContain("Welcome back");
   (await import("node:fs")).writeFileSync("test-results/login.svg", svg);
+});
+
+test("wraps layers in an auto-layout stack and drops new layers into it", async ({ page }) => {
+  await openEditor(page);
+  await page.getByTestId("palette-button").click();
+  await page.getByTestId("palette-badge").click();
+  await page.getByTestId("canvas").focus();
+  await page.keyboard.press("ControlOrMeta+a");
+  await page.keyboard.press("Shift+A");
+  const stack = nodes(page, "stack");
+  await expect(stack).toHaveCount(1);
+  await expect(page.getByLabel("Direction")).toBeVisible();
+  const [b, g] = await Promise.all([nodes(page, "button").boundingBox(), nodes(page, "badge").boundingBox()]);
+  expect(Math.abs((b?.y ?? 0) - (g?.y ?? 1)) < 1 || Math.abs((b?.x ?? 0) - (g?.x ?? 1)) < 1).toBe(true);
+
+  await page.keyboard.press("Escape");
+  await page.getByTestId("palette-avatar").click();
+  const avatar = nodes(page, "avatar");
+  const from = await avatar.boundingBox();
+  const target = await stack.boundingBox();
+  if (!from || !target) throw new Error("missing boxes");
+  await page.mouse.move(from.x + from.width / 2, from.y + from.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(target.x + target.width - 4, target.y + target.height / 2, { steps: 12 });
+  await page.mouse.up();
+  await avatar.click();
+  await expect(page.getByText("Position and order are set by the stack.")).toBeVisible();
+
+  await page.getByRole("tab", { name: "Layers" }).click();
+  await page.getByRole("button", { name: "Stack", exact: true }).click();
+  await page.keyboard.press("ControlOrMeta+Shift+g");
+  await expect(stack).toHaveCount(0);
+  await expect(nodes(page, "avatar")).toHaveCount(1);
 });

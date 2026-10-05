@@ -1,5 +1,6 @@
 import { create, useStore } from "zustand";
 import { temporal } from "zundo";
+import { applyAutoLayout } from "@/core/document/autolayout";
 import type { Project } from "@/core/document/types";
 
 interface DocumentState {
@@ -15,11 +16,11 @@ export const useDocumentStore = create<DocumentState>()(
       apply: (op) => {
         const p = get().project;
         if (!p) return;
-        const next = op(p);
+        const next = applyAutoLayout(op(p));
         if (next !== p) set({ project: next });
       },
       load: (project) => {
-        set({ project });
+        set({ project: applyAutoLayout(project) });
         useDocumentStore.temporal.getState().clear();
       },
     }),

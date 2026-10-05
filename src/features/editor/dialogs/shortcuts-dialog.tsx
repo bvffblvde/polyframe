@@ -10,6 +10,7 @@ const ROWS: [string, string][] = [
   ["copyPaste", "⌘C / ⌘V"],
   ["selectAll", "⌘A"],
   ["group", "⌘G / ⌘⇧G"],
+  ["wrap", "⇧A"],
   ["nudge", "↑↓←→ / ⇧ + ↑↓←→"],
   ["zOrder", "⌘] / ⌘["],
   ["zOrderEdge", "⌘⇧] / ⌘⇧["],

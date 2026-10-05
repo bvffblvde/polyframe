@@ -1,3 +1,4 @@
+import { isStack, setParent, unwrapStack, wrapInStack } from "@/core/document/autolayout";
 import { newArtboard } from "@/core/document/factory";
 import * as ops from "@/core/document/ops";
 import type { ArtboardPreset, ComponentType, ID, Mode, Node, ProjectSettings, Rect } from "@/core/document/types";
@@ -237,6 +238,29 @@ export function group(): boolean {
 
 export function ungroup(): boolean {
   const before = doc().project;
-  apply((p) => ops.ungroupNodes(p, ed().selection));
+  const stacks = ed().selection.filter((id) => isStack(before?.nodes[id]));
+  apply((p) => {
+    let next = ops.ungroupNodes(p, ed().selection);
+    for (const id of stacks) next = unwrapStack(next, id);
+    return next;
+  });
+  if (stacks.length) ed().select(ed().selection.filter((id) => !stacks.includes(id)));
   return doc().project !== before;
+}
+
+export function wrapSelectionInStack(t: Translator, name: string): boolean {
+  const p = doc().project;
+  const ids = ed().selection.filter((id) => p?.nodes[id]);
+  if (!p || !ids.length) return false;
+  const artboardId = p.nodes[ids[0]].artboardId;
+  const stack = createNode({ id: newId(), type: "stack", artboardId, rect: { x: 0, y: 0, w: 1, h: 1 }, name, t });
+  const members = ops.groupMembers(p, ids).filter((id) => p.nodes[id].artboardId === artboardId);
+  apply((pr) => wrapInStack(setParent(pr, members, undefined), members, stack));
+  ed().select([stack.id]);
+  return true;
+}
+
+export function removeFromStack() {
+  const ids = ed().selection;
+  apply((p) => setParent(p, ids, undefined));
 }

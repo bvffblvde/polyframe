@@ -3,6 +3,7 @@ import path from "node:path";
 import { format } from "prettier";
 import { describe, expect, it } from "vitest";
 import en from "../../../messages/en.json";
+import { applyAutoLayout, setParent } from "../document/autolayout";
 import { addNodes, createProject } from "../document/ops";
 import { COMPONENT_TYPES } from "../document/types";
 import { definitions, registry } from "../registry";
@@ -35,7 +36,17 @@ function everything() {
   nodes.push({ ...nodes[0], id: "x1", hidden: false, opacity: 0.5, style: { colorRole: "danger" }, props: { ...nodes[0].props } });
   const button = nodes.find((n) => n.type === "button");
   if (button) nodes.push({ ...button, id: "x2", style: { colorRole: "danger" }, props: { ...button.props, variant: "outline", size: "lg", disabled: true } });
-  return addNodes(createProject({ id: "p", name: "All", now: "", artboard: makeArtboard("a1", { name: "All components" }) }), nodes);
+  const stack = createNode({ id: "st", type: "stack", artboardId: "a1", rect: { x: 0, y: 900, w: 600, h: 100 }, name: "stack", t: defaults });
+  stack.props = { ...stack.props, align: "stretch", background: "surface" };
+  const inner = createNode({ id: "st2", type: "stack", artboardId: "a1", rect: { x: 0, y: 0, w: 200, h: 80 }, name: "inner", t: defaults });
+  inner.props = { ...inner.props, direction: "column", hug: true };
+  const kids = ["button", "badge", "input"].map((type, i) =>
+    createNode({ id: `k${i}`, type: type as (typeof COMPONENT_TYPES)[number], artboardId: "a1", rect: { x: 0, y: 0, ...registry[type as "button"].defaultSize }, name: type, t: defaults }),
+  );
+  let p = addNodes(createProject({ id: "p", name: "All", now: "", artboard: makeArtboard("a1", { name: "All components" }) }), [...nodes, stack, inner, ...kids]);
+  p = setParent(p, ["k0", "st2"], "st");
+  p = setParent(p, ["k1", "k2"], "st2");
+  return applyAutoLayout(p);
 }
 
 const pretty = (code: string) => format(code, { parser: "typescript", printWidth: 100 });
@@ -75,6 +86,17 @@ describe("project generation", () => {
     const [mui] = generateProjectCode(templates[0], "mui", "stacked");
     expect(await pretty(shadcn.code)).toMatchSnapshot();
     expect(await pretty(mui.code)).toMatchSnapshot();
+  });
+
+  it("nests stack children as flex items", async () => {
+    for (const target of EXPORT_TARGETS) {
+      const [file] = generateProjectCode(everything(), target, "absolute");
+      const code = await pretty(file.code);
+      expect(file.warnings).toEqual([]);
+      expect(code.split("\n").filter((l) => /flexShrink|shrink-0/.test(l)).length, target).toBeGreaterThanOrEqual(4);
+    }
+    const [shadcn] = generateProjectCode(everything(), "shadcn", "stacked");
+    expect(shadcn.code).toContain("flex flex-col gap-[8px]");
   });
 
   it("skips hidden nodes and makes names unique", () => {

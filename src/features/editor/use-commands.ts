@@ -42,6 +42,9 @@ export function useCommands() {
       ungroup() {
         if (commands.ungroup()) announce(t("announce.ungrouped"));
       },
+      wrap() {
+        if (commands.wrapSelectionInStack(defaults, t("components.stack"))) announce(t("announce.wrapped"));
+      },
       toggleMode() {
         const mode = commands.toggleMode();
         if (mode) announce(t("announce.mode", { mode: t(`modes.${mode}`) }));

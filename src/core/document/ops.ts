@@ -159,12 +159,19 @@ export function removeNodes(p: Project, ids: ID[]): Project {
     const a = artboards[n.artboardId];
     if (a) artboards[n.artboardId] = { ...a, childOrder: a.childOrder.filter((x) => !set.has(x)) };
   }
+  for (const n of Object.values(nodes)) {
+    if (n.parentId && set.has(n.parentId)) {
+      const c = { ...n };
+      delete c.parentId;
+      nodes[n.id] = c;
+    }
+  }
   return dissolveSingletonGroups({ ...p, nodes, artboards });
 }
 
 function dissolveSingletonGroups(p: Project): Project {
   const counts = new Map<ID, ID[]>();
-  for (const n of Object.values(p.nodes)) if (n.parentId) counts.set(n.parentId, [...(counts.get(n.parentId) ?? []), n.id]);
+  for (const n of Object.values(p.nodes)) if (n.parentId && !p.nodes[n.parentId]) counts.set(n.parentId, [...(counts.get(n.parentId) ?? []), n.id]);
   const lonely = [...counts.values()].filter((ids) => ids.length < 2).flat();
   if (!lonely.length) return p;
   const nodes = { ...p.nodes };
@@ -176,8 +183,12 @@ function dissolveSingletonGroups(p: Project): Project {
   return { ...p, nodes };
 }
 
+export function isGroupId(p: Project, id: ID | undefined): id is ID {
+  return Boolean(id) && !p.nodes[id as ID];
+}
+
 export function groupMembers(p: Project, ids: ID[]): ID[] {
-  const groups = new Set(ids.map((id) => p.nodes[id]?.parentId).filter((g): g is ID => Boolean(g)));
+  const groups = new Set(ids.map((id) => p.nodes[id]?.parentId).filter((g) => isGroupId(p, g)));
   const out = new Set(ids.filter((id) => p.nodes[id]));
   if (groups.size) for (const n of Object.values(p.nodes)) if (n.parentId && groups.has(n.parentId)) out.add(n.id);
   return [...out];
@@ -200,7 +211,7 @@ export function groupNodes(p: Project, ids: ID[], groupId: ID): Project {
 }
 
 export function ungroupNodes(p: Project, ids: ID[]): Project {
-  const groups = new Set(ids.map((id) => p.nodes[id]?.parentId).filter((g): g is ID => Boolean(g)));
+  const groups = new Set(ids.map((id) => p.nodes[id]?.parentId).filter((g) => isGroupId(p, g)));
   if (!groups.size) return p;
   const nodes = { ...p.nodes };
   for (const n of Object.values(p.nodes)) {
@@ -223,14 +234,17 @@ export function cloneNodesInto(
   if (!p.artboards[artboardId]) return { project: p, ids: [] };
   const groupMap = new Map<ID, ID>();
   const groupCounts = new Map<ID, number>();
-  for (const n of source) if (n.parentId) groupCounts.set(n.parentId, (groupCounts.get(n.parentId) ?? 0) + 1);
+  const idMap = new Map<ID, ID>(source.map((n) => [n.id, genId()]));
+  for (const n of source) if (isGroupId(p, n.parentId)) groupCounts.set(n.parentId, (groupCounts.get(n.parentId) ?? 0) + 1);
   const clones = source.map((n) => {
     let parentId: ID | undefined;
-    if (n.parentId && (groupCounts.get(n.parentId) ?? 0) > 1) {
+    if (n.parentId && idMap.has(n.parentId)) parentId = idMap.get(n.parentId);
+    else if (n.parentId && p.nodes[n.parentId]?.artboardId === artboardId) parentId = n.parentId;
+    else if (isGroupId(p, n.parentId) && (groupCounts.get(n.parentId) ?? 0) > 1) {
       if (!groupMap.has(n.parentId)) groupMap.set(n.parentId, genId());
       parentId = groupMap.get(n.parentId);
     }
-    const c: Node = { ...structuredClone(n), id: genId(), artboardId, x: n.x + offset, y: n.y + offset };
+    const c: Node = { ...structuredClone(n), id: idMap.get(n.id) ?? genId(), artboardId, x: n.x + offset, y: n.y + offset };
     if (parentId) c.parentId = parentId;
     else delete c.parentId;
     return c;

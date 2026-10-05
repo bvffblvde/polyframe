@@ -18,6 +18,7 @@ export interface ExportChunk {
 export interface ExportCtx {
   target: ExportTarget;
   uid: string;
+  children?: string;
 }
 
 export type ComponentExporter<P = Record<string, unknown>> = (node: Node & { props: P }, ctx: ExportCtx) => ExportChunk;

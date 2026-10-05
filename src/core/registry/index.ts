@@ -19,6 +19,7 @@ import { radioDefinition } from "./components/radio/definition";
 import { selectDefinition } from "./components/select/definition";
 import { sidebarDefinition } from "./components/sidebar/definition";
 import { sliderDefinition } from "./components/slider/definition";
+import { stackDefinition } from "./components/stack/definition";
 import { switchDefinition } from "./components/switch/definition";
 import { tableDefinition } from "./components/table/definition";
 import { tabsDefinition } from "./components/tabs/definition";
@@ -50,6 +51,7 @@ export const registry: Record<ComponentType, AnyDefinition> = {
   tabs: tabsDefinition,
   alert: alertDefinition,
   progress: progressDefinition,
+  stack: stackDefinition,
 };
 
 export const definitions: AnyDefinition[] = Object.values(registry);

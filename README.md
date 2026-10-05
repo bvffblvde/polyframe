@@ -61,10 +61,11 @@ Polyframe keeps **one layout** and lets you see it in **many visual languages**,
 - Infinite pan & zoom canvas with **artboards** (Desktop, Laptop, Tablet, Mobile, custom)
 - Free drag or **grid snap** (4 / 8 / 16 px), **smart guides** with distance labels
 - Multi-select, marquee, resize with handles, align & distribute, z-order, groups
+- Auto-layout stacks (⇧A) that export as real flex containers
 - Undo/redo for every gesture
 
-**Components (24 and growing)**
-`Box` `Card` `Divider` `Navbar` `Sidebar` · `Button` `Input` `Textarea` `Select` `Checkbox` `Radio` `Switch` `Slider` · `Heading` `Text` `Link` `Badge` · `Image` `Avatar` `Icon` · `Table` `Tabs` `Alert` `Progress`
+**Components (25 and growing)**
+`Box` `Card` `Divider` `Navbar` `Sidebar` · `Button` `Input` `Textarea` `Select` `Checkbox` `Radio` `Switch` `Slider` · `Heading` `Text` `Link` `Badge` · `Image` `Avatar` `Icon` · `Table` `Tabs` `Alert` `Progress` · `Stack`
 
 **Inspector & layers**
 - Property panel generated from each component's schema
@@ -150,7 +151,8 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] **v0.2**: code export (shadcn/ui, MUI), share links, ⌘K, smart guides, groups, templates
 - [x] **v0.3**: Mantine / Ant / Bootstrap / Chakra exporters, product tour and user guide, landing page, docs site, SEO and OG images, PWA (offline editor)
 - [x] Storybook matrix of components × skins × modes
-- [ ] **Later**: auto-layout containers, custom skin editor, token import, SVG export
+- [x] **v0.4**: Chakra, Fluent 2 and Radix Themes skins, custom skin editor with token import, SVG export, auto-layout stacks
+- [ ] **Later**: grid containers, more export targets, plugins
 
 Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).
 

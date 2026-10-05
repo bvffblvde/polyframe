@@ -87,6 +87,7 @@ export function useShortcuts(cmd: ReturnType<typeof useCommands>) {
       if (e.key === "Delete" || e.key === "Backspace") return run(cmd.remove);
       if (e.key === "Escape") return run(commands.clearSelection);
       if (e.key === "?" || (e.code === "Slash" && e.shiftKey)) return run(() => ed.set({ dialog: "shortcuts" }));
+      if (e.code === "KeyA" && e.shiftKey) return run(cmd.wrap);
       if (e.code === "KeyG") return run(cmd.toggleSnap);
       if (e.code === "KeyM") return run(cmd.toggleMode);
       const arrow = ARROWS[e.key];

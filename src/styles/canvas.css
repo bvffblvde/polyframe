@@ -88,6 +88,17 @@
   border-style: dashed;
 }
 
+.pf-stack[data-background="surface"] {
+  background: var(--pf-surface);
+  border: var(--pf-stroke) solid var(--pf-border);
+  border-radius: var(--pf-r-lg);
+  box-shadow: var(--pf-sh, none);
+}
+.pf-stack[data-background="muted"] {
+  background: var(--pf-muted-bg);
+  border-radius: var(--pf-r-lg);
+}
+
 .pf-btn-wrap > .pf-btn {
   flex: 1;
   height: 100%;

@@ -24,8 +24,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { groupMembers, moveNodeToIndex, updateNode } from "@/core/document/ops";
-import { ARTBOARD_PRESETS, type ID } from "@/core/document/types";
+import { descendants, stackChildren, stackParent } from "@/core/document/autolayout";
+import { groupMembers, isGroupId, moveNodeToIndex, updateNode } from "@/core/document/ops";
+import { ARTBOARD_PRESETS, type ID, type Project } from "@/core/document/types";
 import { registry } from "@/core/registry";
 import { cn } from "@/lib/utils";
 import { applyOp as apply, useDocumentStore } from "@/stores/document-store";
@@ -64,23 +65,58 @@ export function LayersPanel() {
   );
 }
 
+interface Row {
+  id: ID;
+  depth: number;
+  top: ID;
+  group?: ID;
+}
+
+function layerRows(p: Project, artboardId: ID): Row[] {
+  const a = p.artboards[artboardId];
+  if (!a) return [];
+  const rows: Row[] = [];
+  const walk = (id: ID, depth: number, top: ID) => {
+    const n = p.nodes[id];
+    rows.push({ id, depth, top, group: isGroupId(p, n.parentId) ? n.parentId : undefined });
+    for (const c of stackChildren(p, id)) walk(c, depth + 1, top);
+  };
+  for (const id of [...a.childOrder].reverse()) {
+    const n = p.nodes[id];
+    if (n && !stackParent(p, n)) walk(id, 0, id);
+  }
+  return rows;
+}
+
 function ArtboardLayers({ id }: { id: ID }) {
   const t = useTranslations("layers");
   const a = useDocumentStore((s) => s.project?.artboards[id]);
   const active = useEditorStore((s) => s.activeArtboardId === id);
-  const parents = useDocumentStore(
-    useShallow((s) => [...(s.project?.artboards[id]?.childOrder ?? [])].reverse().map((nid) => s.project?.nodes[nid]?.parentId)),
+  const encoded = useDocumentStore(
+    useShallow((s) => (s.project ? layerRows(s.project, id).map((r) => `${r.id}|${r.depth}|${r.top}|${r.group ?? ""}`) : [])),
   );
+  const rows: Row[] = encoded.map((e) => {
+    const [rid, depth, top, group] = e.split("|");
+    return { id: rid, depth: Number(depth), top, group: group || undefined };
+  });
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
   if (!a) return null;
-  const items = [...a.childOrder].reverse();
+  const items = rows.map((r) => r.id);
   const onDragEnd = (e: DragEndEvent) => {
     if (!e.over || e.active.id === e.over.id) return;
-    const to = items.indexOf(String(e.over.id));
-    apply((p) => moveNodeToIndex(p, String(e.active.id), a.childOrder.length - 1 - to));
+    const from = rows.find((r) => r.id === e.active.id);
+    const over = rows.find((r) => r.id === e.over?.id);
+    if (!from || !over || from.depth > 0 || over.top === from.id) return;
+    const up = rows.indexOf(over) < rows.indexOf(from);
+    apply((p) => {
+      const order = p.artboards[id].childOrder.filter((x) => x !== from.id);
+      const start = order.indexOf(over.top);
+      const end = start + 1 + descendants(p, over.top).length;
+      return moveNodeToIndex(p, from.id, up ? end : start);
+    });
   };
   return (
     <div>
@@ -95,16 +131,16 @@ function ArtboardLayers({ id }: { id: ID }) {
         <Frame className="size-4 shrink-0" aria-hidden />
         <span className="truncate">{a.name}</span>
       </button>
-      {items.length === 0 ? (
+      {rows.length === 0 ? (
         <p className="px-8 py-1 text-xs text-muted-foreground">{t("empty")}</p>
       ) : (
         <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
           <SortableContext items={items} strategy={verticalListSortingStrategy}>
             <ul className="mt-0.5 space-y-px">
-              {items.map((nid, i) => (
-                <Fragment key={nid}>
-                  {parents[i] && parents[i] !== parents[i - 1] && <GroupHeader memberId={nid} />}
-                  <LayerRow id={nid} grouped={Boolean(parents[i])} />
+              {rows.map((r, i) => (
+                <Fragment key={r.id}>
+                  {r.group && r.group !== rows[i - 1]?.group && <GroupHeader memberId={r.id} />}
+                  <LayerRow id={r.id} grouped={Boolean(r.group)} depth={r.depth} />
                 </Fragment>
               ))}
             </ul>
@@ -136,12 +172,12 @@ function GroupHeader({ memberId }: { memberId: ID }) {
   );
 }
 
-const LayerRow = memo(function LayerRow({ id, grouped }: { id: ID; grouped: boolean }) {
+const LayerRow = memo(function LayerRow({ id, grouped, depth }: { id: ID; grouped: boolean; depth: number }) {
   const t = useTranslations("layers");
   const node = useDocumentStore((s) => s.project?.nodes[id]);
   const selected = useEditorStore((s) => s.selection.includes(id));
   const [editing, setEditing] = useState(false);
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id, disabled: depth > 0 });
   if (!node) return null;
   const Icon = registry[node.type].icon;
   const select = (shift: boolean) => {
@@ -163,6 +199,7 @@ const LayerRow = memo(function LayerRow({ id, grouped }: { id: ID; grouped: bool
       className={cn(
         "group flex items-center gap-1 rounded-md pr-1 pl-2 text-sm hover:bg-accent",
         grouped && "ml-4 border-l",
+        ["", "ml-4", "ml-8", "ml-12"][Math.min(depth, 3)],
         selected && "bg-sky-100 hover:bg-sky-100 dark:bg-sky-950",
         isDragging && "relative z-10 opacity-80",
         node.hidden && "text-muted-foreground",

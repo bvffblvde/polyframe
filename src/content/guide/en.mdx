@@ -66,6 +66,17 @@ With layers selected, the Inspector shows **Align** buttons: left, center, right
 
 The order buttons bring layers forward or backward, or all the way to the front or back. The shortcuts are **⌘]** and **⌘[**, plus **Shift** for front and back.
 
+### Auto layout with stacks
+
+A **Stack** arranges its layers in a row or a column, like flexbox. Select a few layers and press **Shift + A** to wrap them in a stack: Polyframe picks the direction and gap from their current positions. You can also insert an empty Stack from the palette.
+
+- Drag a layer onto a stack to add it. The stack is highlighted and the layer lands between the nearest siblings. Drag it out to take it back out.
+- In the Inspector, set the direction, gap, padding, alignment (start, center, end or stretch), distribution (start, center, end or space between), a background, and **Hug contents** to size the stack to its layers.
+- Stacks can be nested. ⌘] and ⌘[ change the order inside a stack.
+- **⌘⇧G** on a stack removes it and keeps its layers.
+
+Stacks export as real flex containers in every code target.
+
 ### Groups, copies and history
 
 - **⌘G** groups the selection, **⌘⇧G** ungroups it. Clicking any member on the canvas selects the whole group. In the Layers tab you can still pick a single member.
@@ -168,6 +179,7 @@ Very large projects make very long links that some apps cut off. Polyframe warns
 | Copy / Paste | ⌘C / ⌘V |
 | Select all | ⌘A |
 | Group / Ungroup | ⌘G / ⌘⇧G |
+| Wrap in stack | ⇧A |
 | Nudge | Arrows, Shift + arrows |
 | Forward / Backward | ⌘] / ⌘[ |
 | Grid snap / Mode | G / M |

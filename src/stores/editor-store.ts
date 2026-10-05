@@ -15,6 +15,7 @@ interface EditorState {
   preview: Record<ID, Rect> | null;
   marquee: Rect | null;
   guides: { artboardId: ID; lines: GuideLine[]; labels: DistanceLabel[] } | null;
+  dropTarget: { stackId: ID; index: number } | null;
   interaction: Interaction;
   spaceDown: boolean;
   leftTab: "components" | "layers";
@@ -37,6 +38,7 @@ export const useEditorStore = create<EditorState>()((set) => ({
   preview: null,
   marquee: null,
   guides: null,
+  dropTarget: null,
   interaction: "idle",
   spaceDown: false,
   leftTab: "components",

@@ -38,6 +38,8 @@ export function SelectionOverlay() {
   const marquee = useEditorStore((s) => s.marquee);
   const interaction = useEditorStore((s) => s.interaction);
   const guides = useEditorStore((s) => s.guides);
+  const dropTarget = useEditorStore((s) => s.dropTarget);
+  const stacks = useDocumentStore(useShallow((s) => Object.values(s.project?.nodes ?? {}).filter((n) => n.type === "stack" && !n.hidden)));
   const ids = hoveredId && !selection.includes(hoveredId) ? [...selection, hoveredId] : selection;
   const nodes = useDocumentStore(useShallow((s) => ids.map((id) => s.project?.nodes[id])));
   const artboards = useDocumentStore((s) => s.project?.artboards);
@@ -57,6 +59,19 @@ export function SelectionOverlay() {
 
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden" data-overlay>
+      {stacks.map((n) => {
+        const a = artboards[n.artboardId];
+        if (!a) return null;
+        const r = preview?.[n.id] ?? n;
+        const target = dropTarget?.stackId === n.id;
+        return (
+          <Box
+            key={`stack-${n.id}`}
+            rect={toScreen({ x: a.x + r.x, y: a.y + r.y, w: r.w, h: r.h }, vp)}
+            className={target ? "border-2 border-violet-500 bg-violet-500/10" : "border border-dashed border-violet-400/60"}
+          />
+        );
+      })}
       {hovered && interaction === "idle" && (
         <Box rect={toScreen(hovered.world, vp)} className="border border-sky-500/70" />
       )}

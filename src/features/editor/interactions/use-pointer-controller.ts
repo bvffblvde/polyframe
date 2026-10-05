@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type RefObject } from "react";
+import { descendants, insertionIndex, isStack, placeInStack, setParent, stackParent } from "@/core/document/autolayout";
 import { groupMembers, moveNodes, setNodeRects } from "@/core/document/ops";
 import type { ID, Rect } from "@/core/document/types";
 import { snapToGuides } from "@/core/geometry/guides";
@@ -15,7 +16,16 @@ import { useEditorStore } from "@/stores/editor-store";
 
 type Gesture =
   | { kind: "pressing"; start: Point; nodeId: ID; wasSelected: boolean; shift: boolean }
-  | { kind: "dragging"; start: Point; primary: ID; ids: ID[]; rects: Record<ID, Rect>; dx: number; dy: number }
+  | {
+      kind: "dragging";
+      start: Point;
+      primary: ID;
+      ids: ID[];
+      rects: Record<ID, Rect>;
+      dx: number;
+      dy: number;
+      drop: { stackId: ID; index: number } | null;
+    }
   | { kind: "resizing"; start: Point; id: ID; handle: Handle; rect: Rect; next: Rect }
   | { kind: "marquee"; start: Point; base: ID[] }
   | { kind: "panning"; start: Point; vp: Viewport };
@@ -113,7 +123,8 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
 
       if (g.kind === "pressing") {
         if (Math.hypot(cur.x - g.start.x, cur.y - g.start.y) < THRESHOLD) return;
-        const ids = ed().selection.filter((id) => p.nodes[id] && !p.nodes[id].locked);
+        const picked = ed().selection.filter((id) => p.nodes[id] && !p.nodes[id].locked);
+        const ids = [...new Set([...picked, ...picked.flatMap((id) => descendants(p, id))])];
         if (!ids.includes(g.nodeId)) {
           g = null;
           return;
@@ -123,7 +134,7 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
           const n = p.nodes[id];
           rects[id] = { x: n.x, y: n.y, w: n.w, h: n.h };
         }
-        g = { kind: "dragging", start: g.start, primary: g.nodeId, ids, rects, dx: 0, dy: 0 };
+        g = { kind: "dragging", start: g.start, primary: g.nodeId, ids, rects, dx: 0, dy: 0, drop: null };
         ed().set({ interaction: "dragging", hoveredId: null });
       }
       if (g.kind === "dragging") {
@@ -148,10 +159,18 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
         g.dx = sx;
         g.dy = sy;
         const rects = g.rects;
+        const world = screenToWorld(cur, vp);
+        const point = { x: world.x - ab.x, y: world.y - ab.y };
+        const target = ab.childOrder
+          .map((id) => p.nodes[id])
+          .filter((n) => isStack(n) && !moving.has(n.id) && !n.hidden && point.x >= n.x && point.x <= n.x + n.w && point.y >= n.y && point.y <= n.y + n.h)
+          .sort((a, b) => a.w * a.h - b.w * b.h)[0];
+        const dropTarget = target ? { stackId: target.id, index: insertionIndex(p, target.id, point, g.ids) } : null;
+        g.drop = dropTarget;
         schedule(() => {
           const preview: Record<ID, Rect> = {};
           for (const [id, r] of Object.entries(rects)) preview[id] = offsetRect(r, sx, sy);
-          ed().set({ preview, guides });
+          ed().set({ preview, guides, dropTarget });
         });
       } else if (g.kind === "resizing") {
         const n = p.nodes[g.id];
@@ -195,8 +214,16 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
       if (!cur) return;
       const apply = useDocumentStore.getState().apply;
       if (cur.kind === "dragging") {
-        ed().set({ preview: null, guides: null, interaction: "idle" });
-        if (cur.dx || cur.dy) apply((p) => moveNodes(p, cur.ids, cur.dx, cur.dy));
+        ed().set({ preview: null, guides: null, dropTarget: null, interaction: "idle" });
+        const moving = new Set(cur.ids);
+        const drop = cur.drop;
+        apply((p) => {
+          const roots = cur.ids.filter((id) => !p.nodes[id]?.parentId || !moving.has(p.nodes[id].parentId as ID));
+          const moved = cur.dx || cur.dy ? moveNodes(p, cur.ids, cur.dx, cur.dy) : p;
+          if (drop) return placeInStack(moved, roots, drop.stackId, drop.index);
+          const detach = roots.filter((id) => moved.nodes[id] && stackParent(moved, moved.nodes[id]));
+          return detach.length ? setParent(moved, detach, undefined) : moved;
+        });
       } else if (cur.kind === "resizing") {
         ed().set({ preview: null, interaction: "idle" });
         const r = cur.rect;

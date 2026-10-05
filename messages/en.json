@@ -27,7 +27,8 @@
     "table": "Table",
     "tabs": "Tabs",
     "alert": "Alert",
-    "progress": "Progress"
+    "progress": "Progress",
+    "stack": "Stack"
   },
   "categories": {
     "layout": "Layout",
@@ -246,7 +247,11 @@
     "distributeX": "Distribute horizontally",
     "distributeY": "Distribute vertically",
     "group": "Group",
-    "ungroup": "Ungroup"
+    "ungroup": "Ungroup",
+    "inStack": "Position and order are set by the stack.",
+    "removeFromStack": "Remove from stack",
+    "wrapInStack": "Wrap in stack",
+    "unwrapStack": "Unwrap stack"
   },
   "fields": {
     "label": "Label",
@@ -286,7 +291,13 @@
     "bordered": "Bordered",
     "tabs": "Tabs",
     "content": "Content",
-    "description": "Description"
+    "description": "Description",
+    "direction": "Direction",
+    "gap": "Gap",
+    "padding": "Padding",
+    "justify": "Distribution",
+    "hug": "Hug contents",
+    "background": "Background"
   },
   "values": {
     "outline": "Outline",
@@ -316,7 +327,16 @@
     "settings": "Settings",
     "search": "Search",
     "bell": "Bell",
-    "mail": "Mail"
+    "mail": "Mail",
+    "row": "Row",
+    "column": "Column",
+    "start": "Start",
+    "end": "End",
+    "stretch": "Stretch",
+    "between": "Space between",
+    "none": "None",
+    "surface": "Surface",
+    "muted": "Muted"
   },
   "projects": {
     "title": "Projects",
@@ -373,7 +393,9 @@
     "snapOn": "Grid snap on",
     "snapOff": "Grid snap off",
     "grouped": "Grouped",
-    "ungrouped": "Ungrouped"
+    "ungrouped": "Ungrouped",
+    "wrapped": "Wrapped in a stack",
+    "unwrapped": "Stack removed"
   },
   "shortcuts": {
     "title": "Keyboard shortcuts",
@@ -394,7 +416,8 @@
     "deselect": "Clear selection",
     "cheatsheet": "Shortcuts cheatsheet",
     "group": "Group / Ungroup",
-    "command": "Command palette"
+    "command": "Command palette",
+    "wrap": "Wrap in stack (auto layout)"
   },
   "canvas": {
     "label": "Canvas",
@@ -516,7 +539,8 @@
     "exportJson": "Export JSON",
     "exportPng": "Export PNG...",
     "exportCode": "Export code...",
-    "exportSvg": "Export SVG..."
+    "exportSvg": "Export SVG...",
+    "wrap": "Wrap selection in a stack"
   },
   "exportCode": {
     "title": "Export code",

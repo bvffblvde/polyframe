@@ -15,6 +15,8 @@ import {
   ChevronUp,
   Copy,
   Group,
+  Rows3,
+  SquareDashed,
   Trash2,
   Ungroup,
 } from "lucide-react";
@@ -37,6 +39,7 @@ import {
   type SkinChoice,
 } from "@/core/document/types";
 import { registry } from "@/core/registry";
+import { stackParent } from "@/core/document/autolayout";
 import { applyOp as apply, useDocumentStore } from "@/stores/document-store";
 import { useEditorStore } from "@/stores/editor-store";
 import * as commands from "../commands";
@@ -59,6 +62,9 @@ export function Inspector() {
 function NodeInspector({ id }: { id: ID }) {
   const t = useTranslations("inspector");
   const node = useDocumentStore((s) => s.project?.nodes[id]);
+  const inStack = useDocumentStore((s) =>
+    Boolean(s.project && node && stackParent(s.project, node)),
+  );
   if (!node) return null;
   const def = registry[node.type];
   const set = (patch: Parameters<typeof ops.updateNode>[2]) =>
@@ -71,6 +77,14 @@ function NodeInspector({ id }: { id: ID }) {
           value={node.name}
           onCommit={(name) => name.trim() && set({ name: name.trim() })}
         />
+        {inStack && (
+          <div className="flex items-center justify-between gap-2 rounded-md bg-muted px-3 py-2 text-xs text-muted-foreground">
+            <span>{t("inStack")}</span>
+            <Button variant="outline" size="sm" onClick={commands.removeFromStack}>
+              {t("removeFromStack")}
+            </Button>
+          </div>
+        )}
         <div className="grid grid-cols-2 gap-2">
           <NumberField
             inline
@@ -314,6 +328,24 @@ function ActionsSection() {
           onClick={cmd.ungroup}
         >
           <Ungroup aria-hidden />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={t("wrapInStack")}
+          title={`${t("wrapInStack")} (⇧A)`}
+          onClick={cmd.wrap}
+        >
+          <Rows3 aria-hidden />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={t("unwrapStack")}
+          title={t("unwrapStack")}
+          onClick={cmd.ungroup}
+        >
+          <SquareDashed aria-hidden />
         </Button>
         <Button variant="outline" size="sm" onClick={cmd.remove} className="text-destructive">
           <Trash2 aria-hidden /> {t("delete")}
