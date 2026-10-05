@@ -107,7 +107,13 @@ export function renderImports(imports: ImportSpec[]): string {
   }
   return [...map.entries()]
     .sort(([a], [b]) => a.localeCompare(b))
-    .map(([from, names]) => `import { ${[...names].sort().join(", ")} } from "${from}";`)
+    .map(([from, names]) => {
+      const all = [...names];
+      const def = all.find((n) => n.startsWith("default as "))?.slice("default as ".length);
+      const named = all.filter((n) => !n.startsWith("default as ")).sort();
+      const parts = [def, named.length ? `{ ${named.join(", ")} }` : ""].filter(Boolean).join(", ");
+      return `import ${parts} from "${from}";`;
+    })
     .join("\n");
 }
 

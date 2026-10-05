@@ -159,6 +159,9 @@ describe("helpers", () => {
     expect(renderImports([{ from: "b", names: ["Y", "X"] }, { from: "a", names: ["Z"] }, { from: "b", names: ["X"] }])).toBe(
       'import { Z } from "a";\nimport { X, Y } from "b";',
     );
+    expect(renderImports([{ from: "dayjs", names: ["default as dayjs"] }, { from: "x", names: ["default as X", "Y"] }])).toBe(
+      'import dayjs from "dayjs";\nimport X, { Y } from "x";',
+    );
   });
 
   it("infers rows by vertical overlap", () => {

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": ["dom", "dom.iterable", "es2022"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "es2022"
+    ],
     "module": "esnext",
     "moduleResolution": "bundler",
     "jsx": "react-jsx",
@@ -9,7 +13,16 @@
     "noEmit": true,
     "skipLibCheck": true,
     "isolatedModules": true,
-    "paths": { "@/*": ["./*"] }
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "esModuleInterop": true
   },
-  "include": ["components/**/*.tsx", "lib/**/*.ts", "generated/**/*.tsx"]
+  "include": [
+    "components/**/*.tsx",
+    "lib/**/*.ts",
+    "generated/**/*.tsx"
+  ]
 }

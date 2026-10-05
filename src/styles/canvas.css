@@ -1404,3 +1404,71 @@
 .pf-dropzone .pf-btn {
   margin-top: 6px;
 }
+
+.pf-calendar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: var(--pf-stroke) solid var(--pf-border);
+  border-radius: var(--pf-r-lg);
+  background: var(--pf-surface);
+  box-shadow: var(--pf-sh, var(--pf-card-shadow));
+  overflow: hidden;
+}
+.pf-calendar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 28px;
+}
+.pf-calendar__title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.pf-calendar__nav {
+  width: 24px;
+  text-align: center;
+  color: var(--pf-text-muted);
+}
+.pf-calendar__grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 2px;
+}
+.pf-calendar__weekday,
+.pf-calendar__day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+}
+.pf-calendar__weekday {
+  font-size: 11px;
+  color: var(--pf-text-muted);
+}
+.pf-calendar__day {
+  border-radius: var(--pf-r);
+}
+.pf-calendar__day[data-outside] {
+  color: var(--pf-text-muted);
+  opacity: 0.6;
+}
+.pf-calendar__day[data-selected] {
+  background: var(--pf-accent);
+  color: var(--pf-accent-fg);
+  font-weight: 600;
+}
+.pf-root[data-mode="wireframe"] .pf-calendar__day[data-selected] {
+  background: var(--pf-text);
+  color: var(--pf-bg);
+}
+.pf-datepicker__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  color: var(--pf-text-muted);
+}

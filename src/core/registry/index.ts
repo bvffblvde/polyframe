@@ -21,6 +21,8 @@ import { sidebarDefinition } from "./components/sidebar/definition";
 import { sliderDefinition } from "./components/slider/definition";
 import { stackDefinition } from "./components/stack/definition";
 import { gridDefinition } from "./components/grid/definition";
+import { datepickerDefinition } from "./components/datepicker/definition";
+import { calendarDefinition } from "./components/calendar/definition";
 import { dropzoneDefinition } from "./components/dropzone/definition";
 import { menuDefinition } from "./components/menu/definition";
 import { tooltipDefinition } from "./components/tooltip/definition";
@@ -88,6 +90,8 @@ export const registry: Record<ComponentType, AnyDefinition> = {
   tooltip: tooltipDefinition,
   menu: menuDefinition,
   dropzone: dropzoneDefinition,
+  calendar: calendarDefinition,
+  datepicker: datepickerDefinition,
 };
 
 export const definitions: AnyDefinition[] = Object.values(registry);

@@ -46,7 +46,9 @@
     "toast": "Тост",
     "tooltip": "Підказка",
     "menu": "Меню",
-    "dropzone": "Зона завантаження"
+    "dropzone": "Зона завантаження",
+    "calendar": "Календар",
+    "datepicker": "Вибір дати"
   },
   "categories": {
     "layout": "Макет",
@@ -192,6 +194,14 @@
       "title": "Перетягніть файли сюди",
       "hint": "PNG, JPG або PDF до 10 МБ",
       "action": "Обрати файли"
+    },
+    "calendar": {
+      "locale": "uk",
+      "weekStart": "monday"
+    },
+    "datepicker": {
+      "label": "Дата початку",
+      "placeholder": "Оберіть дату"
     }
   },
   "toolbar": {
@@ -395,7 +405,12 @@
     "trigger": "Кнопка-тригер",
     "placement": "Розташування",
     "destructiveLast": "Останній пункт небезпечний",
-    "hint": "Підказка"
+    "hint": "Підказка",
+    "year": "Рік",
+    "month": "Місяць",
+    "selected": "Обраний день",
+    "weekStart": "Тиждень починається з",
+    "locale": "Формат дат"
   },
   "values": {
     "outline": "Контур",
@@ -440,7 +455,11 @@
     "up": "Зростання",
     "down": "Спад",
     "top": "Згори",
-    "bottom": "Знизу"
+    "bottom": "Знизу",
+    "monday": "Понеділка",
+    "sunday": "Неділі",
+    "en": "Англійський",
+    "uk": "Український"
   },
   "projects": {
     "title": "Проєкти",

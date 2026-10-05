@@ -64,6 +64,8 @@ export const COMPONENT_TYPES = [
   "tooltip",
   "menu",
   "dropzone",
+  "calendar",
+  "datepicker",
 ] as const;
 export type ComponentType = (typeof COMPONENT_TYPES)[number];
 

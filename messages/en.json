@@ -46,7 +46,9 @@
     "toast": "Toast",
     "tooltip": "Tooltip",
     "menu": "Menu",
-    "dropzone": "File dropzone"
+    "dropzone": "File dropzone",
+    "calendar": "Calendar",
+    "datepicker": "Date picker"
   },
   "categories": {
     "layout": "Layout",
@@ -192,6 +194,14 @@
       "title": "Drop files here",
       "hint": "PNG, JPG or PDF up to 10 MB",
       "action": "Browse files"
+    },
+    "calendar": {
+      "locale": "en",
+      "weekStart": "sunday"
+    },
+    "datepicker": {
+      "label": "Start date",
+      "placeholder": "Pick a date"
     }
   },
   "toolbar": {
@@ -395,7 +405,12 @@
     "trigger": "Trigger",
     "placement": "Placement",
     "destructiveLast": "Last item is destructive",
-    "hint": "Hint"
+    "hint": "Hint",
+    "year": "Year",
+    "month": "Month",
+    "selected": "Selected day",
+    "weekStart": "Week starts on",
+    "locale": "Date format"
   },
   "values": {
     "outline": "Outline",
@@ -440,7 +455,11 @@
     "up": "Up",
     "down": "Down",
     "top": "Top",
-    "bottom": "Bottom"
+    "bottom": "Bottom",
+    "monday": "Monday",
+    "sunday": "Sunday",
+    "en": "English",
+    "uk": "Ukrainian"
   },
   "projects": {
     "title": "Projects",
