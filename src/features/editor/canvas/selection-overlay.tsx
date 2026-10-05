@@ -39,7 +39,7 @@ export function SelectionOverlay() {
   const interaction = useEditorStore((s) => s.interaction);
   const guides = useEditorStore((s) => s.guides);
   const dropTarget = useEditorStore((s) => s.dropTarget);
-  const stacks = useDocumentStore(useShallow((s) => Object.values(s.project?.nodes ?? {}).filter((n) => n.type === "stack" && !n.hidden)));
+  const stacks = useDocumentStore(useShallow((s) => Object.values(s.project?.nodes ?? {}).filter((n) => (n.type === "stack" || n.type === "grid") && !n.hidden)));
   const ids = hoveredId && !selection.includes(hoveredId) ? [...selection, hoveredId] : selection;
   const nodes = useDocumentStore(useShallow((s) => ids.map((id) => s.project?.nodes[id])));
   const artboards = useDocumentStore((s) => s.project?.artboards);

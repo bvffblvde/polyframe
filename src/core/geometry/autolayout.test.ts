@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { hugSize, layoutStack, type StackLayout } from "./autolayout";
+import { gridHugHeight, hugSize, layoutGrid, layoutStack, type StackLayout } from "./autolayout";
 
 const base: StackLayout = { direction: "row", gap: 10, padding: 5, align: "start", justify: "start", hug: false };
 const kids = [
@@ -39,5 +39,35 @@ describe("layoutStack", () => {
     expect(hugSize(base, kids)).toEqual({ w: 70, h: 30 });
     expect(hugSize({ ...base, direction: "column" }, kids)).toEqual({ w: 40, h: 50 });
     expect(hugSize({ ...base, padding: 0 }, [])).toEqual({ w: 1, h: 1 });
+  });
+});
+
+describe("layoutGrid", () => {
+  const grid = { columns: 2, columnGap: 10, rowGap: 6, padding: 5, fill: true, align: "start" as const, hug: true };
+  const items = [
+    { w: 20, h: 10 },
+    { w: 30, h: 20 },
+    { w: 40, h: 15 },
+  ];
+
+  it("flows children into rows of equal columns", () => {
+    expect(layoutGrid({ x: 0, y: 0, w: 110, h: 100 }, grid, items)).toEqual([
+      { x: 5, y: 5, w: 45, h: 10 },
+      { x: 60, y: 5, w: 45, h: 20 },
+      { x: 5, y: 31, w: 45, h: 15 },
+    ]);
+  });
+
+  it("aligns within rows and keeps widths when not filling", () => {
+    const r = layoutGrid({ x: 0, y: 0, w: 110, h: 100 }, { ...grid, fill: false, align: "center" }, items);
+    expect(r[0]).toEqual({ x: 5, y: 10, w: 20, h: 10 });
+    expect(layoutGrid({ x: 0, y: 0, w: 110, h: 100 }, { ...grid, align: "end" }, items)[0].y).toBe(15);
+    expect(layoutGrid({ x: 0, y: 0, w: 110, h: 100 }, { ...grid, align: "stretch" }, items)[0].h).toBe(20);
+    expect(layoutGrid({ x: 0, y: 0, w: 110, h: 100 }, { ...grid, columns: 0 }, items).map((x) => x.y)).toEqual([5, 21, 47]);
+  });
+
+  it("computes hug height", () => {
+    expect(gridHugHeight(grid, items)).toBe(5 + 20 + 6 + 15 + 5);
+    expect(gridHugHeight({ ...grid, padding: 0 }, [])).toBe(1);
   });
 });

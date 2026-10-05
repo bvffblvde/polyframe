@@ -324,11 +324,28 @@ test("wraps layers in an auto-layout stack and drops new layers into it", async 
   await page.mouse.move(target.x + target.width - 4, target.y + target.height / 2, { steps: 12 });
   await page.mouse.up();
   await avatar.click();
-  await expect(page.getByText("Position and order are set by the stack.")).toBeVisible();
+  await expect(page.getByText("Position and order are set by the container.")).toBeVisible();
 
   await page.getByRole("tab", { name: "Layers" }).click();
   await page.getByRole("button", { name: "Stack", exact: true }).click();
   await page.keyboard.press("ControlOrMeta+Shift+g");
   await expect(stack).toHaveCount(0);
   await expect(nodes(page, "avatar")).toHaveCount(1);
+});
+
+test("wraps cards in a grid container", async ({ page }) => {
+  await openEditor(page);
+  for (const t of ["card", "card", "card", "card"]) await page.getByTestId(`palette-${t}`).click();
+  await page.getByTestId("canvas").focus();
+  await page.keyboard.press("ControlOrMeta+a");
+  await page.getByRole("button", { name: "Wrap in grid" }).click();
+  await expect(nodes(page, "grid")).toHaveCount(1);
+  const columns = page.getByLabel("Columns");
+  await columns.fill("2");
+  await columns.press("Enter");
+  const boxes = await nodes(page, "card").evaluateAll((els) => els.map((e) => e.getBoundingClientRect()).map((r) => [Math.round(r.x), Math.round(r.y)]));
+  const xs = new Set(boxes.map((b) => b[0]));
+  const ys = new Set(boxes.map((b) => b[1]));
+  expect(xs.size).toBe(2);
+  expect(ys.size).toBe(2);
 });

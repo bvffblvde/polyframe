@@ -56,3 +56,48 @@ export function layoutStack(container: Rect, layout: StackLayout, children: Size
     };
   });
 }
+
+export interface GridLayout {
+  columns: number;
+  columnGap: number;
+  rowGap: number;
+  padding: number;
+  fill: boolean;
+  align: "start" | "center" | "end" | "stretch";
+  hug: boolean;
+}
+
+export function layoutGrid(container: Rect, layout: GridLayout, children: Size[]): Rect[] {
+  const cols = Math.max(1, Math.round(layout.columns));
+  const p = layout.padding;
+  const cellW = Math.max(1, (container.w - p * 2 - layout.columnGap * (cols - 1)) / cols);
+  const out: Rect[] = [];
+  let y = container.y + p;
+  for (let start = 0; start < children.length; start += cols) {
+    const row = children.slice(start, start + cols);
+    const rowH = Math.max(...row.map((c) => c.h));
+    row.forEach((c, i) => {
+      const w = layout.fill ? cellW : Math.min(c.w, cellW);
+      const h = layout.align === "stretch" ? rowH : c.h;
+      const offset = layout.align === "center" ? (rowH - h) / 2 : layout.align === "end" ? rowH - h : 0;
+      out.push({
+        x: Math.round(container.x + p + i * (cellW + layout.columnGap)),
+        y: Math.round(y + offset),
+        w: Math.max(1, Math.round(w)),
+        h: Math.max(1, Math.round(h)),
+      });
+    });
+    y += rowH + layout.rowGap;
+  }
+  return out;
+}
+
+export function gridHugHeight(layout: GridLayout, children: Size[]): number {
+  const cols = Math.max(1, Math.round(layout.columns));
+  let h = layout.padding * 2;
+  for (let start = 0; start < children.length; start += cols) {
+    h += Math.max(...children.slice(start, start + cols).map((c) => c.h));
+    if (start + cols < children.length) h += layout.rowGap;
+  }
+  return Math.max(1, Math.round(h));
+}

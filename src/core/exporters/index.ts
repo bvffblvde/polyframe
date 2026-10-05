@@ -1,4 +1,4 @@
-import { readLayout, stackParent } from "../document/autolayout";
+import { layoutParent, readGridLayout, readStackLayout } from "../document/autolayout";
 import type { ID, Node, Project } from "../document/types";
 import { registry } from "../registry";
 import { applyLayout, type LayoutAdapter, type LayoutEntry } from "./layout/layout";
@@ -17,13 +17,19 @@ export interface TargetDefinition {
   layout: LayoutAdapter;
   baseImports: ImportSpec[];
   header: (imports: ImportSpec[]) => string[];
-  flexItem: (node: Node, stretch: "w" | "h" | null, child: string) => string;
+  item: (node: Node, size: ItemSize, child: string) => string;
+}
+
+export interface ItemSize {
+  w: boolean;
+  h: boolean;
+  selfStretch: boolean;
 }
 
 const px = (n: number) => `${Math.round(n)}px`;
 
-const styleItem = (n: Node, stretch: "w" | "h" | null, child: string) =>
-  `<div style={{ flexShrink: 0${stretch === "w" ? ', alignSelf: "stretch"' : `, width: ${n.w}`}${stretch === "h" ? ', alignSelf: "stretch"' : `, height: ${n.h}`} }}>${child}</div>`;
+const styleItem = (n: Node, s: ItemSize, child: string) =>
+  `<div style={{ flexShrink: 0${s.selfStretch ? ', alignSelf: "stretch"' : ""}${s.w ? `, width: ${n.w}` : ""}${s.h ? `, height: ${n.h}` : ""} }}>${child}</div>`;
 
 export const targets: Record<ExportTarget, TargetDefinition> = {
   shadcn: {
@@ -32,8 +38,8 @@ export const targets: Record<ExportTarget, TargetDefinition> = {
     layout: shadcnLayout,
     baseImports: [],
     header: shadcnHeader,
-    flexItem: (n, stretch, child) =>
-      `<div className="shrink-0${stretch === "w" ? " self-stretch" : ` w-[${px(n.w)}]`}${stretch === "h" ? " self-stretch" : ` h-[${px(n.h)}]`}">${child}</div>`,
+    item: (n, s, child) =>
+      `<div className="shrink-0${s.selfStretch ? " self-stretch" : ""}${s.w ? ` w-[${px(n.w)}]` : ""}${s.h ? ` h-[${px(n.h)}]` : ""}">${child}</div>`,
   },
   mui: {
     id: "mui",
@@ -41,24 +47,24 @@ export const targets: Record<ExportTarget, TargetDefinition> = {
     layout: muiLayout,
     baseImports: [MUI_BOX],
     header: muiHeader,
-    flexItem: (n, stretch, child) =>
-      `<Box sx={{ flexShrink: 0${stretch === "w" ? ', alignSelf: "stretch"' : `, width: ${n.w}`}${stretch === "h" ? ', alignSelf: "stretch"' : `, height: ${n.h}`} }}>${child}</Box>`,
+    item: (n, s, child) =>
+      `<Box sx={{ flexShrink: 0${s.selfStretch ? ', alignSelf: "stretch"' : ""}${s.w ? `, width: ${n.w}` : ""}${s.h ? `, height: ${n.h}` : ""} }}>${child}</Box>`,
   },
   mantine: {
     id: "mantine",
     label: "Mantine",
     layout: styleLayout,
     baseImports: [],
-    flexItem: styleItem,
+    item: styleItem,
     header: packageHeader(["@mantine/core", "@mantine/hooks"], ["Wrap the app in MantineProvider and import \"@mantine/core/styles.css\"."]),
   },
-  antd: { id: "antd", label: "Ant Design", layout: styleLayout, baseImports: [], flexItem: styleItem, header: packageHeader(["antd"], []) },
+  antd: { id: "antd", label: "Ant Design", layout: styleLayout, baseImports: [], item: styleItem, header: packageHeader(["antd"], []) },
   bootstrap: {
     id: "bootstrap",
     label: "React Bootstrap",
     layout: styleLayout,
     baseImports: [],
-    flexItem: styleItem,
+    item: styleItem,
     header: packageHeader(["react-bootstrap", "bootstrap"], ["Import \"bootstrap/dist/css/bootstrap.min.css\" once in the app."]),
   },
   chakra: {
@@ -66,8 +72,8 @@ export const targets: Record<ExportTarget, TargetDefinition> = {
     label: "Chakra UI",
     layout: chakraLayout,
     baseImports: [{ from: "@chakra-ui/react", names: ["Box", "Flex"] }],
-    flexItem: (n, stretch, child) =>
-      `<Box flexShrink={0}${stretch === "w" ? ' alignSelf="stretch"' : ` w="${px(n.w)}"`}${stretch === "h" ? ' alignSelf="stretch"' : ` h="${px(n.h)}"`}>${child}</Box>`,
+    item: (n, s, child) =>
+      `<Box flexShrink={0}${s.selfStretch ? ' alignSelf="stretch"' : ""}${s.w ? ` w="${px(n.w)}"` : ""}${s.h ? ` h="${px(n.h)}"` : ""}>${child}</Box>`,
     header: packageHeader(["@chakra-ui/react", "@emotion/react"], ["Wrap the app in ChakraProvider with the default system."]),
   },
 };
@@ -122,7 +128,7 @@ export function generateArtboardCode(
   for (const id of a.childOrder) {
     const node = p.nodes[id];
     if (!node || node.hidden) continue;
-    const parent = stackParent(p, node);
+    const parent = layoutParent(p, node);
     if (parent) kids.set(parent.id, [...(kids.get(parent.id) ?? []), id]);
     else topLevel.push(id);
   }
@@ -132,9 +138,17 @@ export function generateArtboardCode(
     const exporter = registry[node.type].exporters?.[target];
     let children: string | undefined;
     if (kids.has(id)) {
-      const layout = readLayout(node);
-      const stretch = layout.align === "stretch" ? (layout.direction === "row" ? "h" : "w") : null;
-      children = (kids.get(id) ?? []).map((cid) => def.flexItem(p.nodes[cid], stretch, render(cid))).join("\n");
+      let size: ItemSize;
+      if (node.type === "grid") {
+        const grid = readGridLayout(node);
+        size = { w: !grid.fill, h: grid.align !== "stretch", selfStretch: false };
+      } else {
+        const stack = readStackLayout(node);
+        const stretch = stack.align === "stretch";
+        const row = stack.direction === "row";
+        size = { w: !(stretch && !row), h: !(stretch && row), selfStretch: stretch };
+      }
+      children = (kids.get(id) ?? []).map((cid) => def.item(p.nodes[cid], size, render(cid))).join("\n");
     }
     if (!exporter) {
       warnings.push(`${node.name} (${node.type})`);

@@ -28,7 +28,8 @@
     "tabs": "Tabs",
     "alert": "Alert",
     "progress": "Progress",
-    "stack": "Stack"
+    "stack": "Stack",
+    "grid": "Grid"
   },
   "categories": {
     "layout": "Layout",
@@ -248,10 +249,11 @@
     "distributeY": "Distribute vertically",
     "group": "Group",
     "ungroup": "Ungroup",
-    "inStack": "Position and order are set by the stack.",
-    "removeFromStack": "Remove from stack",
     "wrapInStack": "Wrap in stack",
-    "unwrapStack": "Unwrap stack"
+    "wrapInGrid": "Wrap in grid",
+    "inLayout": "Position and order are set by the container.",
+    "removeFromLayout": "Remove from container",
+    "unwrapLayout": "Unwrap container"
   },
   "fields": {
     "label": "Label",
@@ -297,7 +299,10 @@
     "padding": "Padding",
     "justify": "Distribution",
     "hug": "Hug contents",
-    "background": "Background"
+    "background": "Background",
+    "columnGap": "Column gap",
+    "rowGap": "Row gap",
+    "fill": "Fill cell width"
   },
   "values": {
     "outline": "Outline",
@@ -395,7 +400,8 @@
     "grouped": "Grouped",
     "ungrouped": "Ungrouped",
     "wrapped": "Wrapped in a stack",
-    "unwrapped": "Stack removed"
+    "unwrapped": "Stack removed",
+    "wrappedGrid": "Wrapped in a grid"
   },
   "shortcuts": {
     "title": "Keyboard shortcuts",
@@ -417,7 +423,8 @@
     "cheatsheet": "Shortcuts cheatsheet",
     "group": "Group / Ungroup",
     "command": "Command palette",
-    "wrap": "Wrap in stack (auto layout)"
+    "wrap": "Wrap in stack (auto layout)",
+    "wrapGrid": "Wrap in grid"
   },
   "canvas": {
     "label": "Canvas",
@@ -540,7 +547,8 @@
     "exportPng": "Export PNG...",
     "exportCode": "Export code...",
     "exportSvg": "Export SVG...",
-    "wrap": "Wrap selection in a stack"
+    "wrap": "Wrap selection in a stack",
+    "wrapGrid": "Wrap selection in a grid"
   },
   "exportCode": {
     "title": "Export code",

@@ -46,6 +46,13 @@ function everything() {
   let p = addNodes(createProject({ id: "p", name: "All", now: "", artboard: makeArtboard("a1", { name: "All components" }) }), [...nodes, stack, inner, ...kids]);
   p = setParent(p, ["k0", "st2"], "st");
   p = setParent(p, ["k1", "k2"], "st2");
+  const grid = createNode({ id: "gr", type: "grid", artboardId: "a1", rect: { x: 700, y: 900, w: 600, h: 100 }, name: "grid", t: defaults });
+  grid.props = { ...grid.props, align: "stretch", fill: false, background: "muted" };
+  const cards = [0, 1, 2, 3].map((i) =>
+    createNode({ id: `gc${i}`, type: i % 2 ? "card" : "image", artboardId: "a1", rect: { x: 0, y: 0, w: 180, h: 120 }, name: `cell ${i}`, t: defaults }),
+  );
+  p = addNodes(p, [grid, ...cards]);
+  p = setParent(p, cards.map((c) => c.id), "gr");
   return applyAutoLayout(p);
 }
 
@@ -97,6 +104,7 @@ describe("project generation", () => {
     }
     const [shadcn] = generateProjectCode(everything(), "shadcn", "stacked");
     expect(shadcn.code).toContain("flex flex-col gap-[8px]");
+    expect(shadcn.code).toContain("grid grid-cols-3 gap-x-[16px] gap-y-[16px]");
   });
 
   it("skips hidden nodes and makes names unique", () => {

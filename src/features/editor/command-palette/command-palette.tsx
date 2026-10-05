@@ -117,6 +117,7 @@ export function CommandPalette() {
                 ),
               )}
               {item("wrap", t("command.wrap"), cmd.wrap, <Layers aria-hidden />, "⇧A")}
+              {item("wrapGrid", t("command.wrapGrid"), cmd.wrapGrid, <Layers aria-hidden />)}
               {item(
                 "customSkin",
                 t("skinEditor.open"),

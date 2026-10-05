@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { descendants, stackChildren, stackParent } from "@/core/document/autolayout";
+import { descendants, layoutChildren, layoutParent } from "@/core/document/autolayout";
 import { groupMembers, isGroupId, moveNodeToIndex, updateNode } from "@/core/document/ops";
 import { ARTBOARD_PRESETS, type ID, type Project } from "@/core/document/types";
 import { registry } from "@/core/registry";
@@ -79,11 +79,11 @@ function layerRows(p: Project, artboardId: ID): Row[] {
   const walk = (id: ID, depth: number, top: ID) => {
     const n = p.nodes[id];
     rows.push({ id, depth, top, group: isGroupId(p, n.parentId) ? n.parentId : undefined });
-    for (const c of stackChildren(p, id)) walk(c, depth + 1, top);
+    for (const c of layoutChildren(p, id)) walk(c, depth + 1, top);
   };
   for (const id of [...a.childOrder].reverse()) {
     const n = p.nodes[id];
-    if (n && !stackParent(p, n)) walk(id, 0, id);
+    if (n && !layoutParent(p, n)) walk(id, 0, id);
   }
   return rows;
 }

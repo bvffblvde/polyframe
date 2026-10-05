@@ -371,7 +371,7 @@ interface ComponentDefinition<P> {
 - Done before the landing: a first-visit product tour in the editor and a user guide at `/guide`.
 
 ### Phase 4: Ideas backlog
-- Auto-layout containers (flex/grid) for a cleaner export. Done for flex: a `stack` component whose children point to it with `parentId`. `core/document/autolayout.ts` re-lays out stacks after every op and keeps children right after their stack in `childOrder`. Groups keep using `parentId` values that are not node ids. Exporters render stacks as flex containers with their children as flex items.
+- Auto-layout containers (flex/grid) for a cleaner export. Done for flex: a `stack` component whose children point to it with `parentId`. `core/document/autolayout.ts` re-lays out stacks after every op and keeps children right after their stack in `childOrder`. Groups keep using `parentId` values that are not node ids. Exporters render stacks as flex containers with their children as flex items. A `grid` component works the same way with equal columns (1 to 12), column and row gaps, an optional fill of the cell width and vertical alignment in a row, and exports as CSS grid.
 - More skins (Chakra, Fluent, Radix Themes), a custom skin editor, and import of design tokens.
 - SVG and Figma-compatible export. Done: every component has an SVG drawer in its folder (`svg.ts`) that uses only rect, circle, line, path and text, styled with the active skin tokens, so the file imports into Figma as editable layers.
 - Optional backend for cloud projects and collaboration.

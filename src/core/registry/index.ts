@@ -20,6 +20,7 @@ import { selectDefinition } from "./components/select/definition";
 import { sidebarDefinition } from "./components/sidebar/definition";
 import { sliderDefinition } from "./components/slider/definition";
 import { stackDefinition } from "./components/stack/definition";
+import { gridDefinition } from "./components/grid/definition";
 import { switchDefinition } from "./components/switch/definition";
 import { tableDefinition } from "./components/table/definition";
 import { tabsDefinition } from "./components/tabs/definition";
@@ -52,6 +53,7 @@ export const registry: Record<ComponentType, AnyDefinition> = {
   alert: alertDefinition,
   progress: progressDefinition,
   stack: stackDefinition,
+  grid: gridDefinition,
 };
 
 export const definitions: AnyDefinition[] = Object.values(registry);

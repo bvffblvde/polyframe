@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, type RefObject } from "react";
-import { descendants, insertionIndex, isStack, placeInStack, setParent, stackParent } from "@/core/document/autolayout";
+import { descendants, insertionIndex, isLayout, placeInLayout, setParent, layoutParent } from "@/core/document/autolayout";
 import { groupMembers, moveNodes, setNodeRects } from "@/core/document/ops";
 import type { ID, Rect } from "@/core/document/types";
 import { snapToGuides } from "@/core/geometry/guides";
@@ -163,7 +163,7 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
         const point = { x: world.x - ab.x, y: world.y - ab.y };
         const target = ab.childOrder
           .map((id) => p.nodes[id])
-          .filter((n) => isStack(n) && !moving.has(n.id) && !n.hidden && point.x >= n.x && point.x <= n.x + n.w && point.y >= n.y && point.y <= n.y + n.h)
+          .filter((n) => isLayout(n) && !moving.has(n.id) && !n.hidden && point.x >= n.x && point.x <= n.x + n.w && point.y >= n.y && point.y <= n.y + n.h)
           .sort((a, b) => a.w * a.h - b.w * b.h)[0];
         const dropTarget = target ? { stackId: target.id, index: insertionIndex(p, target.id, point, g.ids) } : null;
         g.drop = dropTarget;
@@ -220,8 +220,8 @@ export function usePointerController(ref: RefObject<HTMLDivElement | null>, read
         apply((p) => {
           const roots = cur.ids.filter((id) => !p.nodes[id]?.parentId || !moving.has(p.nodes[id].parentId as ID));
           const moved = cur.dx || cur.dy ? moveNodes(p, cur.ids, cur.dx, cur.dy) : p;
-          if (drop) return placeInStack(moved, roots, drop.stackId, drop.index);
-          const detach = roots.filter((id) => moved.nodes[id] && stackParent(moved, moved.nodes[id]));
+          if (drop) return placeInLayout(moved, roots, drop.stackId, drop.index);
+          const detach = roots.filter((id) => moved.nodes[id] && layoutParent(moved, moved.nodes[id]));
           return detach.length ? setParent(moved, detach, undefined) : moved;
         });
       } else if (cur.kind === "resizing") {

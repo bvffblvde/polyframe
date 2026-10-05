@@ -61,11 +61,11 @@ Polyframe тримає **один макет** і показує його **рі
 - Нескінченне полотно з панорамуванням і масштабом, **артборди** (Desktop, Laptop, Tablet, Mobile, власний розмір)
 - Вільне перетягування або **прилипання до сітки** (4 / 8 / 16 px), **розумні напрямні** з відстанями
 - Множинне виділення, рамка виділення, зміна розміру, вирівнювання й розподіл, порядок шарів, групи
-- Стеки з автолейаутом (⇧A), що експортуються як справжні flex-контейнери
+- Стеки (⇧A) і гріди з автолейаутом, що експортуються як справжні flex- і CSS grid-контейнери
 - Скасування й повтор для кожного жесту
 
-**Компоненти (25, і їх стане більше)**
-`Box` `Card` `Divider` `Navbar` `Sidebar` · `Button` `Input` `Textarea` `Select` `Checkbox` `Radio` `Switch` `Slider` · `Heading` `Text` `Link` `Badge` · `Image` `Avatar` `Icon` · `Table` `Tabs` `Alert` `Progress` · `Stack`
+**Компоненти (26, і їх стане більше)**
+`Box` `Card` `Divider` `Navbar` `Sidebar` · `Button` `Input` `Textarea` `Select` `Checkbox` `Radio` `Switch` `Slider` · `Heading` `Text` `Link` `Badge` · `Image` `Avatar` `Icon` · `Table` `Tabs` `Alert` `Progress` · `Stack` `Grid`
 
 **Інспектор і шари**
 - Панель властивостей генерується зі схеми кожного компонента
@@ -152,7 +152,8 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] **v0.3**: експортери Mantine / Ant / Bootstrap / Chakra, екскурсія й посібник, лендинг, документація, SEO й OG-зображення, PWA (офлайн-редактор)
 - [x] Storybook: компоненти × скіни × режими
 - [x] **v0.4**: скіни Chakra, Fluent 2 і Radix Themes, редактор скінів з імпортом токенів, експорт у SVG, стеки з автолейаутом
-- [ ] **Згодом**: grid-контейнери, нові цілі експорту, плагіни
+- [x] Grid-контейнери
+- [ ] **Згодом**: нові цілі експорту, плагіни
 
 Є ідея? [Відкрийте обговорення](https://github.com/bvffblvde/polyframe/discussions).
 

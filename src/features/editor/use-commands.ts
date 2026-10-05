@@ -43,7 +43,10 @@ export function useCommands() {
         if (commands.ungroup()) announce(t("announce.ungrouped"));
       },
       wrap() {
-        if (commands.wrapSelectionInStack(defaults, t("components.stack"))) announce(t("announce.wrapped"));
+        if (commands.wrapSelection("stack", defaults, t("components.stack"))) announce(t("announce.wrapped"));
+      },
+      wrapGrid() {
+        if (commands.wrapSelection("grid", defaults, t("components.grid"))) announce(t("announce.wrappedGrid"));
       },
       toggleMode() {
         const mode = commands.toggleMode();

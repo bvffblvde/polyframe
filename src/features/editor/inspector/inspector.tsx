@@ -15,6 +15,7 @@ import {
   ChevronUp,
   Copy,
   Group,
+  LayoutGrid,
   Rows3,
   SquareDashed,
   Trash2,
@@ -39,7 +40,7 @@ import {
   type SkinChoice,
 } from "@/core/document/types";
 import { registry } from "@/core/registry";
-import { stackParent } from "@/core/document/autolayout";
+import { layoutParent } from "@/core/document/autolayout";
 import { applyOp as apply, useDocumentStore } from "@/stores/document-store";
 import { useEditorStore } from "@/stores/editor-store";
 import * as commands from "../commands";
@@ -63,7 +64,7 @@ function NodeInspector({ id }: { id: ID }) {
   const t = useTranslations("inspector");
   const node = useDocumentStore((s) => s.project?.nodes[id]);
   const inStack = useDocumentStore((s) =>
-    Boolean(s.project && node && stackParent(s.project, node)),
+    Boolean(s.project && node && layoutParent(s.project, node)),
   );
   if (!node) return null;
   const def = registry[node.type];
@@ -79,9 +80,9 @@ function NodeInspector({ id }: { id: ID }) {
         />
         {inStack && (
           <div className="flex items-center justify-between gap-2 rounded-md bg-muted px-3 py-2 text-xs text-muted-foreground">
-            <span>{t("inStack")}</span>
+            <span>{t("inLayout")}</span>
             <Button variant="outline" size="sm" onClick={commands.removeFromStack}>
-              {t("removeFromStack")}
+              {t("removeFromLayout")}
             </Button>
           </div>
         )}
@@ -341,8 +342,17 @@ function ActionsSection() {
         <Button
           variant="outline"
           size="icon"
-          aria-label={t("unwrapStack")}
-          title={t("unwrapStack")}
+          aria-label={t("wrapInGrid")}
+          title={t("wrapInGrid")}
+          onClick={cmd.wrapGrid}
+        >
+          <LayoutGrid aria-hidden />
+        </Button>
+        <Button
+          variant="outline"
+          size="icon"
+          aria-label={t("unwrapLayout")}
+          title={t("unwrapLayout")}
           onClick={cmd.ungroup}
         >
           <SquareDashed aria-hidden />
