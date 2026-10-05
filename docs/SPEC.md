@@ -363,7 +363,7 @@ interface ComponentDefinition<P> {
 - **Code export: shadcn/ui + Tailwind and MUI**, with absolute and stacked strategies.
 - Share links and the viewer for them.
 - ⌘K command palette.
-- Starter templates (Login, Dashboard, Landing hero, Settings, Pricing, Mobile profile).
+- Starter templates (Login, Dashboard, Landing hero, Settings, Pricing, Mobile profile). They live in a Templates tab of the left panel with live previews; a template can be added to the current project as a new artboard or opened as a new project. The project menu only manages projects.
 - ✅ Done when: the exported code for each template compiles in a fresh Vite project with the target library installed (checked by a CI job that type-checks the generated output).
 
 ### Phase 3: Reach

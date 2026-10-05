@@ -257,7 +257,8 @@
     "inspector": "Inspector",
     "search": "Search components",
     "noResults": "No components found",
-    "insert": "Insert {name}"
+    "insert": "Insert {name}",
+    "templates": "Templates"
   },
   "layers": {
     "addArtboard": "Add artboard",
@@ -663,7 +664,12 @@
       "private": "Private account",
       "notify": "Push notifications",
       "complete": "Profile completed"
-    }
+    },
+    "intro": "Ready-made screens. Add one to this project as a new artboard, or start a new project from it.",
+    "addToProject": "Add to project",
+    "newProject": "New project",
+    "preview": "Preview of the {name} template",
+    "added": "{name} added as a new artboard"
   },
   "command": {
     "title": "Command palette",
@@ -717,7 +723,7 @@
     },
     "palette": {
       "title": "Add components",
-      "body": "Drag a component onto an artboard, or click it to drop it in the middle of the view. Search works in English and Ukrainian."
+      "body": "Drag a component onto an artboard, or click it to drop it in the middle of the view. The Templates tab holds ready-made screens, and Layers lists everything on the canvas."
     },
     "canvas": {
       "title": "Arrange on the canvas",

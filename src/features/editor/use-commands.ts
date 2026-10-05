@@ -4,7 +4,10 @@ import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import type { ArtboardPreset, ComponentType, ID } from "@/core/document/types";
 import { registry } from "@/core/registry";
-import { getTemplate, instantiateTemplate } from "@/core/templates";
+import { addTemplateArtboard, getTemplate, instantiateTemplate } from "@/core/templates";
+import { centerOn } from "@/core/geometry/viewport";
+import { applyOp, useDocumentStore as docStore } from "@/stores/document-store";
+import { useEditorStore } from "@/stores/editor-store";
 import { newId } from "@/lib/ids";
 import { saveAndOpen } from "@/stores/projects-store";
 import { announce } from "@/lib/announce";
@@ -48,10 +51,12 @@ export function useCommands() {
         if (commands.ungroup()) announce(t("announce.ungrouped"));
       },
       wrap() {
-        if (commands.wrapSelection("stack", defaults, t("components.stack"))) announce(t("announce.wrapped"));
+        if (commands.wrapSelection("stack", defaults, t("components.stack")))
+          announce(t("announce.wrapped"));
       },
       wrapGrid() {
-        if (commands.wrapSelection("grid", defaults, t("components.grid"))) announce(t("announce.wrappedGrid"));
+        if (commands.wrapSelection("grid", defaults, t("components.grid")))
+          announce(t("announce.wrappedGrid"));
       },
       toggleMode() {
         const mode = commands.toggleMode();
@@ -63,8 +68,12 @@ export function useCommands() {
       },
       addArtboard(preset: ArtboardPreset) {
         const p = useDocumentStore.getState().project;
-        const index = (p?.artboardOrder.filter((id) => p.artboards[id].preset === preset).length ?? 0) + 1;
-        commands.addArtboard(preset, t("defaults.artboard.name", { preset: t(`presets.${preset}`), index }));
+        const index =
+          (p?.artboardOrder.filter((id) => p.artboards[id].preset === preset).length ?? 0) + 1;
+        commands.addArtboard(
+          preset,
+          t("defaults.artboard.name", { preset: t(`presets.${preset}`), index }),
+        );
       },
     };
   }, [t]);
@@ -94,9 +103,41 @@ export function useTemplates() {
           genId: newId,
           now: new Date().toISOString(),
           projectName: t(`templates.names.${id}`),
-          artboardName: t("defaults.artboard.name", { preset: t(`presets.${tpl.preset}`), index: 1 }),
+          artboardName: t("defaults.artboard.name", {
+            preset: t(`presets.${tpl.preset}`),
+            index: 1,
+          }),
         });
         await saveAndOpen(p);
+      },
+      addToProject(id: string) {
+        const tpl = getTemplate(id);
+        const current = docStore.getState().project;
+        if (!tpl || !current) return;
+        const name = t(`templates.names.${id}`);
+        let added = "";
+        applyOp((p) => {
+          const r = addTemplateArtboard(p, tpl, {
+            t: (k) => t(k),
+            genId: newId,
+            artboardName: name,
+          });
+          added = r.artboardId;
+          return r.project;
+        });
+        const a = docStore.getState().project?.artboards[added];
+        if (!a) return;
+        const ed = useEditorStore.getState();
+        ed.set({
+          activeArtboardId: a.id,
+          selection: [],
+          viewport: centerOn(
+            { x: a.x + a.width / 2, y: a.y + a.height / 2 },
+            Math.min(ed.viewport.zoom, 0.5),
+            ed.viewSize,
+          ),
+        });
+        announce(t("templates.added", { name }));
       },
     }),
     [t],

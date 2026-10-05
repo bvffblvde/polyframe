@@ -4,7 +4,7 @@ import uk from "../../../messages/uk.json";
 import { projectSchema } from "../document/schema";
 import { validateProps } from "../registry";
 import { counterIds } from "../test/fixtures";
-import { getTemplate, instantiateTemplate, TEMPLATES } from "./index";
+import { addTemplateArtboard, getTemplate, instantiateTemplate, TEMPLATES } from "./index";
 
 type Tree = { [k: string]: string | Tree };
 
@@ -46,4 +46,19 @@ describe("templates", () => {
       }
     },
   );
+});
+
+describe("addTemplateArtboard", () => {
+  it("adds a template as a new artboard to the right of existing ones", () => {
+    const t = translator(en as Tree);
+    const base = instantiateTemplate(TEMPLATES[0], { t, genId: counterIds("a"), now: "", projectName: "P", artboardName: "One" });
+    const tpl = getTemplate("mobileProfile");
+    if (!tpl) throw new Error("template");
+    const { project, artboardId } = addTemplateArtboard(base, tpl, { t, genId: counterIds("b"), artboardName: "Profile" });
+    expect(project.artboardOrder).toEqual([...base.artboardOrder, artboardId]);
+    const first = project.artboards[base.artboardOrder[0]];
+    expect(project.artboards[artboardId]).toMatchObject({ name: "Profile", preset: "mobile", x: first.x + first.width + 160 });
+    expect(project.artboards[artboardId].childOrder.length).toBeGreaterThan(5);
+    expect(projectSchema.safeParse(project).success).toBe(true);
+  });
 });

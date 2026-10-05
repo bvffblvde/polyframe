@@ -36,6 +36,7 @@ import { ShortcutsDialog } from "./dialogs/shortcuts-dialog";
 import { Inspector } from "./inspector/inspector";
 import { LayersPanel } from "./layers/layers-panel";
 import { Palette, PaletteDragPreview } from "./palette/palette";
+import { TemplatesPanel } from "./templates/templates-panel";
 import { useShortcuts } from "./shortcuts";
 import { Toolbar } from "./toolbar/toolbar";
 import { useCommands, useNewProjectNames } from "./use-commands";
@@ -100,17 +101,21 @@ function Editor() {
           <aside className="flex w-64 shrink-0 flex-col border-r bg-background" aria-label={t("panels.components")} data-tour="palette">
             <Tabs
               value={leftTab}
-              onValueChange={(v) => useEditorStore.getState().set({ leftTab: v as "components" | "layers" })}
+              onValueChange={(v) => useEditorStore.getState().set({ leftTab: v as "components" | "templates" | "layers" })}
               className="flex min-h-0 flex-1 flex-col gap-0"
             >
-              <TabsList className="m-2 grid w-auto grid-cols-2">
+              <TabsList className="m-2 grid w-auto grid-cols-3 [&>*]:px-1 [&>*]:text-xs">
                 <TabsTrigger value="components">{t("panels.components")}</TabsTrigger>
+                <TabsTrigger value="templates">{t("panels.templates")}</TabsTrigger>
                 <TabsTrigger value="layers" data-tour="layers-tab">
                   {t("panels.layers")}
                 </TabsTrigger>
               </TabsList>
               <TabsContent value="components" className="min-h-0 flex-1">
                 <Palette />
+              </TabsContent>
+              <TabsContent value="templates" className="min-h-0 flex-1">
+                <TemplatesPanel />
               </TabsContent>
               <TabsContent value="layers" className="min-h-0 flex-1">
                 <LayersPanel />

@@ -18,7 +18,7 @@ interface EditorState {
   dropTarget: { stackId: ID; index: number } | null;
   interaction: Interaction;
   spaceDown: boolean;
-  leftTab: "components" | "layers";
+  leftTab: "components" | "templates" | "layers";
   dialog: DialogId;
   clipboard: Node[];
   fitRequest: number;

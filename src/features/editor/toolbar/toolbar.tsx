@@ -27,12 +27,8 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { TEMPLATES } from "@/core/templates";
 import {
   Select,
   SelectContent,
@@ -51,7 +47,7 @@ import { useEditorStore, type DialogId } from "@/stores/editor-store";
 import { createAndOpenProject, useProjectsStore } from "@/stores/projects-store";
 import * as commands from "../commands";
 import { useProjectIO } from "../project-io";
-import { useCommands, useNewProjectNames, useTemplates } from "../use-commands";
+import { useCommands, useNewProjectNames } from "../use-commands";
 import { IconButton } from "./icon-button";
 import { skinOptions } from "../skin-options";
 import { LanguageSwitch } from "./language-switch";
@@ -69,8 +65,6 @@ export function Toolbar() {
   const cmd = useCommands();
   const names = useNewProjectNames();
   const io = useProjectIO();
-  const templates = useTemplates();
-  const tt = useTranslations("templates");
   const fileRef = useRef<HTMLInputElement>(null);
   const openDialog = (dialog: Exclude<DialogId, null>) => useEditorStore.getState().set({ dialog });
   if (!settings) return null;
@@ -92,16 +86,6 @@ export function Toolbar() {
           <DropdownMenuItem onSelect={() => createAndOpenProject(names)}>
             {t("newProject")}
           </DropdownMenuItem>
-          <DropdownMenuSub>
-            <DropdownMenuSubTrigger>{tt("newFrom")}</DropdownMenuSubTrigger>
-            <DropdownMenuSubContent>
-              {TEMPLATES.map((tpl) => (
-                <DropdownMenuItem key={tpl.id} onSelect={() => templates.create(tpl.id)}>
-                  {tt(`names.${tpl.id}`)}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuSubContent>
-          </DropdownMenuSub>
           <DropdownMenuItem onSelect={() => openDialog("projects")}>
             {t("openProjects")}
           </DropdownMenuItem>

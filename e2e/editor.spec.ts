@@ -282,9 +282,8 @@ test("creates a custom skin from imported tokens", async ({ page }) => {
 
 test("exports a vector SVG", async ({ page }) => {
   await openEditor(page);
-  await page.locator("header button").first().click();
-  await page.getByRole("menuitem", { name: "New from template" }).click();
-  await page.getByRole("menuitem", { name: "Login", exact: true }).click();
+  await page.getByRole("tab", { name: "Templates" }).click();
+  await page.getByRole("button", { name: "New project: Login" }).click();
   await page.getByRole("radio", { name: "Styled" }).click();
   await page.getByRole("button", { name: "Export" }).click();
   await page.getByRole("menuitem", { name: "SVG..." }).click();
@@ -376,4 +375,20 @@ test("context menu runs layer and canvas actions", async ({ page }) => {
   await page.locator("[data-layer-id]").first().click({ button: "right" });
   await menu.getByRole("menuitem", { name: /Delete/ }).click();
   await expect(page.locator("[data-layer-id]")).toHaveCount(2);
+});
+
+test("adds templates from the sidebar to the current project", async ({ page }) => {
+  await openEditor(page);
+  await page.locator("header button").first().click();
+  await expect(page.getByRole("menuitem", { name: "New from template" })).toHaveCount(0);
+  await page.keyboard.press("Escape");
+  await page.getByRole("tab", { name: "Templates" }).click();
+  const login = page.getByTestId("template-login");
+  await expect(login.getByRole("img", { name: "Preview of the Login template" })).toBeVisible();
+  await login.getByRole("button", { name: "Add to project" }).click();
+  await expect(page.locator("[data-artboard-id]")).toHaveCount(2);
+  await expect(page.locator("[data-artboard-label]").last()).toHaveText("Login");
+  await expect(nodes(page, "checkbox")).toHaveCount(1);
+  await page.keyboard.press("ControlOrMeta+z");
+  await expect(page.locator("[data-artboard-id]")).toHaveCount(1);
 });
