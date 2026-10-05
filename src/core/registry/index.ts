@@ -21,6 +21,11 @@ import { sidebarDefinition } from "./components/sidebar/definition";
 import { sliderDefinition } from "./components/slider/definition";
 import { stackDefinition } from "./components/stack/definition";
 import { gridDefinition } from "./components/grid/definition";
+import { dropzoneDefinition } from "./components/dropzone/definition";
+import { menuDefinition } from "./components/menu/definition";
+import { tooltipDefinition } from "./components/tooltip/definition";
+import { toastDefinition } from "./components/toast/definition";
+import { modalDefinition } from "./components/modal/definition";
 import { spinnerDefinition } from "./components/spinner/definition";
 import { skeletonDefinition } from "./components/skeleton/definition";
 import { statDefinition } from "./components/stat/definition";
@@ -78,6 +83,11 @@ export const registry: Record<ComponentType, AnyDefinition> = {
   stat: statDefinition,
   skeleton: skeletonDefinition,
   spinner: spinnerDefinition,
+  modal: modalDefinition,
+  toast: toastDefinition,
+  tooltip: tooltipDefinition,
+  menu: menuDefinition,
+  dropzone: dropzoneDefinition,
 };
 
 export const definitions: AnyDefinition[] = Object.values(registry);

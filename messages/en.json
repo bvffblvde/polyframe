@@ -41,7 +41,12 @@
     "timeline": "Timeline",
     "stat": "Stat",
     "skeleton": "Skeleton",
-    "spinner": "Spinner"
+    "spinner": "Spinner",
+    "modal": "Modal",
+    "toast": "Toast",
+    "tooltip": "Tooltip",
+    "menu": "Menu",
+    "dropzone": "File dropzone"
   },
   "categories": {
     "layout": "Layout",
@@ -164,6 +169,29 @@
     },
     "spinner": {
       "label": "Loading..."
+    },
+    "modal": {
+      "title": "Delete project?",
+      "body": "This action cannot be undone. The project and its artboards will be removed.",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    },
+    "toast": {
+      "title": "Changes saved",
+      "description": "Your profile was updated.",
+      "action": "Undo"
+    },
+    "tooltip": {
+      "text": "Copy link",
+      "trigger": "Share"
+    },
+    "menu": {
+      "items": "Edit|Duplicate|Archive|Delete"
+    },
+    "dropzone": {
+      "title": "Drop files here",
+      "hint": "PNG, JPG or PDF up to 10 MB",
+      "action": "Browse files"
     }
   },
   "toolbar": {
@@ -361,7 +389,13 @@
     "dates": "Dates",
     "delta": "Change",
     "trend": "Trend",
-    "lines": "Lines"
+    "lines": "Lines",
+    "confirmLabel": "Confirm label",
+    "cancelLabel": "Cancel label",
+    "trigger": "Trigger",
+    "placement": "Placement",
+    "destructiveLast": "Last item is destructive",
+    "hint": "Hint"
   },
   "values": {
     "outline": "Outline",
@@ -404,7 +438,9 @@
     "slash": "Slash",
     "chevron": "Chevron",
     "up": "Up",
-    "down": "Down"
+    "down": "Down",
+    "top": "Top",
+    "bottom": "Bottom"
   },
   "projects": {
     "title": "Projects",

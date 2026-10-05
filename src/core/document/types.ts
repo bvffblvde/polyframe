@@ -59,6 +59,11 @@ export const COMPONENT_TYPES = [
   "stat",
   "skeleton",
   "spinner",
+  "modal",
+  "toast",
+  "tooltip",
+  "menu",
+  "dropzone",
 ] as const;
 export type ComponentType = (typeof COMPONENT_TYPES)[number];
 
