@@ -104,6 +104,8 @@ The left panel has two tabs, **Components** and **Layers**. The right panel is t
 
 (List, Breadcrumbs, Pagination, Modal and Tooltip mock come later.)
 
+**Added after the MVP (24 more, 48 in total):** Stack and Grid layout containers; Breadcrumbs, Pagination, Stepper and Menu (navigation); Segmented control, Rating, Calendar, Date picker and File dropzone (inputs); Avatar group (media); List, Accordion, Timeline, Stat, Skeleton and Spinner (data); Bar, Line/Area and Pie/Donut charts; Modal, Toast and Tooltip (overlays). Chart colors come from the `--pf-chart-1..5` variables derived from each skin's tokens. Overlays are drawn open on the canvas and exported in their open state. Calendars format dates with `Intl` in the layer's locale.
+
 ### 4.3 Canvas
 - An infinite, pannable and zoomable viewport containing **artboards**.
 - **Artboard presets:** Desktop 1440×1024, Laptop 1280×800, Tablet 768×1024, Mobile 390×844, plus custom sizes. Artboards can be added, renamed, resized and deleted.

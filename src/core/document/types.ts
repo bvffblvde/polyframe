@@ -66,6 +66,9 @@ export const COMPONENT_TYPES = [
   "dropzone",
   "calendar",
   "datepicker",
+  "barchart",
+  "linechart",
+  "piechart",
 ] as const;
 export type ComponentType = (typeof COMPONENT_TYPES)[number];
 

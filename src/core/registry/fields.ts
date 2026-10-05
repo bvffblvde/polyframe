@@ -6,7 +6,8 @@ export type FieldDescriptor =
   | { key: string; kind: "boolean" }
   | { key: string; kind: "enum"; options: string[] }
   | { key: string; kind: "list" }
-  | { key: string; kind: "table" };
+  | { key: string; kind: "table" }
+  | { key: string; kind: "numbers" };
 
 export function describeFields(schema: z.ZodType): FieldDescriptor[] {
   if (!(schema instanceof z.ZodObject)) return [];
@@ -21,7 +22,7 @@ export function describeFields(schema: z.ZodType): FieldDescriptor[] {
     } else if (field instanceof z.ZodEnum) {
       out.push({ key, kind: "enum", options: field.options.map(String) });
     } else if (field instanceof z.ZodArray) {
-      out.push({ key, kind: field.element instanceof z.ZodArray ? "table" : "list" });
+      out.push({ key, kind: field.element instanceof z.ZodArray ? "table" : field.element instanceof z.ZodNumber ? "numbers" : "list" });
     }
   }
   return out;
@@ -46,4 +47,16 @@ export function tableToText(rows: string[][]): string {
 
 export function textToTable(text: string): string[][] {
   return textToList(text).map((line) => line.split(CELL_SEPARATOR).map((c) => c.trim()));
+}
+
+export function numbersToText(values: number[]): string {
+  return values.join(", ");
+}
+
+export function textToNumbers(text: string): number[] {
+  return text
+    .split(/[\s,;]+/)
+    .filter(Boolean)
+    .map(Number)
+    .filter((n) => Number.isFinite(n));
 }

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { z } from "zod";
-import { describeFields, listToText, tableToText, textToList, textToTable } from "@/core/registry/fields";
+import { describeFields, listToText, numbersToText, tableToText, textToList, textToNumbers, textToTable } from "@/core/registry/fields";
 import { NumberField, SelectField, SwitchField, TextField } from "./fields";
 
 interface SchemaFormProps {
@@ -63,6 +63,16 @@ export function SchemaForm({ schema, values, onChange }: SchemaFormProps) {
                 hint={t("inspector.listHint")}
                 value={Array.isArray(v) ? listToText(v.map(String)) : ""}
                 onCommit={(s) => onChange(f.key, textToList(s))}
+              />
+            );
+          case "numbers":
+            return (
+              <TextField
+                key={f.key}
+                label={label(f.key)}
+                hint={t("inspector.numbersHint")}
+                value={Array.isArray(v) ? numbersToText(v.filter((x): x is number => typeof x === "number")) : ""}
+                onCommit={(s) => onChange(f.key, textToNumbers(s))}
               />
             );
           case "table":

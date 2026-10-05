@@ -48,7 +48,10 @@
     "menu": "Menu",
     "dropzone": "File dropzone",
     "calendar": "Calendar",
-    "datepicker": "Date picker"
+    "datepicker": "Date picker",
+    "barchart": "Bar chart",
+    "linechart": "Line chart",
+    "piechart": "Pie chart"
   },
   "categories": {
     "layout": "Layout",
@@ -202,6 +205,11 @@
     "datepicker": {
       "label": "Start date",
       "placeholder": "Pick a date"
+    },
+    "chart": {
+      "labels": "Jan|Feb|Mar|Apr|May|Jun",
+      "series": "Revenue|Costs",
+      "pieLabels": "Direct|Social|Search|Email"
     }
   },
   "toolbar": {
@@ -336,7 +344,8 @@
     "wrapInGrid": "Wrap in grid",
     "inLayout": "Position and order are set by the container.",
     "removeFromLayout": "Remove from container",
-    "unwrapLayout": "Unwrap container"
+    "unwrapLayout": "Unwrap container",
+    "numbersHint": "Numbers separated by commas"
   },
   "fields": {
     "label": "Label",
@@ -410,7 +419,16 @@
     "month": "Month",
     "selected": "Selected day",
     "weekStart": "Week starts on",
-    "locale": "Date format"
+    "locale": "Date format",
+    "labels": "Labels",
+    "values": "Values",
+    "values2": "Second series",
+    "series": "Series names",
+    "showGrid": "Grid lines",
+    "showLegend": "Legend",
+    "smooth": "Smooth lines",
+    "area": "Fill area",
+    "donut": "Donut"
   },
   "values": {
     "outline": "Outline",

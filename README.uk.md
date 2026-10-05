@@ -64,8 +64,10 @@ Polyframe тримає **один макет** і показує його **рі
 - Стеки (⇧A) і гріди з автолейаутом, що експортуються як справжні flex- і CSS grid-контейнери
 - Скасування й повтор для кожного жесту
 
-**Компоненти (26, і їх стане більше)**
+**Компоненти (48, і їх стане більше)**
 `Box` `Card` `Divider` `Navbar` `Sidebar` · `Button` `Input` `Textarea` `Select` `Checkbox` `Radio` `Switch` `Slider` · `Heading` `Text` `Link` `Badge` · `Image` `Avatar` `Icon` · `Table` `Tabs` `Alert` `Progress` · `Stack` `Grid`
+
+**Ще компоненти:** `Breadcrumbs` `Pagination` `Stepper` `Menu` · `Segmented control` `Rating` `Calendar` `Date picker` `File dropzone` · `Avatar group` · `List` `Accordion` `Timeline` `Stat` `Skeleton` `Spinner` · `Bar chart` `Line chart` `Pie chart` · `Modal` `Toast` `Tooltip`
 
 **Інспектор і шари**
 - Панель властивостей генерується зі схеми кожного компонента

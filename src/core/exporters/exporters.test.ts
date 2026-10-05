@@ -107,6 +107,20 @@ describe("project generation", () => {
     expect(shadcn.code).toContain("grid grid-cols-3 gap-x-[16px] gap-y-[16px]");
   });
 
+  it("never imports the same local name twice", () => {
+    for (const target of EXPORT_TARGETS) {
+      const [file] = generateProjectCode(everything(), target, "absolute");
+      const locals = [...file.code.matchAll(/^import (.+) from "[^"]+";$/gm)].flatMap((m) =>
+        m[1]
+          .replace(/[{}]/g, "")
+          .split(",")
+          .map((x) => x.trim().split(/\s+as\s+/).pop() ?? "")
+          .filter(Boolean),
+      );
+      expect(locals.length, target).toBe(new Set(locals).size);
+    }
+  });
+
   it("skips hidden nodes and makes names unique", () => {
     let p = single("button");
     p = { ...p, nodes: { ...p.nodes, n1: { ...p.nodes.n1, hidden: true } } };

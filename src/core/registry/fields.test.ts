@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { z } from "zod";
-import { describeFields, listToText, tableToText, textToList, textToTable } from "./fields";
+import { describeFields, listToText, numbersToText, tableToText, textToList, textToNumbers, textToTable } from "./fields";
 import { getDefinition } from "./index";
 
 describe("describeFields", () => {
@@ -13,6 +13,7 @@ describe("describeFields", () => {
       e: z.enum(["x", "y"]),
       f: z.array(z.string()),
       g: z.array(z.array(z.string())),
+      i: z.array(z.number()),
       h: z.date(),
     });
     expect(describeFields(schema)).toEqual([
@@ -23,6 +24,7 @@ describe("describeFields", () => {
       { key: "e", kind: "enum", options: ["x", "y"] },
       { key: "f", kind: "list" },
       { key: "g", kind: "table" },
+      { key: "i", kind: "numbers" },
     ]);
     expect(describeFields(z.string())).toEqual([]);
   });
@@ -43,5 +45,7 @@ describe("text conversions", () => {
     expect(listToText(["a", "b"])).toBe("a\nb");
     expect(textToTable("a | b\nc|d")).toEqual([["a", "b"], ["c", "d"]]);
     expect(tableToText([["a", "b"]])).toBe("a | b");
+    expect(textToNumbers("1, 2.5; x 3\n4")).toEqual([1, 2.5, 3, 4]);
+    expect(numbersToText([1, 2])).toBe("1, 2");
   });
 });

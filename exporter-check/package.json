@@ -10,11 +10,13 @@
     "@chakra-ui/react": "^3.37.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
+    "@mantine/charts": "^9.6.3",
     "@mantine/core": "^9.6.3",
     "@mantine/dates": "^9.6.3",
     "@mantine/hooks": "^9.6.3",
     "@mui/icons-material": "^7.0.0",
     "@mui/material": "^7.0.0",
+    "@mui/x-charts": "^9.14.0",
     "@mui/x-date-pickers": "^9.14.0",
     "antd": "^6.6.5",
     "class-variance-authority": "^0.7.1",
@@ -26,6 +28,7 @@
     "react-bootstrap": "^2.10.10",
     "react-day-picker": "^10.0.2",
     "react-dom": "^19.2.0",
+    "recharts": "^3.10.1",
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {

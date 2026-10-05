@@ -64,8 +64,10 @@ Polyframe keeps **one layout** and lets you see it in **many visual languages**,
 - Auto-layout stacks (⇧A) and grids that export as real flex and CSS grid containers
 - Undo/redo for every gesture
 
-**Components (26 and growing)**
+**Components (48 and growing)**
 `Box` `Card` `Divider` `Navbar` `Sidebar` · `Button` `Input` `Textarea` `Select` `Checkbox` `Radio` `Switch` `Slider` · `Heading` `Text` `Link` `Badge` · `Image` `Avatar` `Icon` · `Table` `Tabs` `Alert` `Progress` · `Stack` `Grid`
+
+**More components:** `Breadcrumbs` `Pagination` `Stepper` `Menu` · `Segmented control` `Rating` `Calendar` `Date picker` `File dropzone` · `Avatar group` · `List` `Accordion` `Timeline` `Stat` `Skeleton` `Spinner` · `Bar chart` `Line chart` `Pie chart` · `Modal` `Toast` `Tooltip`
 
 **Inspector & layers**
 - Property panel generated from each component's schema

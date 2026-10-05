@@ -21,6 +21,9 @@ import { sidebarDefinition } from "./components/sidebar/definition";
 import { sliderDefinition } from "./components/slider/definition";
 import { stackDefinition } from "./components/stack/definition";
 import { gridDefinition } from "./components/grid/definition";
+import { piechartDefinition } from "./components/piechart/definition";
+import { linechartDefinition } from "./components/linechart/definition";
+import { barchartDefinition } from "./components/barchart/definition";
 import { datepickerDefinition } from "./components/datepicker/definition";
 import { calendarDefinition } from "./components/calendar/definition";
 import { dropzoneDefinition } from "./components/dropzone/definition";
@@ -92,6 +95,9 @@ export const registry: Record<ComponentType, AnyDefinition> = {
   dropzone: dropzoneDefinition,
   calendar: calendarDefinition,
   datepicker: datepickerDefinition,
+  barchart: barchartDefinition,
+  linechart: linechartDefinition,
+  piechart: piechartDefinition,
 };
 
 export const definitions: AnyDefinition[] = Object.values(registry);

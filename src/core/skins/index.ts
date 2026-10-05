@@ -77,6 +77,11 @@ export function skinCssVars(def: SkinDefinition): Record<string, string> {
     "--pf-table-head-bg": v.tableHeadBg,
     "--pf-navbar-bg": v.navbarBg,
     "--pf-navbar-fg": v.navbarFg,
+    "--pf-chart-1": t.primary,
+    "--pf-chart-2": t.info,
+    "--pf-chart-3": t.success,
+    "--pf-chart-4": t.warning,
+    "--pf-chart-5": t.danger,
   };
 }
 
