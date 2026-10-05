@@ -29,14 +29,23 @@
     "alert": "Alert",
     "progress": "Progress",
     "stack": "Stack",
-    "grid": "Grid"
+    "grid": "Grid",
+    "breadcrumbs": "Breadcrumbs",
+    "pagination": "Pagination",
+    "stepper": "Stepper",
+    "segmented": "Segmented control",
+    "rating": "Rating",
+    "avatargroup": "Avatar group"
   },
   "categories": {
     "layout": "Layout",
     "inputs": "Inputs",
     "typography": "Typography",
     "media": "Media",
-    "data": "Data & feedback"
+    "data": "Data & feedback",
+    "navigation": "Navigation",
+    "charts": "Charts",
+    "overlays": "Overlays"
   },
   "defaults": {
     "card": {
@@ -119,6 +128,18 @@
     },
     "artboard": {
       "name": "{preset} {index}"
+    },
+    "breadcrumbs": {
+      "items": "Home|Projects|Polyframe"
+    },
+    "stepper": {
+      "steps": "Account|Details|Review"
+    },
+    "segmented": {
+      "options": "Day|Week|Month"
+    },
+    "avatargroup": {
+      "initials": "AB|CD|EF|GH|IJ"
     }
   },
   "toolbar": {
@@ -302,7 +323,13 @@
     "background": "Background",
     "columnGap": "Column gap",
     "rowGap": "Row gap",
-    "fill": "Fill cell width"
+    "fill": "Fill cell width",
+    "separator": "Separator",
+    "pages": "Pages",
+    "current": "Current page",
+    "steps": "Steps",
+    "count": "Stars",
+    "max": "Visible"
   },
   "values": {
     "outline": "Outline",
@@ -341,7 +368,9 @@
     "between": "Space between",
     "none": "None",
     "surface": "Surface",
-    "muted": "Muted"
+    "muted": "Muted",
+    "slash": "Slash",
+    "chevron": "Chevron"
   },
   "projects": {
     "title": "Projects",

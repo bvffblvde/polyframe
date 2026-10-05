@@ -805,3 +805,186 @@
   color: var(--pf-text-muted);
   white-space: pre-wrap;
 }
+
+.pf-crumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pf-crumbs__sep {
+  color: var(--pf-text-muted);
+}
+.pf-crumbs__item {
+  color: var(--pf-accent);
+}
+.pf-crumbs__item[data-current] {
+  color: var(--pf-text);
+  font-weight: 500;
+}
+.pf-root[data-mode="wireframe"] .pf-crumbs__item:not([data-current]) {
+  color: var(--pf-text-muted);
+  text-decoration: underline;
+}
+
+.pf-pager {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+.pf-pager__item,
+.pf-pager__gap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--pf-control-h-sm);
+  height: var(--pf-control-h-sm);
+  padding: 0 6px;
+  border-radius: var(--pf-r);
+}
+.pf-pager__item {
+  border: var(--pf-stroke) solid var(--pf-border);
+}
+.pf-pager__item[data-active] {
+  background: var(--pf-accent);
+  border-color: var(--pf-accent);
+  color: var(--pf-accent-fg);
+}
+.pf-root[data-mode="wireframe"] .pf-pager__item[data-active] {
+  background: var(--pf-muted-bg);
+  color: var(--pf-text);
+  border-color: var(--pf-border);
+  font-weight: 700;
+}
+.pf-pager__gap {
+  color: var(--pf-text-muted);
+}
+
+.pf-steps {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+.pf-steps__step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: var(--pf-text-muted);
+}
+.pf-steps__step[data-state="active"] {
+  color: var(--pf-text);
+  font-weight: 600;
+}
+.pf-steps__step[data-state="done"] {
+  color: var(--pf-text);
+}
+.pf-steps__dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 50%;
+  border: var(--pf-stroke) solid var(--pf-border);
+  background: var(--pf-bg);
+  font-size: 13px;
+  font-weight: 600;
+}
+.pf-steps__step[data-state="active"] .pf-steps__dot,
+.pf-steps__step[data-state="done"] .pf-steps__dot {
+  background: var(--pf-accent);
+  border-color: var(--pf-accent);
+  color: var(--pf-accent-fg);
+}
+.pf-root[data-mode="wireframe"] .pf-steps__step[data-state] .pf-steps__dot {
+  background: var(--pf-bg);
+  color: var(--pf-text);
+  border-color: var(--pf-border);
+}
+.pf-steps__line {
+  flex: 1;
+  height: var(--pf-stroke);
+  min-width: 12px;
+  background: var(--pf-border);
+}
+.pf-steps__line[data-done] {
+  background: var(--pf-accent);
+}
+.pf-root[data-mode="wireframe"] .pf-steps__line {
+  background: var(--pf-border);
+}
+
+.pf-seg {
+  display: flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: var(--pf-r);
+  background: var(--pf-muted-bg);
+  font-size: 14px;
+}
+.pf-root[data-mode="wireframe"] .pf-seg {
+  border: var(--pf-stroke) solid var(--pf-border);
+}
+.pf-seg__item {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--pf-r) - 2px);
+  color: var(--pf-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pf-seg__item[data-active] {
+  background: var(--pf-surface);
+  color: var(--pf-text);
+  font-weight: 500;
+  box-shadow: var(--pf-shadow-1);
+}
+.pf-root[data-mode="wireframe"] .pf-seg__item[data-active] {
+  border: var(--pf-stroke) solid var(--pf-border);
+}
+
+.pf-rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pf-rating__star {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1;
+  color: var(--pf-border);
+}
+.pf-rating__star[data-on] {
+  color: var(--pf-warning);
+  fill: var(--pf-warning);
+}
+.pf-root[data-mode="wireframe"] .pf-rating__star[data-on] {
+  color: var(--pf-text);
+  fill: var(--pf-text);
+}
+
+.pf-avatars {
+  display: flex;
+  align-items: center;
+}
+.pf-avatars__item.pf-avatars__item {
+  height: 100%;
+  width: auto;
+  aspect-ratio: 1;
+  border: 2px solid var(--pf-bg);
+}
+.pf-avatars__item + .pf-avatars__item {
+  margin-left: -10px;
+}
+.pf-avatars__item[data-more] {
+  background: var(--pf-muted-bg);
+  color: var(--pf-text-muted);
+}

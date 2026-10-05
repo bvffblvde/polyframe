@@ -47,6 +47,12 @@ export const COMPONENT_TYPES = [
   "progress",
   "stack",
   "grid",
+  "breadcrumbs",
+  "pagination",
+  "stepper",
+  "segmented",
+  "rating",
+  "avatargroup",
 ] as const;
 export type ComponentType = (typeof COMPONENT_TYPES)[number];
 

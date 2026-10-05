@@ -6,8 +6,8 @@ import type { SvgDrawer } from "../exporters/svg/types";
 import type { ComponentExporters } from "../exporters/types";
 
 export type Translator = (key: string) => string;
-export type Category = "layout" | "inputs" | "typography" | "media" | "data";
-export const CATEGORIES: Category[] = ["layout", "inputs", "typography", "media", "data"];
+export type Category = "layout" | "navigation" | "inputs" | "typography" | "media" | "data" | "charts" | "overlays";
+export const CATEGORIES: Category[] = ["layout", "navigation", "inputs", "typography", "media", "data", "charts", "overlays"];
 
 export interface RenderProps<P> {
   props: P;

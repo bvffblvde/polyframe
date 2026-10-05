@@ -21,6 +21,12 @@ import { sidebarDefinition } from "./components/sidebar/definition";
 import { sliderDefinition } from "./components/slider/definition";
 import { stackDefinition } from "./components/stack/definition";
 import { gridDefinition } from "./components/grid/definition";
+import { avatargroupDefinition } from "./components/avatargroup/definition";
+import { ratingDefinition } from "./components/rating/definition";
+import { segmentedDefinition } from "./components/segmented/definition";
+import { stepperDefinition } from "./components/stepper/definition";
+import { paginationDefinition } from "./components/pagination/definition";
+import { breadcrumbsDefinition } from "./components/breadcrumbs/definition";
 import { switchDefinition } from "./components/switch/definition";
 import { tableDefinition } from "./components/table/definition";
 import { tabsDefinition } from "./components/tabs/definition";
@@ -54,6 +60,12 @@ export const registry: Record<ComponentType, AnyDefinition> = {
   progress: progressDefinition,
   stack: stackDefinition,
   grid: gridDefinition,
+  breadcrumbs: breadcrumbsDefinition,
+  pagination: paginationDefinition,
+  stepper: stepperDefinition,
+  segmented: segmentedDefinition,
+  rating: ratingDefinition,
+  avatargroup: avatargroupDefinition,
 };
 
 export const definitions: AnyDefinition[] = Object.values(registry);

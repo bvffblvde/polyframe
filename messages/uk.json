@@ -29,14 +29,23 @@
     "alert": "Сповіщення",
     "progress": "Прогрес",
     "stack": "Стек",
-    "grid": "Грід"
+    "grid": "Грід",
+    "breadcrumbs": "Хлібні крихти",
+    "pagination": "Пагінація",
+    "stepper": "Кроки",
+    "segmented": "Сегментований перемикач",
+    "rating": "Рейтинг",
+    "avatargroup": "Група аватарів"
   },
   "categories": {
     "layout": "Макет",
     "inputs": "Елементи форм",
     "typography": "Типографіка",
     "media": "Медіа",
-    "data": "Дані та зворотний зв'язок"
+    "data": "Дані та зворотний зв'язок",
+    "navigation": "Навігація",
+    "charts": "Графіки",
+    "overlays": "Оверлеї"
   },
   "defaults": {
     "card": {
@@ -119,6 +128,18 @@
     },
     "artboard": {
       "name": "{preset} {index}"
+    },
+    "breadcrumbs": {
+      "items": "Головна|Проєкти|Polyframe"
+    },
+    "stepper": {
+      "steps": "Акаунт|Дані|Перевірка"
+    },
+    "segmented": {
+      "options": "День|Тиждень|Місяць"
+    },
+    "avatargroup": {
+      "initials": "ОК|АМ|ІБ|ДС|ЮТ"
     }
   },
   "toolbar": {
@@ -302,7 +323,13 @@
     "background": "Фон",
     "columnGap": "Проміжок між колонками",
     "rowGap": "Проміжок між рядами",
-    "fill": "Заповнювати ширину клітинки"
+    "fill": "Заповнювати ширину клітинки",
+    "separator": "Розділювач",
+    "pages": "Сторінки",
+    "current": "Поточна сторінка",
+    "steps": "Кроки",
+    "count": "Зірок",
+    "max": "Показувати"
   },
   "values": {
     "outline": "Контур",
@@ -341,7 +368,9 @@
     "between": "Рівномірно",
     "none": "Немає",
     "surface": "Поверхня",
-    "muted": "Приглушений"
+    "muted": "Приглушений",
+    "slash": "Скісна риска",
+    "chevron": "Шеврон"
   },
   "projects": {
     "title": "Проєкти",
