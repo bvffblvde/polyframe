@@ -21,6 +21,12 @@ import { sidebarDefinition } from "./components/sidebar/definition";
 import { sliderDefinition } from "./components/slider/definition";
 import { stackDefinition } from "./components/stack/definition";
 import { gridDefinition } from "./components/grid/definition";
+import { spinnerDefinition } from "./components/spinner/definition";
+import { skeletonDefinition } from "./components/skeleton/definition";
+import { statDefinition } from "./components/stat/definition";
+import { timelineDefinition } from "./components/timeline/definition";
+import { accordionDefinition } from "./components/accordion/definition";
+import { listDefinition } from "./components/list/definition";
 import { avatargroupDefinition } from "./components/avatargroup/definition";
 import { ratingDefinition } from "./components/rating/definition";
 import { segmentedDefinition } from "./components/segmented/definition";
@@ -66,6 +72,12 @@ export const registry: Record<ComponentType, AnyDefinition> = {
   segmented: segmentedDefinition,
   rating: ratingDefinition,
   avatargroup: avatargroupDefinition,
+  list: listDefinition,
+  accordion: accordionDefinition,
+  timeline: timelineDefinition,
+  stat: statDefinition,
+  skeleton: skeletonDefinition,
+  spinner: spinnerDefinition,
 };
 
 export const definitions: AnyDefinition[] = Object.values(registry);

@@ -35,7 +35,13 @@
     "stepper": "Stepper",
     "segmented": "Segmented control",
     "rating": "Rating",
-    "avatargroup": "Avatar group"
+    "avatargroup": "Avatar group",
+    "list": "List",
+    "accordion": "Accordion",
+    "timeline": "Timeline",
+    "stat": "Stat",
+    "skeleton": "Skeleton",
+    "spinner": "Spinner"
   },
   "categories": {
     "layout": "Layout",
@@ -140,6 +146,24 @@
     },
     "avatargroup": {
       "initials": "AB|CD|EF|GH|IJ"
+    },
+    "list": {
+      "items": "Olena Koval|Andrii Melnyk|Iryna Bondar",
+      "secondary": "Product designer|Frontend engineer|Project manager"
+    },
+    "accordion": {
+      "items": "What is Polyframe?|Is it free?|Can I export code?",
+      "content": "A browser-only tool to sketch a layout once and see it in many UI kits."
+    },
+    "timeline": {
+      "events": "Project created|Design review|Launch",
+      "dates": "Mar 3|Mar 12|Apr 1"
+    },
+    "stat": {
+      "label": "Monthly revenue"
+    },
+    "spinner": {
+      "label": "Loading..."
     }
   },
   "toolbar": {
@@ -329,7 +353,15 @@
     "current": "Current page",
     "steps": "Steps",
     "count": "Stars",
-    "max": "Visible"
+    "max": "Visible",
+    "secondary": "Secondary text",
+    "dividers": "Dividers",
+    "openIndex": "Open item",
+    "events": "Events",
+    "dates": "Dates",
+    "delta": "Change",
+    "trend": "Trend",
+    "lines": "Lines"
   },
   "values": {
     "outline": "Outline",
@@ -370,7 +402,9 @@
     "surface": "Surface",
     "muted": "Muted",
     "slash": "Slash",
-    "chevron": "Chevron"
+    "chevron": "Chevron",
+    "up": "Up",
+    "down": "Down"
   },
   "projects": {
     "title": "Projects",

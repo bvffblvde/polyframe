@@ -53,6 +53,12 @@ export const COMPONENT_TYPES = [
   "segmented",
   "rating",
   "avatargroup",
+  "list",
+  "accordion",
+  "timeline",
+  "stat",
+  "skeleton",
+  "spinner",
 ] as const;
 export type ComponentType = (typeof COMPONENT_TYPES)[number];
 
