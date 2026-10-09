@@ -51,3 +51,39 @@ jobs:
           EXPORT_FIXTURE_DIR: exporter-check/generated
       - run: pnpm --dir exporter-check install --ignore-workspace
       - run: pnpm --dir exporter-check check
+
+  bench:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - uses: actions/cache/restore@v4
+        with:
+          path: bench/.baseline
+          key: bench-baseline-${{ github.run_id }}
+          restore-keys: bench-baseline-
+      - run: pnpm exec playwright test -c bench/playwright.config.ts
+        env:
+          CI: "true"
+      - run: node bench/report.mjs --baseline bench/.baseline/results.json
+      - if: success()
+        run: mkdir -p bench/.baseline && cp bench/.out/results.json bench/.baseline/results.json
+      - if: success()
+        uses: actions/cache/save@v4
+        with:
+          path: bench/.baseline
+          key: bench-baseline-${{ github.run_id }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bench
+          path: bench/.out
+          retention-days: 30

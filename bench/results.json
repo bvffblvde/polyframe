@@ -1,0 +1,208 @@
+{
+  "date": "2026-10-09",
+  "machine": "Intel(R) Core(TM) i7-8569U CPU @ 2.80GHz, darwin",
+  "cpuThrottle": 4,
+  "bundle": {
+    "landing": {
+      "scripts": 13,
+      "jsKb": 356
+    },
+    "editor": {
+      "scripts": 14,
+      "jsKb": 457
+    },
+    "docs": {
+      "scripts": 13,
+      "jsKb": 208
+    }
+  },
+  "editor": [
+    {
+      "count": 100,
+      "cpu": 4,
+      "loadMs": 267,
+      "drag": {
+        "fps": 53.1,
+        "p95FrameMs": 17,
+        "longTasks": 2,
+        "longTaskMs": 129,
+        "maxEventMs": 144,
+        "wallMs": 1320
+      },
+      "marquee": {
+        "fps": 59,
+        "p95FrameMs": 17,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "maxEventMs": 64,
+        "wallMs": 979
+      },
+      "zoom": {
+        "fps": 60,
+        "p95FrameMs": 17,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "maxEventMs": 16,
+        "wallMs": 898
+      },
+      "undo": {
+        "fps": 59,
+        "p95FrameMs": 17,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "maxEventMs": 40,
+        "wallMs": 984
+      }
+    },
+    {
+      "count": 500,
+      "cpu": 4,
+      "loadMs": 652,
+      "drag": {
+        "fps": 56.4,
+        "p95FrameMs": 17,
+        "longTasks": 2,
+        "longTaskMs": 116,
+        "maxEventMs": 144,
+        "wallMs": 2265
+      },
+      "marquee": {
+        "fps": 54.2,
+        "p95FrameMs": 33,
+        "longTasks": 1,
+        "longTaskMs": 52,
+        "maxEventMs": 72,
+        "wallMs": 1412
+      },
+      "zoom": {
+        "fps": 35.5,
+        "p95FrameMs": 50,
+        "longTasks": 17,
+        "longTaskMs": 996,
+        "maxEventMs": 32,
+        "wallMs": 1476
+      },
+      "undo": {
+        "fps": 59.4,
+        "p95FrameMs": 17,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "maxEventMs": 48,
+        "wallMs": 1654
+      },
+      "skin": {
+        "fps": 13.4,
+        "p95FrameMs": 450,
+        "longTasks": 13,
+        "longTaskMs": 3800,
+        "maxEventMs": 648,
+        "wallMs": 4894
+      }
+    },
+    {
+      "count": 1000,
+      "cpu": 4,
+      "loadMs": 810,
+      "drag": {
+        "fps": 45.6,
+        "p95FrameMs": 33,
+        "longTasks": 5,
+        "longTaskMs": 334,
+        "maxEventMs": 176,
+        "wallMs": 3191
+      },
+      "marquee": {
+        "fps": 39,
+        "p95FrameMs": 50,
+        "longTasks": 10,
+        "longTaskMs": 590,
+        "maxEventMs": 96,
+        "wallMs": 2013
+      },
+      "zoom": {
+        "fps": 27.7,
+        "p95FrameMs": 83,
+        "longTasks": 18,
+        "longTaskMs": 1525,
+        "maxEventMs": 64,
+        "wallMs": 1998
+      },
+      "undo": {
+        "fps": 54,
+        "p95FrameMs": 33,
+        "longTasks": 0,
+        "longTaskMs": 0,
+        "maxEventMs": 64,
+        "wallMs": 2007
+      }
+    },
+    {
+      "count": 2000,
+      "cpu": 4,
+      "loadMs": 1248,
+      "drag": {
+        "fps": 29.9,
+        "p95FrameMs": 67,
+        "longTasks": 58,
+        "longTaskMs": 3380,
+        "maxEventMs": 240,
+        "wallMs": 4629
+      },
+      "marquee": {
+        "fps": 28.8,
+        "p95FrameMs": 100,
+        "longTasks": 25,
+        "longTaskMs": 1972,
+        "maxEventMs": 24,
+        "wallMs": 2934
+      },
+      "zoom": {
+        "fps": 15.6,
+        "p95FrameMs": 183,
+        "longTasks": 19,
+        "longTaskMs": 3072,
+        "maxEventMs": 128,
+        "wallMs": 3594
+      },
+      "undo": {
+        "fps": 31.9,
+        "p95FrameMs": 67,
+        "longTasks": 10,
+        "longTaskMs": 580,
+        "maxEventMs": 112,
+        "wallMs": 3606
+      }
+    }
+  ],
+  "export500": {
+    "shadcn": {
+      "absolute": 3,
+      "stacked": 5
+    },
+    "mui": {
+      "absolute": 3,
+      "stacked": 4
+    },
+    "mantine": {
+      "absolute": 1,
+      "stacked": 3
+    },
+    "antd": {
+      "absolute": 1,
+      "stacked": 3
+    },
+    "bootstrap": {
+      "absolute": 1,
+      "stacked": 4
+    },
+    "chakra": {
+      "absolute": 1,
+      "stacked": 3
+    }
+  },
+  "badges": {
+    "editorJsKb": 457,
+    "fps1000": 45.6,
+    "coverage": 100
+  }
+}

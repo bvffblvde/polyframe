@@ -23,6 +23,9 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-black?style=flat-square)](./LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/bvffblvde/polyframe/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/bvffblvde/polyframe/actions)
 [![Stars](https://img.shields.io/github/stars/bvffblvde/polyframe?style=flat-square&color=yellow)](https://github.com/bvffblvde/polyframe/stargazers)
+[![editor JS](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbvffblvde%2Fpolyframe%2Fmain%2Fbench%2Fresults.json&query=%24.badges.editorJsKb&label=editor%20JS&suffix=%20KB%20gzip&style=flat-square&color=blue)](#-швидкодія)
+[![drag at 1000 nodes](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbvffblvde%2Fpolyframe%2Fmain%2Fbench%2Fresults.json&query=%24.badges.fps1000&label=drag%20at%201000%20nodes&suffix=%20FPS&style=flat-square&color=blue)](#-швидкодія)
+[![core coverage](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbvffblvde%2Fpolyframe%2Fmain%2Fbench%2Fresults.json&query=%24.badges.coverage&label=core%20coverage&suffix=%25&style=flat-square&color=green)](#-швидкодія)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](./CONTRIBUTING.md)
 [![Made in Ukraine](https://img.shields.io/badge/made_in-Ukraine-ffd700?style=flat-square&labelColor=0057b7)](https://u24.gov.ua)
 
@@ -107,6 +110,7 @@ pnpm typecheck      # tsc --noEmit
 pnpm test           # юніт- і компонентні тести Vitest
 pnpm test:coverage  # з порогами покриття для ops і geometry
 pnpm test:e2e       # Playwright
+pnpm bench          # performance bench on a production build (run pnpm build first)
 pnpm storybook      # усі компоненти в усіх скінах і режимах
 ```
 
@@ -126,6 +130,13 @@ pnpm storybook      # усі компоненти в усіх скінах і р
 | Вмістити все | `⌘0` | `Ctrl+0` |
 | Палітра команд | `⌘K` | `Ctrl+K` |
 | Усі гарячі клавіші | `?` | `?` |
+
+## 📊 Швидкодія
+
+Цифри дає `pnpm bench`: Playwright керує продакшн-збіркою зі згенерованими проєктами від 100 до 2000 вузлів. CI запускає той самий бенчмарк на кожен пуш у `main` і падає, якщо FPS просідає більш ніж на 20% або JS маршруту зростає більш ніж на 10%.
+
+<!-- bench:start -->
+<!-- bench:end -->
 
 ## 🏗️ Як це працює
 
@@ -156,7 +167,7 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] **v0.4**: скіни Chakra, Fluent 2 і Radix Themes, редактор скінів з імпортом токенів, експорт у SVG, стеки з автолейаутом
 - [x] Grid-контейнери
 - [x] Контекстне меню з діями для шарів по правому кліку
-- [ ] **Згодом**: нові цілі експорту, плагіни
+- [ ] **v1.0**: виміряна швидкодія, точність експорту, редагування лише з клавіатури, npm-пакети, синхронізація вкладок, експорт у Vue, Svelte, Angular і HTML. Див. [план до флагмана](./docs/ROADMAP.md)
 
 Є ідея? [Відкрийте обговорення](https://github.com/bvffblvde/polyframe/discussions).
 

@@ -10,7 +10,8 @@ Every phase ends green in CI, deployed, and with a number, a test or a published
 
 | Topic | Decision |
 |---|---|
-| Order | Foundation first (phases 1 to 6), then export variants, then accounts and collaboration. Collaboration changes the store and undo, so it goes on top of a measured, stable core. |
+| Order | Foundation first (phases 1 to 6), then export variants (phase 7). |
+| Status | Phases 1 to 7 are in progress. Phases 8 and 9 (backend, accounts, live collaboration) are deferred until the product questions below are answered; nothing in phases 1 to 7 needs a server. |
 | Collaboration server | Our own Node server on Render, using Yjs (CRDT) over WebSocket. |
 | Collaboration scope | Accounts, cloud projects, roles and invites, plus live co-editing with presence. Local projects keep working with no account and no network. |
 | Export variants | Other frameworks, plain HTML and CSS, a runnable project in one click, and code style options. |
@@ -85,6 +86,8 @@ This phase builds the harness that Phase 7 reuses for every new target.
 - File System Access API: open and save `.polyframe` files where supported.
 - Tests: IndexedDB migrations from every previous schema version; two-tab e2e with concurrent edits.
 
+Phase 6 keeps the Yjs move even while collaboration is deferred: it is what makes multi-tab merging and per-tab undo work, and it keeps the door open for phases 8 and 9 at no extra cost.
+
 Why here: doing the Yjs move inside the local-first phase keeps the risky refactor offline and testable. Phase 9 then only adds a network provider and presence.
 
 Done when: two tabs edit the same project at once without losing changes, and undo only undoes your own tab.
@@ -136,7 +139,7 @@ Done when: the fidelity table covers the new targets, every target builds as a d
 
 ---
 
-## Phase 8. Accounts and cloud projects
+## Phase 8. Accounts and cloud projects (deferred)
 
 ### 8.1 Server (`apps/server` on Render)
 
@@ -174,7 +177,7 @@ Done when: the fidelity table covers the new targets, every target builds as a d
 
 Done when: a user signs in, moves a project to the cloud, opens it on another device, invites a teammate as editor, and removes access again. Covered by integration tests against a test database.
 
-## Phase 9. Live collaboration
+## Phase 9. Live collaboration (deferred)
 
 - Add the WebSocket provider to the Y.Doc from Phase 6; offline edits sync when the connection returns.
 - Presence through Yjs awareness: name, color, live cursor in world coordinates, current selection outline, the artboard each person is on. Avatars in the toolbar; click an avatar to follow that person's viewport.
@@ -198,8 +201,8 @@ Done when: two people edit the same artboard at the same time with p95 update la
 | When | What |
 |---|---|
 | Phase 5 | An npm account (or org) for publishing `@polyframe/*`. |
-| Phase 8 | A Render account, a Neon account, a GitHub OAuth app and a Google OAuth client (I will list the exact callback URLs), and a decision on Free vs Starter on Render. |
-| Phase 8 | Optional: a custom domain, so the app and the server share it and the setup gets simpler. |
+| Phase 8 (deferred) | A Render account, a Neon account, a GitHub OAuth app and a Google OAuth client (I will list the exact callback URLs), and a decision on Free vs Starter on Render. |
+| Phase 8 (deferred) | Optional: a custom domain, so the app and the server share it and the setup gets simpler. |
 
 ## Open questions
 

@@ -46,3 +46,7 @@ next-env.d.ts
 
 /storybook-static
 *storybook.log
+
+# bench
+/bench/.out
+/bench/.baseline

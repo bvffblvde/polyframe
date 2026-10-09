@@ -12,6 +12,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
+    "bench": "playwright test -c bench/playwright.config.ts && node bench/report.mjs",
+    "bench:write": "node bench/report.mjs --write",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

@@ -13,6 +13,7 @@ pnpm lint           # eslint
 pnpm typecheck      # tsc --noEmit
 pnpm test           # vitest (unit + component)
 pnpm test:e2e       # playwright
+pnpm bench          # perf bench on a production build (pnpm build first)
 pnpm storybook      # storybook dev
 ```
 Before you call a task done, run `pnpm lint && pnpm typecheck && pnpm test`. Also run `pnpm test:e2e` if you touched editor interactions.

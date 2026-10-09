@@ -23,6 +23,9 @@ Drag-and-drop UI prototyping in your browser. Build a layout as a wireframe, fli
 [![License: MIT](https://img.shields.io/badge/license-MIT-black?style=flat-square)](./LICENSE)
 [![CI](https://img.shields.io/github/actions/workflow/status/bvffblvde/polyframe/ci.yml?branch=main&style=flat-square&label=CI)](https://github.com/bvffblvde/polyframe/actions)
 [![Stars](https://img.shields.io/github/stars/bvffblvde/polyframe?style=flat-square&color=yellow)](https://github.com/bvffblvde/polyframe/stargazers)
+[![editor JS](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbvffblvde%2Fpolyframe%2Fmain%2Fbench%2Fresults.json&query=%24.badges.editorJsKb&label=editor%20JS&suffix=%20KB%20gzip&style=flat-square&color=blue)](#-performance)
+[![drag at 1000 nodes](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbvffblvde%2Fpolyframe%2Fmain%2Fbench%2Fresults.json&query=%24.badges.fps1000&label=drag%20at%201000%20nodes&suffix=%20FPS&style=flat-square&color=blue)](#-performance)
+[![core coverage](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fbvffblvde%2Fpolyframe%2Fmain%2Fbench%2Fresults.json&query=%24.badges.coverage&label=core%20coverage&suffix=%25&style=flat-square&color=green)](#-performance)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square)](./CONTRIBUTING.md)
 [![Made in Ukraine](https://img.shields.io/badge/made_in-Ukraine-ffd700?style=flat-square&labelColor=0057b7)](https://u24.gov.ua)
 
@@ -107,6 +110,7 @@ pnpm typecheck      # tsc --noEmit
 pnpm test           # Vitest unit and component tests
 pnpm test:coverage  # with coverage thresholds for ops and geometry
 pnpm test:e2e       # Playwright
+pnpm bench          # performance bench on a production build (run pnpm build first)
 pnpm storybook      # every canvas component in every skin and mode
 ```
 
@@ -126,6 +130,13 @@ The generated code is type-checked in a separate package, see [exporter-check](.
 | Zoom to fit | `⌘0` | `Ctrl+0` |
 | Command palette | `⌘K` | `Ctrl+K` |
 | All shortcuts | `?` | `?` |
+
+## 📊 Performance
+
+Numbers come from `pnpm bench`: Playwright drives the production build with generated projects of 100 to 2000 nodes. CI runs the same bench on every push to `main` and fails when FPS drops by more than 20% or the JS of a route grows by more than 10%.
+
+<!-- bench:start -->
+<!-- bench:end -->
 
 ## 🏗️ How it works
 
@@ -156,7 +167,7 @@ Next.js (App Router) · React 19 · TypeScript · Tailwind CSS v4 · shadcn/ui (
 - [x] **v0.4**: Chakra, Fluent 2 and Radix Themes skins, custom skin editor with token import, SVG export, auto-layout stacks
 - [x] Grid containers
 - [x] Context menu with layer actions on right click
-- [ ] **Later**: more export targets, plugins
+- [ ] **v1.0**: measured performance, export fidelity, keyboard-only editing, npm packages, multi-tab sync, Vue, Svelte, Angular and HTML export. See the [flagship roadmap](./docs/ROADMAP.md)
 
 Have an idea? [Open a discussion](https://github.com/bvffblvde/polyframe/discussions).
 
