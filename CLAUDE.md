@@ -41,7 +41,7 @@ Do not add new dependencies without a reason. If one is needed, say why in the P
 ### A new canvas component
 1. Create `src/core/registry/components/<type>/` with `definition.tsx`, `schema.ts`, `render.tsx` and `exporters.ts`.
 2. Implement `ComponentDefinition` (see SPEC §5.3): `propsSchema`, `defaultProps(t)`, `defaultSize`, `minSize`, `keywords` (EN + UK), `icon`, `labelKey`.
-3. Register it in `src/core/registry/index.ts`.
+3. Register it in `src/core/registry/index.ts`, its exporters in `src/core/exporters/component-exporters.ts` and its SVG drawer in `src/core/exporters/svg/drawers.ts`. Definitions do not import exporters, so the editor and the landing page load them only on export.
 4. Add i18n keys to **both** `messages/en.json` and `messages/uk.json`.
 5. Style it for the wireframe mode and every skin's style map.
 6. Add a Storybook story covering all skins × both modes.

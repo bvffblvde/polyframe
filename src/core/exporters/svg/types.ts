@@ -14,3 +14,8 @@ export interface SvgCtx {
 }
 
 export type SvgDrawer<P = Record<string, unknown>> = (node: Node & { props: P }, ctx: SvgCtx) => string;
+export type AnyDrawer = SvgDrawer<Record<string, unknown>>;
+
+export function anyDrawer<P>(d: SvgDrawer<P>): AnyDrawer {
+  return d as unknown as AnyDrawer;
+}

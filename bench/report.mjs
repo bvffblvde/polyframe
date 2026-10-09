@@ -38,17 +38,17 @@ const results = {
   },
 };
 
-const SCENARIOS = ["drag", "marquee", "zoom", "undo"];
+const SCENARIOS = ["drag", "marquee", "zoom", "drag100", "pan", "undo"];
 
 function table(r) {
   const lines = [
-    `Measured on ${r.machine}, production build, Chromium with ${r.cpuThrottle}x CPU throttling, ${r.date}.`,
+    `Measured on ${r.machine}, production build, Chromium with ${r.cpuThrottle}x CPU throttling, median of ${r.editor[0]?.runs ?? 1} runs, ${r.date}.`,
     "",
-    "| Nodes | Load, ms | Drag FPS | Marquee FPS | Zoom FPS | Undo 50 steps, ms |",
-    "|---:|---:|---:|---:|---:|---:|",
+    "| Nodes | Load, ms | Drag FPS, fit | Drag FPS, 100% | Pan FPS, 100% | Marquee FPS | Zoom FPS | Undo 50 steps, ms |",
+    "|---:|---:|---:|---:|---:|---:|---:|---:|",
     ...r.editor.map(
       (e) =>
-        `| ${e.count} | ${e.loadMs} | ${e.drag.fps} | ${e.marquee.fps} | ${e.zoom.fps} | ${e.undo.wallMs} |`,
+        `| ${e.count} | ${e.loadMs} | ${e.drag.fps} | ${e.drag100?.fps ?? "-"} | ${e.pan?.fps ?? "-"} | ${e.marquee.fps} | ${e.zoom.fps} | ${e.undo.wallMs} |`,
     ),
   ];
   const skin = r.editor.find((e) => e.skin);

@@ -10,6 +10,7 @@ import { usePointerController } from "../interactions/use-pointer-controller";
 import { useViewSize, useWheel } from "../interactions/use-wheel";
 import { ArtboardView } from "./artboard-view";
 import { SelectionOverlay } from "./selection-overlay";
+import { useCullRect } from "./use-cull-rect";
 
 export function Viewport({ readOnly = false, dropRef }: { readOnly?: boolean; dropRef?: (el: HTMLElement | null) => void }) {
   const t = useTranslations("canvas");
@@ -22,6 +23,7 @@ export function Viewport({ readOnly = false, dropRef }: { readOnly?: boolean; dr
   usePointerController(ref, readOnly);
   useWheel(ref);
   useViewSize(ref);
+  useCullRect();
   useEffect(() => {
     if (ready && fitRequest) fitAll();
   }, [fitRequest, ready]);

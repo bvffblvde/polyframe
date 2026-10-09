@@ -1,6 +1,4 @@
 import { LoaderCircle } from "lucide-react";
-import { spinnerExporters } from "./exporters";
-import { spinnerSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { SpinnerRender } from "./render";
 import { spinnerSchema } from "./schema";
@@ -15,6 +13,4 @@ export const spinnerDefinition = defineComponent(spinnerSchema)({
   minSize: { w: 16, h: 16 },
   defaultProps: (t) => ({ label: t("spinner.label"), size: "md" }),
   Render: SpinnerRender,
-  exporters: spinnerExporters,
-  svg: spinnerSvg,
 });

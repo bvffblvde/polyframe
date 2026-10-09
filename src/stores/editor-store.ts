@@ -25,6 +25,8 @@ interface EditorState {
   tour: number | null;
   imageFormat: "png" | "svg";
   viewOverride: { mode: Mode; skin: SkinChoice } | null;
+  renderAll: boolean;
+  cullRect: Rect | null;
   set: (patch: Partial<Omit<EditorState, "set">>) => void;
   select: (ids: ID[]) => void;
 }
@@ -48,6 +50,8 @@ export const useEditorStore = create<EditorState>()((set) => ({
   tour: null,
   imageFormat: "png",
   viewOverride: null,
+  renderAll: false,
+  cullRect: null,
   set: (patch) => set(patch),
   select: (selection) => set({ selection }),
 }));

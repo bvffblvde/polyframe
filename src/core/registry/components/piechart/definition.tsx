@@ -1,6 +1,4 @@
 import { ChartPie } from "lucide-react";
-import { piechartExporters } from "./exporters";
-import { piechartSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { PiechartRender } from "./render";
 import { piechartSchema } from "./schema";
@@ -15,6 +13,4 @@ export const piechartDefinition = defineComponent(piechartSchema)({
   minSize: { w: 120, h: 80 },
   defaultProps: (t) => ({ labels: list(t, "chart.pieLabels"), values: [42, 26, 20, 12], donut: true, showLegend: true }),
   Render: PiechartRender,
-  exporters: piechartExporters,
-  svg: piechartSvg,
 });

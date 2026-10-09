@@ -1,6 +1,4 @@
 import { CalendarClock } from "lucide-react";
-import { datepickerExporters } from "./exporters";
-import { datepickerSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { DatepickerRender } from "./render";
 import { datepickerSchema } from "./schema";
@@ -21,6 +19,4 @@ export const datepickerDefinition = defineComponent(datepickerSchema)({
     disabled: false,
   }),
   Render: DatepickerRender,
-  exporters: datepickerExporters,
-  svg: datepickerSvg,
 });

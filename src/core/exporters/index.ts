@@ -1,6 +1,6 @@
 import { layoutParent, readGridLayout, readStackLayout } from "../document/autolayout";
 import type { ID, Node, Project } from "../document/types";
-import { registry } from "../registry";
+import { componentExporters } from "./component-exporters";
 import { applyLayout, type LayoutAdapter, type LayoutEntry } from "./layout/layout";
 import { MUI_BOX, muiHeader, muiLayout } from "./targets/mui";
 import { shadcnHeader, shadcnLayout } from "./targets/shadcn";
@@ -141,7 +141,7 @@ export function generateArtboardCode(
   const prefix = componentName(a.name).toLowerCase();
   const render = (id: ID): string => {
     const node = p.nodes[id];
-    const exporter = registry[node.type].exporters?.[target];
+    const exporter = componentExporters[node.type][target];
     let children: string | undefined;
     if (kids.has(id)) {
       let size: ItemSize;

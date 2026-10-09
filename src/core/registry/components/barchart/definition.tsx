@@ -1,6 +1,4 @@
 import { ChartColumn } from "lucide-react";
-import { barchartExporters } from "./exporters";
-import { barchartSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { BarchartRender } from "./render";
 import { barchartSchema } from "./schema";
@@ -22,6 +20,4 @@ export const barchartDefinition = defineComponent(barchartSchema)({
     showLegend: true,
   }),
   Render: BarchartRender,
-  exporters: barchartExporters,
-  svg: barchartSvg,
 });

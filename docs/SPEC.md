@@ -314,9 +314,9 @@ interface ComponentDefinition<P> {
   propsSchema: z.ZodType<P>;             // drives the Inspector + validation
   defaultProps: (t: Translator) => P;
   Render: React.FC<{ props: P; node: Node; mode: Mode; skin: SkinId }>;
-  exporters?: Partial<Record<ExportTarget, (node: Node<P>, ctx: ExportCtx) => ExportChunk>>;
 }
 ```
+Code exporters (`exporters.ts`) and the SVG drawer (`svg.ts`) live in the component folder but are registered separately in `core/exporters/component-exporters.ts` and `core/exporters/svg/drawers.ts`, so the canvas does not load them.
 **Rendering rule:** `Render` reads only skin CSS variables and `data-*` attributes. It must not branch on the skin in JS unless the structure differs between skins (for example, the MUI "outlined" label notch). If it does, it uses the per-component style map from `core/skins`.
 
 ### 5.4 Stores
@@ -333,7 +333,9 @@ interface ComponentDefinition<P> {
 
 ### 5.6 Performance budget
 - 300 nodes across 3 artboards: drag at 60 fps on a mid-range laptop, with no long tasks above 50 ms.
-- The initial editor JS (gzipped) stays under 300 KB. Code export, shiki and prettier are lazy-loaded.
+- The initial editor JS (gzipped) stays under 300 KB. Code export, SVG export, shiki and prettier are lazy-loaded.
+- Artboards with 200 or more nodes render only the nodes near the viewport; PNG export renders all of them.
+- `pnpm bench` measures these budgets; results are in `bench/results.json` and the README, before and after numbers in `bench/HISTORY.md`.
 
 ---
 

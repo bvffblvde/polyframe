@@ -1,6 +1,4 @@
 import { Upload } from "lucide-react";
-import { dropzoneExporters } from "./exporters";
-import { dropzoneSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { DropzoneRender } from "./render";
 import { dropzoneSchema } from "./schema";
@@ -15,6 +13,4 @@ export const dropzoneDefinition = defineComponent(dropzoneSchema)({
   minSize: { w: 120, h: 80 },
   defaultProps: (t) => ({ title: t("dropzone.title"), hint: t("dropzone.hint"), actionLabel: t("dropzone.action") }),
   Render: DropzoneRender,
-  exporters: dropzoneExporters,
-  svg: dropzoneSvg,
 });

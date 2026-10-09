@@ -1,6 +1,4 @@
 import { ChartSpline } from "lucide-react";
-import { linechartExporters } from "./exporters";
-import { linechartSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { LinechartRender } from "./render";
 import { linechartSchema } from "./schema";
@@ -24,6 +22,4 @@ export const linechartDefinition = defineComponent(linechartSchema)({
     showLegend: true,
   }),
   Render: LinechartRender,
-  exporters: linechartExporters,
-  svg: linechartSvg,
 });

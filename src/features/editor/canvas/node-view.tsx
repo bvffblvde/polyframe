@@ -17,8 +17,8 @@ export const NodeView = memo(function NodeView({ id, mode, skin }: { id: ID; mod
     top: node.y,
     width: r.w,
     height: r.h,
-    opacity: node.opacity,
   };
+  if (node.opacity !== 1) style.opacity = node.opacity;
   if (r.x !== node.x || r.y !== node.y) style.transform = `translate(${r.x - node.x}px, ${r.y - node.y}px)`;
   if (node.style?.radius !== undefined) style["--pf-radius-override"] = `${node.style.radius}px`;
   return (

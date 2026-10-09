@@ -7,6 +7,7 @@ import { definitions, registry } from "../../registry";
 import { createNode } from "../../registry/create-node";
 import { instantiateTemplate, TEMPLATES } from "../../templates";
 import { counterIds, makeArtboard } from "../../test/fixtures";
+import { svgDrawers } from "./drawers";
 import { artboardToSvg } from "./index";
 
 type Tree = { [k: string]: string | Tree };
@@ -32,7 +33,7 @@ function everything() {
 
 describe("svg export", () => {
   it("every component has an svg drawer", () => {
-    for (const d of definitions) expect(d.svg, d.type).toBeDefined();
+    for (const d of definitions) expect(svgDrawers[d.type], d.type).toBeDefined();
   });
 
   it("renders every component in every skin and mode as valid svg", () => {

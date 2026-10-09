@@ -1,6 +1,4 @@
 import { BellRing } from "lucide-react";
-import { toastExporters } from "./exporters";
-import { toastSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { ToastRender } from "./render";
 import { toastSchema } from "./schema";
@@ -15,6 +13,4 @@ export const toastDefinition = defineComponent(toastSchema)({
   minSize: { w: 120, h: 40 },
   defaultProps: (t) => ({ title: t("toast.title"), description: t("toast.description"), actionLabel: t("toast.action"), variant: "success" }),
   Render: ToastRender,
-  exporters: toastExporters,
-  svg: toastSvg,
 });

@@ -1,6 +1,4 @@
 import { TrendingUp } from "lucide-react";
-import { statExporters } from "./exporters";
-import { statSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { StatRender } from "./render";
 import { statSchema } from "./schema";
@@ -15,6 +13,4 @@ export const statDefinition = defineComponent(statSchema)({
   minSize: { w: 80, h: 60 },
   defaultProps: (t) => ({ label: t("stat.label"), value: "$48,200", delta: "12.5%", trend: "up" }),
   Render: StatRender,
-  exporters: statExporters,
-  svg: statSvg,
 });

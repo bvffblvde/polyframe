@@ -3,10 +3,11 @@ import { expect, test, type Page } from "@playwright/test";
 import { generateProjectCode } from "../src/core/exporters";
 import { EXPORT_TARGETS, LAYOUT_STRATEGIES } from "../src/core/exporters/types";
 import { benchProject } from "./fixture";
-import { installSampler, measure, save } from "./metrics";
+import { installSampler, measure, save, type FrameStats } from "./metrics";
 
 const SIZES = (process.env.BENCH_SIZES ?? "100,500,1000,2000").split(",").map(Number);
 const CPU = Number(process.env.BENCH_CPU ?? 4);
+const RUNS = Number(process.env.BENCH_RUNS ?? 3);
 const SKINS = ["MUI", "Mantine", "Ant Design", "Bootstrap", "shadcn/ui"];
 
 async function openWith(page: Page, count: number) {
@@ -37,43 +38,75 @@ async function center(page: Page, selector: string) {
   return { x: box.x + box.width / 2, y: box.y + box.height / 2 };
 }
 
+async function median(
+  run: (i: number) => Promise<FrameStats>,
+  by: "fps" | "wallMs" = "fps",
+): Promise<FrameStats> {
+  const all: FrameStats[] = [];
+  for (let i = 0; i < RUNS; i++) all.push(await run(i));
+  return all.sort((a, b) => a[by] - b[by])[Math.floor(all.length / 2)];
+}
+
 for (const count of SIZES) {
   test(`editor with ${count} nodes`, async ({ page }) => {
     const loadMs = await openWith(page, count);
     const canvas = await page.getByTestId("canvas").boundingBox();
     if (!canvas) throw new Error("no canvas");
+    const mid = { x: canvas.x + canvas.width / 2, y: canvas.y + canvas.height / 2 };
 
-    const from = await center(page, '[data-node-id="n0"]');
-    const drag = await measure(page, async () => {
-      await page.mouse.move(from.x, from.y);
-      await page.mouse.down();
-      await page.mouse.move(from.x + 300, from.y + 200, { steps: 60 });
-      await page.mouse.up();
-    });
-
-    const marquee = await measure(page, async () => {
-      await page.mouse.move(canvas.x + 4, canvas.y + 4);
-      await page.mouse.down();
-      await page.mouse.move(canvas.x + canvas.width - 4, canvas.y + canvas.height - 4, {
-        steps: 30,
+    const dragNode = (i: number) =>
+      measure(page, async () => {
+        const from = await center(page, '[data-node-id="n0"]');
+        const dir = i % 2 ? -1 : 1;
+        await page.mouse.move(from.x, from.y);
+        await page.mouse.down();
+        await page.mouse.move(from.x + 300 * dir, from.y + 200 * dir, { steps: 60 });
+        await page.mouse.up();
       });
-      await page.mouse.up();
-    });
 
-    const zoom = await measure(page, async () => {
-      await page.mouse.move(canvas.x + canvas.width / 2, canvas.y + canvas.height / 2);
-      await page.keyboard.down("Control");
-      for (let i = 0; i < 20; i++) await page.mouse.wheel(0, i < 10 ? -40 : 40);
-      await page.keyboard.up("Control");
-    });
+    const drag = await median(dragNode);
+
+    const marquee = await median(() =>
+      measure(page, async () => {
+        await page.mouse.move(canvas.x + 4, canvas.y + 4);
+        await page.mouse.down();
+        await page.mouse.move(canvas.x + canvas.width - 4, canvas.y + canvas.height - 4, {
+          steps: 30,
+        });
+        await page.mouse.up();
+      }),
+    );
+
+    const zoom = await median(() =>
+      measure(page, async () => {
+        await page.mouse.move(mid.x, mid.y);
+        await page.keyboard.down("Control");
+        for (let i = 0; i < 20; i++) await page.mouse.wheel(0, i < 10 ? -40 : 40);
+        await page.keyboard.up("Control");
+      }),
+    );
+
+    await page.keyboard.press("ControlOrMeta+1");
+    await page.waitForTimeout(300);
+    const drag100 = await median(dragNode);
+    const pan = await median((i) =>
+      measure(page, async () => {
+        await page.mouse.move(mid.x, mid.y);
+        for (let k = 0; k < 30; k++) await page.mouse.wheel(0, i % 2 ? -120 : 120);
+      }),
+    );
+    await page.keyboard.press("ControlOrMeta+0");
+    await page.waitForTimeout(300);
 
     await page.locator('[data-node-id="n1"]').first().click();
-    for (let i = 0; i < 50; i++) await page.keyboard.press("ArrowRight");
-    const undo = await measure(page, async () => {
-      for (let i = 0; i < 50; i++) await page.keyboard.press("ControlOrMeta+z");
-    });
+    const undo = await median(async () => {
+      for (let i = 0; i < 50; i++) await page.keyboard.press("ArrowRight");
+      return measure(page, async () => {
+        for (let i = 0; i < 50; i++) await page.keyboard.press("ControlOrMeta+z");
+      });
+    }, "wallMs");
 
-    let skin: Awaited<ReturnType<typeof measure>> | undefined;
+    let skin: FrameStats | undefined;
     if (count === 500) {
       await page.getByRole("radio", { name: "Styled" }).click();
       skin = await measure(page, async () => {
@@ -91,10 +124,13 @@ for (const count of SIZES) {
     save(`editor-${count}`, {
       count,
       cpu: CPU,
+      runs: RUNS,
       loadMs,
       drag,
       marquee,
       zoom,
+      drag100,
+      pan,
       undo,
       ...(skin ? { skin } : {}),
     });

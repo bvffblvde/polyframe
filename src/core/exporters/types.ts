@@ -24,3 +24,8 @@ export interface ExportCtx {
 export type ComponentExporter<P = Record<string, unknown>> = (node: Node & { props: P }, ctx: ExportCtx) => ExportChunk;
 
 export type ComponentExporters<P = Record<string, unknown>> = Partial<Record<ExportTarget, ComponentExporter<P>>>;
+export type AnyExporters = ComponentExporters<Record<string, unknown>>;
+
+export function anyExporters<P>(e: ComponentExporters<P>): AnyExporters {
+  return e as unknown as AnyExporters;
+}

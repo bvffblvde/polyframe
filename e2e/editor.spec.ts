@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { benchProject } from "../bench/fixture";
 
 async function openEditor(page: Page, locale = "en") {
   await page.context().addInitScript(() => window.localStorage.setItem("polyframe:tour-done", "1"));
@@ -7,7 +8,8 @@ async function openEditor(page: Page, locale = "en") {
   await expect(page.getByTestId("save-status")).toHaveText(locale === "en" ? "Saved" : "Збережено");
 }
 
-const nodes = (page: Page, type: string) => page.locator(`[data-export-root] [data-type="${type}"]`);
+const nodes = (page: Page, type: string) =>
+  page.locator(`[data-export-root] [data-type="${type}"]`);
 
 test("insert, edit, switch skin, reload and export", async ({ page }) => {
   await openEditor(page);
@@ -121,7 +123,10 @@ test("groups and ungroups nodes, aligns a selection", async ({ page }) => {
   await nodes(page, "badge").click();
   await expect(page.getByText("2 layers selected")).toBeVisible();
   await page.getByRole("button", { name: "Align left" }).click();
-  const [a, b] = await Promise.all([nodes(page, "badge").boundingBox(), nodes(page, "button").boundingBox()]);
+  const [a, b] = await Promise.all([
+    nodes(page, "badge").boundingBox(),
+    nodes(page, "button").boundingBox(),
+  ]);
   expect(Math.round(a?.x ?? 0)).toBe(Math.round(b?.x ?? 1));
   await page.keyboard.press("ControlOrMeta+Shift+g");
   await page.keyboard.press("Escape");
@@ -192,11 +197,23 @@ test("shows the product tour on the first visit only", async ({ page }) => {
   await page.goto("/en/editor");
   const tour = page.getByTestId("tour");
   await expect(tour).toContainText("Welcome to Polyframe");
-  for (const title of ["Add components", "Arrange on the canvas", "Edit in the Inspector", "Organize layers", "Switch the look", "Export your work", "Share a link", "Work faster"]) {
+  for (const title of [
+    "Add components",
+    "Arrange on the canvas",
+    "Edit in the Inspector",
+    "Organize layers",
+    "Switch the look",
+    "Export your work",
+    "Share a link",
+    "Work faster",
+  ]) {
     await page.getByRole("button", { name: "Next" }).click();
     await expect(tour).toContainText(title);
   }
-  await expect(tour.getByRole("link", { name: "Read the full guide" })).toHaveAttribute("href", "/en/guide");
+  await expect(tour.getByRole("link", { name: "Read the full guide" })).toHaveAttribute(
+    "href",
+    "/en/guide",
+  );
   await page.getByRole("button", { name: "Start building" }).click();
   await expect(tour).toHaveCount(0);
   await page.reload();
@@ -214,7 +231,10 @@ test("renders the user guide in both languages", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1, name: "User guide" })).toBeVisible();
   await expect(page.getByRole("heading", { level: 2, name: "Keyboard and ⌘K" })).toBeVisible();
   await expect(page.getByRole("table")).toContainText("Group / Ungroup");
-  await page.getByRole("navigation", { name: "On this page" }).getByRole("link", { name: "Export" }).click();
+  await page
+    .getByRole("navigation", { name: "On this page" })
+    .getByRole("link", { name: "Export" })
+    .click();
   await expect(page).toHaveURL(/#export$/);
   await page.goto("/uk/guide");
   await expect(page.getByRole("heading", { level: 1, name: "Посібник користувача" })).toBeVisible();
@@ -224,7 +244,9 @@ test("renders the user guide in both languages", async ({ page }) => {
 test("landing page demo and call to action", async ({ page }) => {
   await page.context().addInitScript(() => window.localStorage.setItem("polyframe:tour-done", "1"));
   await page.goto("/en");
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Sketch it once. Wear any UI kit. Ship the code.");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Sketch it once. Wear any UI kit. Ship the code.",
+  );
   const preview = page.getByRole("img", { name: "Login screen preview" }).locator(".pf-root");
   await expect(preview).toHaveAttribute("data-skin", "mui");
   await page.getByRole("radio", { name: "Ant Design" }).click();
@@ -239,7 +261,10 @@ test("landing page demo and call to action", async ({ page }) => {
 test("serves developer docs from the repository markdown", async ({ page }) => {
   await page.goto("/en/docs");
   await expect(page.getByRole("heading", { level: 1, name: "Getting started" })).toBeVisible();
-  await page.getByRole("navigation", { name: "Documentation pages" }).getByRole("link", { name: "Add a skin" }).click();
+  await page
+    .getByRole("navigation", { name: "Documentation pages" })
+    .getByRole("link", { name: "Add a skin" })
+    .click();
   await expect(page).toHaveURL(/\/en\/docs\/add-skin$/);
   await expect(page.getByRole("heading", { level: 1, name: "Add a skin" })).toBeVisible();
   await page.goto("/uk/docs/architecture");
@@ -249,7 +274,11 @@ test("serves developer docs from the repository markdown", async ({ page }) => {
 
 test("exposes SEO and PWA metadata", async ({ request, page }) => {
   const manifest = await (await request.get("/manifest.webmanifest")).json();
-  expect(manifest).toMatchObject({ name: "Polyframe", start_url: "/en/editor", display: "standalone" });
+  expect(manifest).toMatchObject({
+    name: "Polyframe",
+    start_url: "/en/editor",
+    display: "standalone",
+  });
   expect(await (await request.get("/robots.txt")).text()).toContain("Sitemap:");
   const sitemap = await (await request.get("/sitemap.xml")).text();
   expect(sitemap).toContain("/uk/docs/add-exporter");
@@ -257,7 +286,10 @@ test("exposes SEO and PWA metadata", async ({ request, page }) => {
   expect(og.headers()["content-type"]).toBe("image/png");
   expect((await request.get("/sw.js")).ok()).toBe(true);
   await page.goto("/uk/guide");
-  await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute("href", /\/en\/guide$/);
+  await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute(
+    "href",
+    /\/en\/guide$/,
+  );
 });
 
 test("creates a custom skin from imported tokens", async ({ page }) => {
@@ -265,7 +297,9 @@ test("creates a custom skin from imported tokens", async ({ page }) => {
   await page.getByTestId("palette-button").click();
   await page.getByRole("button", { name: "Customize skin..." }).first().click();
   const dialog = page.getByRole("dialog", { name: "Custom skin" });
-  await dialog.getByRole("textbox", { name: "Import tokens" }).fill(":root { --primary: #ff0066; --radius: 1rem; --spacing: 4px; }");
+  await dialog
+    .getByRole("textbox", { name: "Import tokens" })
+    .fill(":root { --primary: #ff0066; --radius: 1rem; --spacing: 4px; }");
   await dialog.getByRole("button", { name: "Import", exact: true }).click();
   await expect(dialog.getByRole("status")).toHaveText("Imported 2 tokens");
   await expect(dialog.getByLabel("Primary", { exact: true })).toHaveValue("#ff0066");
@@ -273,7 +307,10 @@ test("creates a custom skin from imported tokens", async ({ page }) => {
   await dialog.getByRole("button", { name: "Apply skin" }).click();
   const root = page.locator("[data-export-root]").first();
   await expect(root).toHaveAttribute("data-skin", "custom");
-  await expect(nodes(page, "button").locator(".pf-btn")).toHaveCSS("background-color", "rgb(255, 0, 102)");
+  await expect(nodes(page, "button").locator(".pf-btn")).toHaveCSS(
+    "background-color",
+    "rgb(255, 0, 102)",
+  );
   await expect(page.getByTestId("save-status")).toHaveText("Saved");
   await page.reload();
   await expect(page.locator("[data-export-root]").first()).toHaveAttribute("data-skin", "custom");
@@ -309,8 +346,13 @@ test("wraps layers in an auto-layout stack and drops new layers into it", async 
   const stack = nodes(page, "stack");
   await expect(stack).toHaveCount(1);
   await expect(page.getByLabel("Direction")).toBeVisible();
-  const [b, g] = await Promise.all([nodes(page, "button").boundingBox(), nodes(page, "badge").boundingBox()]);
-  expect(Math.abs((b?.y ?? 0) - (g?.y ?? 1)) < 1 || Math.abs((b?.x ?? 0) - (g?.x ?? 1)) < 1).toBe(true);
+  const [b, g] = await Promise.all([
+    nodes(page, "button").boundingBox(),
+    nodes(page, "badge").boundingBox(),
+  ]);
+  expect(Math.abs((b?.y ?? 0) - (g?.y ?? 1)) < 1 || Math.abs((b?.x ?? 0) - (g?.x ?? 1)) < 1).toBe(
+    true,
+  );
 
   await page.keyboard.press("Escape");
   await page.getByTestId("palette-avatar").click();
@@ -344,7 +386,9 @@ test("wraps cards in a grid container", async ({ page }) => {
   const columns = page.getByLabel("Columns");
   await columns.fill("2");
   await columns.press("Enter");
-  const boxes = await nodes(page, "card").evaluateAll((els) => els.map((e) => e.getBoundingClientRect()).map((r) => [Math.round(r.x), Math.round(r.y)]));
+  const boxes = await nodes(page, "card").evaluateAll((els) =>
+    els.map((e) => e.getBoundingClientRect()).map((r) => [Math.round(r.x), Math.round(r.y)]),
+  );
   const xs = new Set(boxes.map((b) => b[0]));
   const ys = new Set(boxes.map((b) => b[1]));
   expect(xs.size).toBe(2);
@@ -391,4 +435,23 @@ test("adds templates from the sidebar to the current project", async ({ page }) 
   await expect(nodes(page, "checkbox")).toHaveCount(1);
   await page.keyboard.press("ControlOrMeta+z");
   await expect(page.locator("[data-artboard-id]")).toHaveCount(1);
+});
+
+test("renders only nearby nodes on large artboards and still exports PNG", async ({ page }) => {
+  await openEditor(page);
+  await page.getByTestId("import-input").setInputFiles({
+    name: "big.polyframe",
+    mimeType: "application/json",
+    buffer: Buffer.from(JSON.stringify(benchProject(600))),
+  });
+  const rendered = page.locator("[data-export-root] [data-node-id]");
+  await expect(rendered).toHaveCount(600);
+  await page.keyboard.press("ControlOrMeta+1");
+  await expect.poll(() => rendered.count()).toBeLessThan(600);
+  await page.getByRole("button", { name: "Export" }).click();
+  await page.getByRole("menuitem", { name: "PNG..." }).click();
+  const download = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download" }).click();
+  expect((await download).suggestedFilename()).toMatch(/\.png$/);
+  await expect.poll(() => rendered.count()).toBeLessThan(600);
 });

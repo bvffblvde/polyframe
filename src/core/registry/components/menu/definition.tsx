@@ -1,6 +1,4 @@
 import { Menu } from "lucide-react";
-import { menuExporters } from "./exporters";
-import { menuSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { MenuRender } from "./render";
 import { menuSchema } from "./schema";
@@ -15,6 +13,4 @@ export const menuDefinition = defineComponent(menuSchema)({
   minSize: { w: 80, h: 40 },
   defaultProps: (t) => ({ items: list(t, "menu.items"), activeIndex: 0, destructiveLast: true }),
   Render: MenuRender,
-  exporters: menuExporters,
-  svg: menuSvg,
 });

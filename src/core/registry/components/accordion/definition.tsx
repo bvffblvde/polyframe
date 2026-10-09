@@ -1,6 +1,4 @@
 import { ChevronsUpDown } from "lucide-react";
-import { accordionExporters } from "./exporters";
-import { accordionSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { AccordionRender } from "./render";
 import { accordionSchema } from "./schema";
@@ -15,6 +13,4 @@ export const accordionDefinition = defineComponent(accordionSchema)({
   minSize: { w: 120, h: 48 },
   defaultProps: (t) => ({ items: list(t, "accordion.items"), content: t("accordion.content"), openIndex: 0 }),
   Render: AccordionRender,
-  exporters: accordionExporters,
-  svg: accordionSvg,
 });

@@ -1,6 +1,4 @@
 import { Shapes } from "lucide-react";
-import { iconExporters } from "./exporters";
-import { iconSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { IconRender } from "./render";
 import { iconSchema } from "./schema";
@@ -15,6 +13,4 @@ export const iconDefinition = defineComponent(iconSchema)({
   minSize: { w: 8, h: 8 },
   defaultProps: () => ({ glyph: "star" }),
   Render: IconRender,
-  exporters: iconExporters,
-  svg: iconSvg,
 });

@@ -1,6 +1,4 @@
 import { Star } from "lucide-react";
-import { ratingExporters } from "./exporters";
-import { ratingSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { RatingRender } from "./render";
 import { ratingSchema } from "./schema";
@@ -15,6 +13,4 @@ export const ratingDefinition = defineComponent(ratingSchema)({
   minSize: { w: 40, h: 12 },
   defaultProps: () => ({ value: 4, count: 5 }),
   Render: RatingRender,
-  exporters: ratingExporters,
-  svg: ratingSvg,
 });

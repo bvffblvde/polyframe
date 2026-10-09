@@ -8,6 +8,7 @@ import { addNodes, createProject } from "../document/ops";
 import { COMPONENT_TYPES } from "../document/types";
 import { definitions, registry } from "../registry";
 import { createNode } from "../registry/create-node";
+import { componentExporters } from "./component-exporters";
 import { instantiateTemplate, TEMPLATES } from "../templates";
 import { counterIds, makeArtboard } from "../test/fixtures";
 import { componentName, EXPORT_TARGETS, generateArtboardCode, generateProjectCode, LAYOUT_STRATEGIES, renderImports } from "./index";
@@ -60,7 +61,7 @@ const pretty = (code: string) => format(code, { parser: "typescript", printWidth
 
 describe("component exporters", () => {
   it("every component has an exporter for every target", () => {
-    for (const d of definitions) for (const target of EXPORT_TARGETS) expect(d.exporters?.[target], `${d.type} ${target}`).toBeDefined();
+    for (const d of definitions) for (const target of EXPORT_TARGETS) expect(componentExporters[d.type][target], `${d.type} ${target}`).toBeDefined();
   });
 
   for (const type of COMPONENT_TYPES) {
@@ -135,14 +136,14 @@ describe("project generation", () => {
 
   it("falls back to a placeholder when a target has no exporter", () => {
     const p = single("button");
-    const original = registry.button.exporters;
-    registry.button.exporters = {};
+    const original = componentExporters.button;
+    componentExporters.button = {};
     try {
       const file = generateArtboardCode(p, "a1", "mui", "absolute");
       expect(file.warnings).toEqual(["button (button)"]);
       expect(file.code).toContain("<div />");
     } finally {
-      registry.button.exporters = original;
+      componentExporters.button = original;
     }
   });
 

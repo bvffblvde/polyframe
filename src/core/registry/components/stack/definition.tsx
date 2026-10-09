@@ -1,6 +1,4 @@
 import { Rows3 } from "lucide-react";
-import { stackExporters } from "./exporters";
-import { stackSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { StackRender } from "./render";
 import { stackSchema } from "./schema";
@@ -15,6 +13,4 @@ export const stackDefinition = defineComponent(stackSchema)({
   minSize: { w: 8, h: 8 },
   defaultProps: () => ({ direction: "row", gap: 8, padding: 8, align: "start", justify: "start", hug: false, background: "none" }),
   Render: StackRender,
-  exporters: stackExporters,
-  svg: stackSvg,
 });

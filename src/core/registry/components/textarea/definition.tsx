@@ -1,6 +1,4 @@
 import { LetterText } from "lucide-react";
-import { textareaExporters } from "./exporters";
-import { textareaSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { TextareaRender } from "./render";
 import { textareaSchema } from "./schema";
@@ -20,6 +18,4 @@ export const textareaDefinition = defineComponent(textareaSchema)({
     disabled: false,
   }),
   Render: TextareaRender,
-  exporters: textareaExporters,
-  svg: textareaSvg,
 });

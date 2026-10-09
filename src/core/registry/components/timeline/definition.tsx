@@ -1,6 +1,4 @@
 import { GitCommitVertical } from "lucide-react";
-import { timelineExporters } from "./exporters";
-import { timelineSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { TimelineRender } from "./render";
 import { timelineSchema } from "./schema";
@@ -15,6 +13,4 @@ export const timelineDefinition = defineComponent(timelineSchema)({
   minSize: { w: 80, h: 40 },
   defaultProps: (t) => ({ events: list(t, "timeline.events"), dates: list(t, "timeline.dates"), activeIndex: 1 }),
   Render: TimelineRender,
-  exporters: timelineExporters,
-  svg: timelineSvg,
 });

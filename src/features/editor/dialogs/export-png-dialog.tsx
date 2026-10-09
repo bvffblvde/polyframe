@@ -43,7 +43,9 @@ export function ExportPngDialog() {
     if (!p) return;
     setBusy(true);
     setError(false);
+    useEditorStore.getState().set({ renderAll: true });
     try {
+      await nextFrame();
       const active = useEditorStore.getState().activeArtboardId ?? p.artboardOrder[0];
       const ids = scope === "all" ? p.artboardOrder : [active];
       const files = [];
@@ -70,6 +72,7 @@ export function ExportPngDialog() {
     } catch {
       setError(true);
     } finally {
+      useEditorStore.getState().set({ renderAll: false });
       setBusy(false);
     }
   };
@@ -149,4 +152,8 @@ export function ExportPngDialog() {
       </DialogContent>
     </Dialog>
   );
+}
+
+function nextFrame() {
+  return new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
 }

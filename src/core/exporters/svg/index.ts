@@ -1,5 +1,5 @@
 import type { Artboard, CustomSkin, Node, Project } from "../../document/types";
-import { registry } from "../../registry";
+import { svgDrawers } from "./drawers";
 import { activeSkin, mergeCustomSkin, structureSkin, skins } from "../../skins";
 import type { SkinDefinition } from "../../skins/tokens";
 import { esc, rect, text } from "./primitives";
@@ -67,7 +67,7 @@ export function artboardToSvg(p: Project, artboardId: string, opts: { transparen
     .filter((node) => node && !node.hidden)
     .map((node) => {
       const ctx = ctxFor(def, p, node);
-      const draw = registry[node.type].svg;
+      const draw = svgDrawers[node.type];
       const body = draw
         ? draw(node, ctx)
         : rect(0, 0, node.w, node.h, { stroke: ctx.t.border, dash: "4 4" }) +

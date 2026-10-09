@@ -1,6 +1,4 @@
 import { Users } from "lucide-react";
-import { avatargroupExporters } from "./exporters";
-import { avatargroupSvg } from "./svg";
 import { defineComponent, list } from "../../types";
 import { AvatargroupRender } from "./render";
 import { avatargroupSchema } from "./schema";
@@ -15,6 +13,4 @@ export const avatargroupDefinition = defineComponent(avatargroupSchema)({
   minSize: { w: 24, h: 16 },
   defaultProps: (t) => ({ initials: list(t, "avatargroup.initials"), max: 3 }),
   Render: AvatargroupRender,
-  exporters: avatargroupExporters,
-  svg: avatargroupSvg,
 });

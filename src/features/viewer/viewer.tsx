@@ -16,7 +16,7 @@ import { importProject, useProjectsStore } from "@/stores/projects-store";
 import { useProjectIO } from "../editor/project-io";
 import { Viewport } from "../editor/canvas/viewport";
 import * as commands from "../editor/commands";
-import { ExportPngDialog } from "../editor/dialogs/export-png-dialog";
+import { ExportPngDialog } from "../editor/dialogs/lazy-export-dialogs";
 import { ProjectSkinStyle } from "../editor/canvas/project-skin-style";
 import { skinOptions } from "../editor/skin-options";
 import { LanguageSwitch } from "../editor/toolbar/language-switch";

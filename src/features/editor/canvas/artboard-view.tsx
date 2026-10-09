@@ -2,7 +2,9 @@
 
 import { useTranslations } from "next-intl";
 import { memo } from "react";
+import { useShallow } from "zustand/react/shallow";
 import type { ID } from "@/core/document/types";
+import { visibleNodeIds } from "@/core/geometry/culling";
 import { cn } from "@/lib/utils";
 import { useDocumentStore } from "@/stores/document-store";
 import { useEditorStore } from "@/stores/editor-store";
@@ -15,7 +17,7 @@ export const ArtboardView = memo(function ArtboardView({ id, readOnly }: { id: I
   const a = useDocumentStore((s) => s.project?.artboards[id]);
   const grid = useDocumentStore((s) => s.project?.settings.grid);
   const active = useEditorStore((s) => s.activeArtboardId === id);
-  const zoom = useEditorStore((s) => s.viewport.zoom);
+  const ids = useVisibleIds(id);
   const { mode, skin, structure, sketch } = useViewSettings();
   if (!a) return null;
   return (
@@ -24,13 +26,7 @@ export const ArtboardView = memo(function ArtboardView({ id, readOnly }: { id: I
       className={cn("absolute", active && !readOnly && "outline-2 outline-primary/60")}
       style={{ left: a.x, top: a.y, width: a.width, height: a.height }}
     >
-      <div
-        className="absolute bottom-full left-0 max-w-full truncate pb-1 text-muted-foreground"
-        style={{ fontSize: 12 / zoom }}
-        data-artboard-label={id}
-      >
-        {a.name}
-      </div>
+      <ArtboardLabel id={id} name={a.name} />
       <ArtboardRoot
         mode={mode}
         skin={skin}
@@ -39,7 +35,7 @@ export const ArtboardView = memo(function ArtboardView({ id, readOnly }: { id: I
         aria-label={t("artboard", { name: a.name })}
         className="size-full shadow-sm"
       >
-        {a.childOrder.map((nid) => (
+        {ids.map((nid) => (
           <NodeView key={nid} id={nid} mode={mode} skin={structure} />
         ))}
       </ArtboardRoot>
@@ -52,3 +48,26 @@ export const ArtboardView = memo(function ArtboardView({ id, readOnly }: { id: I
     </div>
   );
 });
+
+function ArtboardLabel({ id, name }: { id: ID; name: string }) {
+  const zoom = useEditorStore((s) => s.viewport.zoom);
+  return (
+    <div
+      className="absolute bottom-full left-0 max-w-full truncate pb-1 text-muted-foreground"
+      style={{ fontSize: 12 / zoom }}
+      data-artboard-label={id}
+    >
+      {name}
+    </div>
+  );
+}
+
+function useVisibleIds(id: ID): ID[] {
+  const win = useEditorStore((s) => s.cullRect);
+  return useDocumentStore(
+    useShallow((s) => {
+      const a = s.project?.artboards[id];
+      return a && s.project ? visibleNodeIds(a.childOrder, s.project.nodes, a, win) : [];
+    }),
+  );
+}

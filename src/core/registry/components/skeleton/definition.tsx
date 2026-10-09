@@ -1,6 +1,4 @@
 import { TextQuote } from "lucide-react";
-import { skeletonExporters } from "./exporters";
-import { skeletonSvg } from "./svg";
 import { defineComponent } from "../../types";
 import { SkeletonRender } from "./render";
 import { skeletonSchema } from "./schema";
@@ -15,6 +13,4 @@ export const skeletonDefinition = defineComponent(skeletonSchema)({
   minSize: { w: 40, h: 16 },
   defaultProps: () => ({ lines: 3, showAvatar: true }),
   Render: SkeletonRender,
-  exporters: skeletonExporters,
-  svg: skeletonSvg,
 });
