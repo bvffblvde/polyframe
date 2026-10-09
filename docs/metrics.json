@@ -1,0 +1,70 @@
+{
+  "v": 1,
+  "bench": {
+    "date": "2026-10-09",
+    "cpuThrottle": 4,
+    "editorInitialJsKb": 406,
+    "landingInitialJsKb": 328,
+    "nodes1000": {
+      "loadMs": 798,
+      "dragFps": 49.5,
+      "dragAt100ZoomFps": 60,
+      "panFps": 41
+    },
+    "nodes2000": {
+      "loadMs": 1389,
+      "dragAt100ZoomFps": 56.9,
+      "panFps": 60
+    }
+  },
+  "fidelity": {
+    "date": "2026-10-09",
+    "targets": 6,
+    "templates": 6,
+    "exports": 36,
+    "medianDiffPct": 12.8,
+    "maxDiffPct": 44.3,
+    "withinThresholds": true,
+    "exporterA11yViolations": 0
+  },
+  "coverage": {
+    "date": "2026-10-09",
+    "scope": "document ops, auto-layout and geometry",
+    "linesPct": 100
+  },
+  "history": {
+    "date": "2026-10-09",
+    "rows": [
+      {
+        "scenario": "Drag at 100% zoom, 2000 nodes",
+        "before": 50.3,
+        "after": 56.9,
+        "unit": "FPS"
+      },
+      {
+        "scenario": "Pan at 100% zoom, 1000 nodes",
+        "before": 35.4,
+        "after": 41,
+        "unit": "FPS"
+      },
+      {
+        "scenario": "Pan at 100% zoom, 2000 nodes",
+        "before": 42.8,
+        "after": 60,
+        "unit": "FPS"
+      },
+      {
+        "scenario": "Editor initial JS",
+        "before": 457,
+        "after": 406,
+        "unit": "KB"
+      },
+      {
+        "scenario": "Landing initial JS",
+        "before": 356,
+        "after": 328,
+        "unit": "KB"
+      }
+    ]
+  }
+}

@@ -17,7 +17,8 @@
     "fidelity": "EXPORT_FIXTURE_DIR=exporter-check/generated vitest run src/core/exporters && playwright test -c exporter-check/fidelity/playwright.config.ts && node exporter-check/fidelity/report.mjs",
     "format": "prettier --write .",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "metrics": "node bench/metrics.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
