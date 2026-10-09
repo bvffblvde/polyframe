@@ -42,8 +42,15 @@ export const listExporters: ComponentExporters<ListProps> = {
     imports: [{ from: "@mantine/core", names: ["Group", "Stack", "Text", ...(p.dividers ? ["Divider"] : []), ...(p.showAvatar ? ["Avatar"] : [])] }],
   }),
   antd: ({ props: p }) => ({
-    jsx: `<List itemLayout="horizontal"${p.dividers ? "" : " split={false}"} dataSource={${JSON.stringify(rows(p).map((r) => ({ title: r.item, description: r.sub, initials: r.initials })))}} renderItem={(item) => <List.Item><List.Item.Meta${p.showAvatar ? " avatar={<Avatar>{item.initials}</Avatar>}" : ""} title={item.title} description={item.description} /></List.Item>} />`,
-    imports: [{ from: "antd", names: ["List", ...(p.showAvatar ? ["Avatar"] : [])] }],
+    jsx: [
+      `<Flex vertical>`,
+      ...rows(p).map(
+        (r, i) =>
+          `${i && p.dividers ? '<Divider style={{ margin: 0 }} />' : ""}<Flex align="center" gap={12} style={{ padding: "12px 0" }}>${p.showAvatar ? `<Avatar>${r.initials}</Avatar>` : ""}<Flex vertical><Typography.Text strong>${text(r.item)}</Typography.Text>${r.sub ? `<Typography.Text type="secondary">${text(r.sub)}</Typography.Text>` : ""}</Flex></Flex>`,
+      ),
+      "</Flex>",
+    ].join("\n"),
+    imports: [{ from: "antd", names: ["Flex", "Typography", ...(p.dividers ? ["Divider"] : []), ...(p.showAvatar ? ["Avatar"] : [])] }],
   }),
   bootstrap: ({ props: p }) => ({
     jsx: [

@@ -90,7 +90,7 @@ import { Accordion, Box, Flex, Span } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="400px" h="200px">
         <Accordion.Root collapsible defaultValue={["item-0"]}>
           <Accordion.Item value="item-0">
@@ -339,7 +339,7 @@ import { Alert, Box, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="400px" h="80px">
         <Alert.Root status="info" h="full">
           <Alert.Indicator />
@@ -494,7 +494,7 @@ import { Avatar, Box, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="48px" h="48px">
         <Avatar.Root shape="full" w="full" h="full">
           <Avatar.Fallback>AB</Avatar.Fallback>
@@ -660,7 +660,7 @@ import { Avatar, AvatarGroup, Box, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="160px" h="40px">
         <AvatarGroup>
           <Avatar.Root>
@@ -828,7 +828,7 @@ import { Badge, Box, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="64px" h="24px">
         <Badge variant="solid" colorPalette="blue">
           New
@@ -1027,7 +1027,7 @@ import {
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="480px" h="280px">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -1244,7 +1244,7 @@ import { Box, Center, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="240px" h="160px">
         <Center
           w="full"
@@ -1408,7 +1408,7 @@ import { Box, Breadcrumb, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="24px">
         <Breadcrumb.Root>
           <Breadcrumb.List>
@@ -1594,7 +1594,7 @@ import { Box, Button, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="120px" h="40px">
         <Button variant="solid" size="md" w="full" h="full">
           Button
@@ -1943,7 +1943,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="280px" h="300px">
         <Box borderWidth="1px" rounded="md" p="3">
           <HStack justify="space-between" mb="2">
@@ -2246,7 +2246,7 @@ import { Box, Button, Card, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="200px">
         <Card.Root h="full">
           <Card.Body gap="2">
@@ -2428,7 +2428,7 @@ import { Box, Checkbox, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="200px" h="24px">
         <Flex align="center" h="full">
           <Checkbox.Root defaultChecked>
@@ -2582,7 +2582,7 @@ import { Box, Field, Flex, Input } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="280px" h="64px">
         <Field.Root>
           <Field.Label>Start date</Field.Label>
@@ -2737,7 +2737,7 @@ import { Box, Flex, Separator } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="16px">
         <Flex align="center" h="full">
           <Separator w="full" />
@@ -2895,7 +2895,7 @@ import { Upload } from "lucide-react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="360px" h="180px">
         <FileUpload.Root alignItems="stretch" h="full">
           <FileUpload.HiddenInput />
@@ -3106,7 +3106,7 @@ import { Box, Flex, Grid } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="480px" h="240px">
         <Grid
           templateColumns="repeat(3, minmax(0, 1fr))"
@@ -3259,7 +3259,7 @@ import { Box, Flex, Heading } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="360px" h="48px">
         <Heading as="h2" size="3xl">
           Page heading
@@ -3392,7 +3392,7 @@ import { Star } from "lucide-react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="32px" h="32px">
         <Star size="100%" />
       </Box>
@@ -3540,7 +3540,7 @@ import { ImageIcon } from "lucide-react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="200px">
         <Center position="relative" w="full" h="full" bg="bg.muted" color="fg.muted">
           <ImageIcon size={32} />
@@ -3654,7 +3654,7 @@ export default function LoginScreen() {
       <div style={{ position: "absolute", left: 10, top: 20, width: 280, height: 72 }}>
         <Flex vertical gap={8}>
           <Typography.Text>Email</Typography.Text>
-          <Input size="middle" placeholder="you@example.com" />
+          <Input size="middle" aria-label="Email" placeholder="you@example.com" />
         </Flex>
       </div>
     </div>
@@ -3698,7 +3698,7 @@ import { Box, Field, Flex, Input } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="280px" h="72px">
         <Field.Root>
           <Field.Label>Email</Field.Label>
@@ -3752,7 +3752,14 @@ export default function LoginScreen() {
       }}
     >
       <Box sx={{ position: "absolute", left: 10, top: 20, width: 280, height: 72 }}>
-        <TextField id="loginscreen-1" label="Email" placeholder="you@example.com" fullWidth />
+        <TextField
+          id="loginscreen-1"
+          label="Email"
+          placeholder="you@example.com"
+          size="small"
+          slotProps={{ inputLabel: { shrink: true } }}
+          fullWidth
+        />
       </Box>
     </Box>
   );
@@ -3930,7 +3937,7 @@ import {
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="480px" h="280px">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -4179,9 +4186,9 @@ import { Box, Flex, Link } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="120px" h="24px">
-        <Link href="#" variant="underline" colorPalette="blue">
+        <Link href="#" variant="underline" colorPalette="teal">
           Learn more
         </Link>
       </Box>
@@ -4269,29 +4276,37 @@ exports[`component exporters > list -> antd 1`] = `
  * Dependencies: antd
  */
 
-import { Avatar, List } from "antd";
+import { Avatar, Divider, Flex, Typography } from "antd";
 
 export default function LoginScreen() {
   return (
     <div style={{ position: "relative", width: 1440, height: 1024, overflow: "hidden" }}>
       <div style={{ position: "absolute", left: 10, top: 20, width: 320, height: 180 }}>
-        <List
-          itemLayout="horizontal"
-          dataSource={[
-            { title: "Olena Koval", description: "Product designer", initials: "OK" },
-            { title: "Andrii Melnyk", description: "Frontend engineer", initials: "AM" },
-            { title: "Iryna Bondar", description: "Project manager", initials: "IB" },
-          ]}
-          renderItem={(item) => (
-            <List.Item>
-              <List.Item.Meta
-                avatar={<Avatar>{item.initials}</Avatar>}
-                title={item.title}
-                description={item.description}
-              />
-            </List.Item>
-          )}
-        />
+        <Flex vertical>
+          <Flex align="center" gap={12} style={{ padding: "12px 0" }}>
+            <Avatar>OK</Avatar>
+            <Flex vertical>
+              <Typography.Text strong>Olena Koval</Typography.Text>
+              <Typography.Text type="secondary">Product designer</Typography.Text>
+            </Flex>
+          </Flex>
+          <Divider style={{ margin: 0 }} />
+          <Flex align="center" gap={12} style={{ padding: "12px 0" }}>
+            <Avatar>AM</Avatar>
+            <Flex vertical>
+              <Typography.Text strong>Andrii Melnyk</Typography.Text>
+              <Typography.Text type="secondary">Frontend engineer</Typography.Text>
+            </Flex>
+          </Flex>
+          <Divider style={{ margin: 0 }} />
+          <Flex align="center" gap={12} style={{ padding: "12px 0" }}>
+            <Avatar>IB</Avatar>
+            <Flex vertical>
+              <Typography.Text strong>Iryna Bondar</Typography.Text>
+              <Typography.Text type="secondary">Project manager</Typography.Text>
+            </Flex>
+          </Flex>
+        </Flex>
       </div>
     </div>
   );
@@ -4368,7 +4383,7 @@ import { Avatar, Box, Flex, HStack, Stack, Text } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="180px">
         <Stack gap="0">
           <HStack gap="3" py="3" borderBottomWidth="1px">
@@ -4636,7 +4651,7 @@ import { Box, Button, Flex, Menu, Portal } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="220px" h="156px">
         <Menu.Root open>
           <Menu.Trigger asChild>
@@ -4829,7 +4844,7 @@ import { Box, Button, CloseButton, Dialog, Flex, Portal } from "@chakra-ui/react
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="420px" h="200px">
         <Dialog.Root defaultOpen>
           <Portal>
@@ -5067,7 +5082,7 @@ import { Box, Button, Flex, HStack, Link, Text } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="960px" h="64px">
         <Flex as="header" h="full" px="6" gap="6" align="center" borderBottomWidth="1px" bg="bg">
           <Text fontWeight="bold" textStyle="lg">
@@ -5286,7 +5301,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="36px">
         <Pagination.Root count={100} pageSize={10} defaultPage={2}>
           <ButtonGroup variant="ghost" size="sm">
@@ -5522,7 +5537,7 @@ import {
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="360px" h="220px">
         <ResponsiveContainer width="100%" height="100%">
           <PieChart>
@@ -5687,7 +5702,7 @@ export default function LoginScreen() {
       <div style={{ position: "absolute", left: 10, top: 20, width: 280, height: 40 }}>
         <Flex vertical justify="center" style={{ height: "100%" }}>
           <Typography.Text>Uploading</Typography.Text>
-          <Progress percent={60} />
+          <Progress percent={60} aria-label="Uploading" />
         </Flex>
       </div>
     </div>
@@ -5703,8 +5718,6 @@ exports[`component exporters > progress -> bootstrap 1`] = `
  * Import "bootstrap/dist/css/bootstrap.min.css" once in the app.
  */
 
-import { ProgressBar } from "react-bootstrap";
-
 export default function LoginScreen() {
   return (
     <div style={{ position: "relative", width: 1440, height: 1024, overflow: "hidden" }}>
@@ -5714,7 +5727,16 @@ export default function LoginScreen() {
             <span>Uploading</span>
             <span className="text-secondary">60%</span>
           </div>
-          <ProgressBar now={60} />
+          <div
+            className="progress"
+            role="progressbar"
+            aria-label="Uploading"
+            aria-valuenow={60}
+            aria-valuemin={0}
+            aria-valuemax={100}
+          >
+            <div className="progress-bar" style={{ width: "60%" }} />
+          </div>
         </div>
       </div>
     </div>
@@ -5734,7 +5756,7 @@ import { Box, Flex, HStack, Progress } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="280px" h="40px">
         <Flex direction="column" justify="center" h="full">
           <Progress.Root value={60} w="full">
@@ -5776,7 +5798,7 @@ export default function LoginScreen() {
               60%
             </Text>
           </Group>
-          <Progress value={60} />
+          <Progress value={60} aria-label="Uploading" />
         </Stack>
       </div>
     </div>
@@ -5812,7 +5834,7 @@ export default function LoginScreen() {
               60%
             </Typography>
           </Box>
-          <LinearProgress variant="determinate" value={60} />
+          <LinearProgress variant="determinate" value={60} aria-label="Uploading" />
         </Box>
       </Box>
     </Box>
@@ -5838,7 +5860,7 @@ export default function LoginScreen() {
             <span className="font-medium">Uploading</span>
             <span className="text-muted-foreground">60%</span>
           </div>
-          <Progress value={60} />
+          <Progress value={60} aria-label="Uploading" />
         </div>
       </div>
     </div>
@@ -5921,7 +5943,7 @@ import { Box, Flex, RadioGroup, Stack, Text } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="200px" h="112px">
         <Stack gap="2">
           <Text fontWeight="medium" textStyle="sm">
@@ -6111,7 +6133,7 @@ import { Box, Flex, RatingGroup } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="140px" h="28px">
         <RatingGroup.Root count={5} defaultValue={4} colorPalette="orange">
           <RatingGroup.HiddenInput />
@@ -6274,7 +6296,7 @@ import { Box, Flex, SegmentGroup } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="280px" h="36px">
         <SegmentGroup.Root defaultValue="option-0">
           <SegmentGroup.Indicator />
@@ -6405,6 +6427,7 @@ export default function LoginScreen() {
           <Typography.Text>Country</Typography.Text>
           <Select
             style={{ width: "100%" }}
+            aria-label="Country"
             placeholder="Select an option"
             options={[
               { value: "Ukraine", label: "Ukraine" },
@@ -6460,7 +6483,7 @@ import { Box, Field, Flex, NativeSelect } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="280px" h="72px">
         <Field.Root>
           <Field.Label>Country</Field.Label>
@@ -6672,7 +6695,7 @@ import { Box, Button, Flex, Stack, Text } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="240px" h="480px">
         <Stack h="full" p="3" gap="1" bg="bg.subtle" borderRightWidth="1px">
           <Text
@@ -6750,7 +6773,15 @@ exports[`component exporters > sidebar -> mui 1`] = `
  * Dependencies: @emotion/react @emotion/styled @mui/material
  */
 
-import { Box, List, ListItemButton, ListItemText, ListSubheader, Paper } from "@mui/material";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  ListSubheader,
+  Paper,
+} from "@mui/material";
 
 export default function LoginScreen() {
   return (
@@ -6766,21 +6797,31 @@ export default function LoginScreen() {
       <Box sx={{ position: "absolute", left: 10, top: 20, width: 240, height: 480 }}>
         <Paper square sx={{ height: "100%", overflow: "auto" }}>
           <List subheader={<ListSubheader>Menu</ListSubheader>}>
-            <ListItemButton selected>
-              <ListItemText primary="Dashboard" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemText primary="Projects" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemText primary="Team" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemText primary="Reports" />
-            </ListItemButton>
-            <ListItemButton>
-              <ListItemText primary="Settings" />
-            </ListItemButton>
+            <ListItem disablePadding>
+              <ListItemButton selected>
+                <ListItemText primary="Dashboard" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText primary="Projects" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText primary="Team" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText primary="Reports" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemText primary="Settings" />
+              </ListItemButton>
+            </ListItem>
           </List>
         </Paper>
       </Box>
@@ -6886,7 +6927,7 @@ import { Box, Flex, HStack, SkeletonCircle, SkeletonText } from "@chakra-ui/reac
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="300px" h="72px">
         <HStack gap="4">
           <SkeletonCircle size="12" />
@@ -7055,7 +7096,7 @@ import { Box, Flex, HStack, Slider } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="280px" h="48px">
         <Flex direction="column" justify="center" h="full">
           <Slider.Root defaultValue={[40]} w="full">
@@ -7179,7 +7220,7 @@ export default function LoginScreen() {
     <div style={{ position: "relative", width: 1440, height: 1024, overflow: "hidden" }}>
       <div style={{ position: "absolute", left: 10, top: 20, width: 140, height: 36 }}>
         <Flex align="center" gap={12}>
-          <Spin size="default" />
+          <Spin size="medium" />
           <Typography.Text type="secondary">Loading...</Typography.Text>
         </Flex>
       </div>
@@ -7224,7 +7265,7 @@ import { Box, Flex, HStack, Spinner, Text } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="140px" h="36px">
         <HStack gap="3">
           <Spinner size="md" />
@@ -7377,7 +7418,7 @@ import { Box, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="120px">
         <Flex
           direction="row"
@@ -7540,7 +7581,7 @@ import { Badge, Box, Flex, Stat } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="240px" h="110px">
         <Stat.Root borderWidth="1px" p="4" rounded="md" h="full">
           <Stat.Label>Monthly revenue</Stat.Label>
@@ -7735,7 +7776,7 @@ import { Box, Flex, Steps } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="480px" h="40px">
         <Steps.Root defaultStep={1} count={3} size="sm">
           <Steps.List>
@@ -7880,7 +7921,7 @@ export default function LoginScreen() {
     <div style={{ position: "relative", width: 1440, height: 1024, overflow: "hidden" }}>
       <div style={{ position: "absolute", left: 10, top: 20, width: 200, height: 28 }}>
         <Flex align="center" gap={8} style={{ height: "100%" }}>
-          <Switch defaultChecked />
+          <Switch aria-label="Notifications" defaultChecked />
           <Typography.Text>Notifications</Typography.Text>
         </Flex>
       </div>
@@ -7924,7 +7965,7 @@ import { Box, Flex, Switch } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="200px" h="28px">
         <Flex align="center" h="full">
           <Switch.Root defaultChecked>
@@ -8107,7 +8148,7 @@ import { Box, Flex, Table } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="560px" h="180px">
         <Table.Root size="sm" variant="outline">
           <Table.Header>
@@ -8373,7 +8414,7 @@ import { Box, Flex, Tabs } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="400px" h="160px">
         <Tabs.Root defaultValue="tab-0">
           <Tabs.List>
@@ -8384,6 +8425,8 @@ export default function LoginScreen() {
           <Tabs.Content value="tab-0" whiteSpace="pre-line">
             Tab content goes here.
           </Tabs.Content>
+          <Tabs.Content value="tab-1" whiteSpace="pre-line"></Tabs.Content>
+          <Tabs.Content value="tab-2" whiteSpace="pre-line"></Tabs.Content>
         </Tabs.Root>
       </Box>
     </Box>
@@ -8542,7 +8585,7 @@ import { Box, Flex, Text } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="360px" h="60px">
         <Text textStyle="md" whiteSpace="pre-line">
           This is a paragraph of text. Select it and edit the content in the Inspector.
@@ -8640,7 +8683,11 @@ export default function LoginScreen() {
       <div style={{ position: "absolute", left: 10, top: 20, width: 320, height: 140 }}>
         <Flex vertical gap={8} style={{ height: "100%" }}>
           <Typography.Text>Message</Typography.Text>
-          <Input.TextArea style={{ flex: 1 }} placeholder="Type your message..." />
+          <Input.TextArea
+            style={{ flex: 1 }}
+            aria-label="Message"
+            placeholder="Type your message..."
+          />
         </Flex>
       </div>
     </div>
@@ -8684,7 +8731,7 @@ import { Box, Field, Flex, Textarea } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="320px" h="140px">
         <Field.Root h="full">
           <Field.Label>Message</Field.Label>
@@ -8858,7 +8905,7 @@ import { Box, Flex, Timeline } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="300px" h="170px">
         <Timeline.Root>
           <Timeline.Item>
@@ -9117,7 +9164,7 @@ import { Alert, Box, Button, Flex } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="380px" h="72px">
         <Alert.Root status="success" variant="surface" boxShadow="lg">
           <Alert.Indicator />
@@ -9288,7 +9335,7 @@ import { Box, Button, Flex, Portal, Tooltip } from "@chakra-ui/react";
 
 export default function LoginScreen() {
   return (
-    <Box position="relative" w="1440px" h="1024px" overflow="hidden">
+    <Box position="relative" w="1440px" h="1024px" overflow="hidden" colorPalette="teal">
       <Box position="absolute" left="10px" top="20px" w="160px" h="76px">
         <Tooltip.Root open positioning={{ placement: "top" }}>
           <Tooltip.Trigger asChild>
@@ -9378,20 +9425,22 @@ exports[`component exporters > tooltip -> shadcn 1`] = `
  */
 
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 export default function LoginScreen() {
   return (
     <div className="relative w-[1440px] h-[1024px] overflow-hidden bg-background text-foreground">
       <div className="absolute left-[10px] top-[20px] w-[160px] h-[76px]">
-        <Tooltip open>
-          <TooltipTrigger asChild>
-            <Button variant="outline" size="sm">
-              Share
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="top">Copy link</TooltipContent>
-        </Tooltip>
+        <TooltipProvider>
+          <Tooltip open>
+            <TooltipTrigger asChild>
+              <Button variant="outline" size="sm">
+                Share
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="top">Copy link</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
       </div>
     </div>
   );
@@ -9540,12 +9589,26 @@ export default function Login() {
             </Box>
             <Box sx={{ display: "flex", alignItems: "flex-start", mt: "24px" }}>
               <Box sx={{ flexShrink: 0, ml: "40px", width: 320, height: 64 }}>
-                <TextField id="login-4" label="Email" placeholder="you@example.com" fullWidth />
+                <TextField
+                  id="login-4"
+                  label="Email"
+                  placeholder="you@example.com"
+                  size="small"
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
               </Box>
             </Box>
             <Box sx={{ display: "flex", alignItems: "flex-start", mt: "16px" }}>
               <Box sx={{ flexShrink: 0, ml: "40px", width: 320, height: 64 }}>
-                <TextField id="login-5" label="Password" placeholder="••••••••" fullWidth />
+                <TextField
+                  id="login-5"
+                  label="Password"
+                  placeholder="••••••••"
+                  size="small"
+                  slotProps={{ inputLabel: { shrink: true } }}
+                  fullWidth
+                />
               </Box>
             </Box>
             <Box sx={{ display: "flex", alignItems: "flex-start", mt: "16px" }}>

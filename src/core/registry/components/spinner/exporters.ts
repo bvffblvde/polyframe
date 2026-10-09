@@ -18,7 +18,7 @@ export const spinnerExporters: ComponentExporters<SpinnerProps> = {
     imports: [{ from: "@mantine/core", names: ["Group", "Loader", ...(p.label ? ["Text"] : [])] }],
   }),
   antd: ({ props: p }) => ({
-    jsx: `<Flex align="center" gap={12}><Spin size="${{ sm: "small", md: "default", lg: "large" }[p.size]}" />${p.label ? `<Typography.Text type="secondary">${text(p.label)}</Typography.Text>` : ""}</Flex>`,
+    jsx: `<Flex align="center" gap={12}><Spin size="${{ sm: "small", md: "medium", lg: "large" }[p.size]}" />${p.label ? `<Typography.Text type="secondary">${text(p.label)}</Typography.Text>` : ""}</Flex>`,
     imports: [{ from: "antd", names: ["Flex", "Spin", ...(p.label ? ["Typography"] : [])] }],
   }),
   bootstrap: ({ props: p }) => ({

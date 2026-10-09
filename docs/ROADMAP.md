@@ -66,6 +66,8 @@ Status: done. Culling and lazy exporters shipped; drag at 100% zoom is 57 to 60 
 
 This phase builds the harness that Phase 7 reuses for every new target.
 
+Status: done. `pnpm fidelity`, `docs/FIDELITY.md`, CI gate per target. It found and fixed: a runtime crash of the shadcn tooltip, a missing ChakraProvider assumption, deprecated antd List and Spin props, unnamed progress bars, switches and fields, invalid MUI list markup and dangling Chakra tab ids. Skin tuning to lower the numbers continues as backlog.
+
 ## Phase 4. Accessibility of the editor (from NEXT.md)
 
 - Keyboard-only editing: Tab to the canvas, arrows move, Alt+arrows resize, Enter edits text, Esc exits, layer tree fully operable.

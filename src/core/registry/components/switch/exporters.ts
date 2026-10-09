@@ -19,7 +19,7 @@ export const switchExporters: ComponentExporters<SwitchProps> = {
     imports: [{ from: "@mantine/core", names: ["Center", "Switch"] }],
   }),
   antd: ({ props: p }) => ({
-    jsx: `<Flex align="center" gap={8} style={{ height: "100%" }}><Switch${bool("defaultChecked", p.checked)}${bool("disabled", p.disabled)} /><Typography.Text>${text(p.label)}</Typography.Text></Flex>`,
+    jsx: `<Flex align="center" gap={8} style={{ height: "100%" }}><Switch aria-label=${str(p.label)}${bool("defaultChecked", p.checked)}${bool("disabled", p.disabled)} /><Typography.Text>${text(p.label)}</Typography.Text></Flex>`,
     imports: [{ from: "antd", names: ["Flex", "Switch", "Typography"] }],
   }),
   bootstrap: ({ props: p }, ctx) => ({

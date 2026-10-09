@@ -9,3 +9,18 @@ pnpm --dir exporter-check check
 ```
 
 `components/ui` holds shadcn/ui sources (MIT) from the shadcn registry.
+
+## Fidelity
+
+`fidelity/` is a small Vite app that renders any generated screen with its real library and the provider it needs. A Playwright suite then:
+
+- renders every component for every target and fails on runtime errors;
+- renders each starter template in the editor (styled mode, matching skin) and as exported code, and compares the screenshots pixel by pixel;
+- runs axe-core on the exported screen.
+
+```bash
+pnpm build
+pnpm fidelity
+```
+
+Results go to `docs/FIDELITY.md`; screenshots and diff images to `exporter-check/fidelity/.out`. Thresholds per target are in `fidelity/thresholds.json`. Lower them when a skin or an exporter gets closer; never raise them to hide a regression.

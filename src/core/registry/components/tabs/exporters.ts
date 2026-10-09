@@ -68,7 +68,7 @@ export const tabsExporters: ComponentExporters<TabsProps> = {
       jsx: [
         `<Tabs.Root defaultValue="tab-${active}">`,
         `<Tabs.List>${p.tabs.map((t, i) => `<Tabs.Trigger value="tab-${i}">${text(t)}</Tabs.Trigger>`).join("")}</Tabs.List>`,
-        p.content && `<Tabs.Content value="tab-${active}" whiteSpace="pre-line">${text(p.content)}</Tabs.Content>`,
+        ...p.tabs.map((_, i) => `<Tabs.Content value="tab-${i}" whiteSpace="pre-line">${i === active ? text(p.content) : ""}</Tabs.Content>`),
         "</Tabs.Root>",
       ]
         .filter(Boolean)

@@ -14,6 +14,7 @@ pnpm typecheck      # tsc --noEmit
 pnpm test           # vitest (unit + component)
 pnpm test:e2e       # playwright
 pnpm bench          # perf bench on a production build (pnpm build first)
+pnpm fidelity       # export fidelity and axe on a production build (pnpm build first)
 pnpm storybook      # storybook dev
 ```
 Before you call a task done, run `pnpm lint && pnpm typecheck && pnpm test`. Also run `pnpm test:e2e` if you touched editor interactions.
@@ -51,7 +52,7 @@ Do not add new dependencies without a reason. If one is needed, say why in the P
 Add tokens and a style map in `src/core/skins/<id>.ts`, register the `SkinId`, add it to the skin switcher, and add the skin to every component's story matrix.
 
 ### A new export target
-Add `src/core/exporters/targets/<id>.ts`, register it, add per-component exporters, and add snapshot tests. The generated code must type-check: the CI job compiles the generated templates.
+Add `src/core/exporters/targets/<id>.ts`, register it, add per-component exporters, and add snapshot tests. The generated code must type-check: the CI job compiles the generated templates. Add the target's provider to `exporter-check/fidelity/main.tsx` and a threshold to `thresholds.json`; `pnpm fidelity` must pass.
 
 ## Code conventions
 - TypeScript strict. No `any` (use `unknown` and narrow). No non-null `!` unless you add a comment explaining why.

@@ -21,7 +21,7 @@ export const inputExporters: ComponentExporters<InputProps> = {
     ],
   }),
   mui: ({ props: p }, ctx) => ({
-    jsx: `<TextField id="${ctx.uid}"${p.label ? ` label=${str(p.label)}` : ""}${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${p.value ? ` defaultValue=${str(p.value)}` : ""}${p.helperText ? ` helperText=${str(p.helperText)}` : ""}${p.size === "sm" ? ' size="small"' : ""}${bool("error", p.invalid)}${bool("disabled", p.disabled)} fullWidth />`,
+    jsx: `<TextField id="${ctx.uid}"${p.label ? ` label=${str(p.label)}` : ""}${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${p.value ? ` defaultValue=${str(p.value)}` : ""}${p.helperText ? ` helperText=${str(p.helperText)}` : ""}${p.size === "lg" ? "" : ' size="small"'}${p.label && p.placeholder ? " slotProps={{ inputLabel: { shrink: true } }}" : ""}${bool("error", p.invalid)}${bool("disabled", p.disabled)} fullWidth />`,
     imports: [{ from: "@mui/material", names: ["TextField"] }],
   }),
   mantine: ({ props: p }) => {
@@ -37,7 +37,7 @@ export const inputExporters: ComponentExporters<InputProps> = {
       jsx: [
         '<Flex vertical gap={8}>',
         p.label && `<Typography.Text>${text(p.label)}</Typography.Text>`,
-        `<Input size="${size}"${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${p.value ? ` defaultValue=${str(p.value)}` : ""}${p.invalid ? ' status="error"' : ""}${bool("disabled", p.disabled)} />`,
+        `<Input size="${size}"${p.label ? ` aria-label=${str(p.label)}` : ""}${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${p.value ? ` defaultValue=${str(p.value)}` : ""}${p.invalid ? ' status="error"' : ""}${bool("disabled", p.disabled)} />`,
         p.helperText && `<Typography.Text type="${p.invalid ? "danger" : "secondary"}">${text(p.helperText)}</Typography.Text>`,
         "</Flex>",
       ]

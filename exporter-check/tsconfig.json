@@ -18,11 +18,15 @@
         "./*"
       ]
     },
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "types": [
+      "vite/client"
+    ]
   },
   "include": [
     "components/**/*.tsx",
     "lib/**/*.ts",
-    "generated/**/*.tsx"
+    "generated/**/*.tsx",
+    "fidelity/main.tsx"
   ]
 }

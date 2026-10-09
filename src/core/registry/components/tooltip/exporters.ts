@@ -4,9 +4,9 @@ import type { TooltipProps } from "./schema";
 
 export const tooltipExporters: ComponentExporters<TooltipProps> = {
   shadcn: ({ props: p }) => ({
-    jsx: `<Tooltip open><TooltipTrigger asChild><Button variant="outline" size="sm">${text(p.trigger)}</Button></TooltipTrigger><TooltipContent side="${p.placement}">${text(p.text)}</TooltipContent></Tooltip>`,
+    jsx: `<TooltipProvider><Tooltip open><TooltipTrigger asChild><Button variant="outline" size="sm">${text(p.trigger)}</Button></TooltipTrigger><TooltipContent side="${p.placement}">${text(p.text)}</TooltipContent></Tooltip></TooltipProvider>`,
     imports: [
-      { from: "@/components/ui/tooltip", names: ["Tooltip", "TooltipContent", "TooltipTrigger"] },
+      { from: "@/components/ui/tooltip", names: ["Tooltip", "TooltipContent", "TooltipProvider", "TooltipTrigger"] },
       { from: "@/components/ui/button", names: ["Button"] },
     ],
   }),

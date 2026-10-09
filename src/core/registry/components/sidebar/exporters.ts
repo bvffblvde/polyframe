@@ -21,12 +21,12 @@ export const sidebarExporters: ComponentExporters<SidebarProps> = {
       '<Paper square sx={{ height: "100%", overflow: "auto" }}>',
       p.title ? `<List subheader={<ListSubheader>${text(p.title)}</ListSubheader>}>` : "<List>",
       ...p.items.map(
-        (item, i) => `<ListItemButton${bool("selected", i === p.activeIndex)}><ListItemText primary=${str(item)} /></ListItemButton>`,
+        (item, i) => `<ListItem disablePadding><ListItemButton${bool("selected", i === p.activeIndex)}><ListItemText primary=${str(item)} /></ListItemButton></ListItem>`,
       ),
       "</List>",
       "</Paper>",
     ].join("\n"),
-    imports: [{ from: "@mui/material", names: ["Paper", "List", "ListItemButton", "ListItemText", ...(p.title ? ["ListSubheader"] : [])] }],
+    imports: [{ from: "@mui/material", names: ["Paper", "List", "ListItem", "ListItemButton", "ListItemText", ...(p.title ? ["ListSubheader"] : [])] }],
   }),
   mantine: ({ props: p }) => ({
     jsx: [

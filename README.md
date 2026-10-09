@@ -111,6 +111,7 @@ pnpm test           # Vitest unit and component tests
 pnpm test:coverage  # with coverage thresholds for ops and geometry
 pnpm test:e2e       # Playwright
 pnpm bench          # performance bench on a production build (run pnpm build first)
+pnpm fidelity       # render exported code with the real libraries, diff against the editor, run axe
 pnpm storybook      # every canvas component in every skin and mode
 ```
 
@@ -137,6 +138,8 @@ Numbers come from `pnpm bench`: Playwright drives the production build with gene
 
 <!-- bench:start -->
 <!-- bench:end -->
+
+Export fidelity: every exported template is rendered with the real library and compared with the editor pixel by pixel, with axe-core on top. See [the fidelity table](./docs/FIDELITY.md).
 
 ## 🏗️ How it works
 

@@ -54,7 +54,7 @@ export const selectExporters: ComponentExporters<SelectProps> = {
       jsx: [
         '<Flex vertical gap={8}>',
         p.label && `<Typography.Text>${text(p.label)}</Typography.Text>`,
-        `<Select style={{ width: "100%" }}${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${value ? ` defaultValue=${str(value)}` : ""} options={[${options.map((o) => `{ value: ${JSON.stringify(o)}, label: ${JSON.stringify(o)} }`).join(", ")}]}${bool("disabled", p.disabled)} />`,
+        `<Select style={{ width: "100%" }}${p.label ? ` aria-label=${str(p.label)}` : ""}${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${value ? ` defaultValue=${str(value)}` : ""} options={[${options.map((o) => `{ value: ${JSON.stringify(o)}, label: ${JSON.stringify(o)} }`).join(", ")}]}${bool("disabled", p.disabled)} />`,
         "</Flex>",
       ]
         .filter(Boolean)

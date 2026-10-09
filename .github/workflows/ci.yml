@@ -51,6 +51,18 @@ jobs:
           EXPORT_FIXTURE_DIR: exporter-check/generated
       - run: pnpm --dir exporter-check install --ignore-workspace
       - run: pnpm --dir exporter-check check
+      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright test -c exporter-check/fidelity/playwright.config.ts
+        env:
+          CI: "true"
+      - run: node exporter-check/fidelity/report.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fidelity
+          path: exporter-check/fidelity/.out
+          retention-days: 14
 
   bench:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

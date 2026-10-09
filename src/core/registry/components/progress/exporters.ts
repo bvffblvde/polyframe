@@ -1,4 +1,6 @@
-import { text } from "../../../exporters/jsx";
+import { str, text } from "../../../exporters/jsx";
+
+const name = (p: ProgressProps) => ` aria-label=${str(p.label || "Progress")}`;
 import type { ComponentExporters } from "../../../exporters/types";
 import type { ProgressProps } from "./schema";
 
@@ -8,7 +10,7 @@ export const progressExporters: ComponentExporters<ProgressProps> = {
       '<div className="grid h-full content-center gap-2">',
       (p.label || p.showValue) &&
         `<div className="flex justify-between text-sm"><span className="font-medium">${text(p.label)}</span>${p.showValue ? `<span className="text-muted-foreground">${p.value}%</span>` : ""}</div>`,
-      `<Progress value={${p.value}} />`,
+      `<Progress value={${p.value}}${name(p)} />`,
       "</div>",
     ]
       .filter(Boolean)
@@ -20,7 +22,7 @@ export const progressExporters: ComponentExporters<ProgressProps> = {
       '<Box sx={{ width: "100%" }}>',
       (p.label || p.showValue) &&
         `<Box sx={{ display: "flex", justifyContent: "space-between", mb: 1 }}><Typography variant="body2">${text(p.label)}</Typography>${p.showValue ? `<Typography variant="body2" color="text.secondary">${p.value}%</Typography>` : ""}</Box>`,
-      `<LinearProgress variant="determinate" value={${p.value}} />`,
+      `<LinearProgress variant="determinate" value={${p.value}}${name(p)} />`,
       "</Box>",
     ]
       .filter(Boolean)
@@ -32,7 +34,7 @@ export const progressExporters: ComponentExporters<ProgressProps> = {
       '<Stack gap={6} justify="center" h="100%">',
       (p.label || p.showValue) &&
         `<Group justify="space-between"><Text size="sm" fw={500}>${text(p.label)}</Text>${p.showValue ? `<Text size="sm" c="dimmed">${p.value}%</Text>` : ""}</Group>`,
-      `<Progress value={${p.value}} />`,
+      `<Progress value={${p.value}}${name(p)} />`,
       "</Stack>",
     ]
       .filter(Boolean)
@@ -43,7 +45,7 @@ export const progressExporters: ComponentExporters<ProgressProps> = {
     jsx: [
       '<Flex vertical justify="center" style={{ height: "100%" }}>',
       p.label && `<Typography.Text>${text(p.label)}</Typography.Text>`,
-      `<Progress percent={${p.value}}${p.showValue ? "" : " showInfo={false}"} />`,
+      `<Progress percent={${p.value}}${p.showValue ? "" : " showInfo={false}"}${name(p)} />`,
       "</Flex>",
     ]
       .filter(Boolean)
@@ -55,12 +57,12 @@ export const progressExporters: ComponentExporters<ProgressProps> = {
       '<div className="d-flex flex-column justify-content-center h-100">',
       (p.label || p.showValue) &&
         `<div className="d-flex justify-content-between small mb-1"><span>${text(p.label)}</span>${p.showValue ? `<span className="text-secondary">${p.value}%</span>` : ""}</div>`,
-      `<ProgressBar now={${p.value}} />`,
+      `<div className="progress" role="progressbar"${name(p)} aria-valuenow={${p.value}} aria-valuemin={0} aria-valuemax={100}><div className="progress-bar" style={{ width: "${p.value}%" }} /></div>`,
       "</div>",
     ]
       .filter(Boolean)
       .join("\n"),
-    imports: [{ from: "react-bootstrap", names: ["ProgressBar"] }],
+    imports: [],
   }),
   chakra: ({ props: p }) => ({
     jsx: [

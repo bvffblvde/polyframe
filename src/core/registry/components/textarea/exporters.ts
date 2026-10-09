@@ -29,7 +29,7 @@ export const textareaExporters: ComponentExporters<TextareaProps> = {
     jsx: [
       '<Flex vertical gap={8} style={{ height: "100%" }}>',
       p.label && `<Typography.Text>${text(p.label)}</Typography.Text>`,
-      `<Input.TextArea style={{ flex: 1 }}${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${p.value ? ` defaultValue=${str(p.value)}` : ""}${bool("disabled", p.disabled)} />`,
+      `<Input.TextArea style={{ flex: 1 }}${p.label ? ` aria-label=${str(p.label)}` : ""}${p.placeholder ? ` placeholder=${str(p.placeholder)}` : ""}${p.value ? ` defaultValue=${str(p.value)}` : ""}${bool("disabled", p.disabled)} />`,
       "</Flex>",
     ]
       .filter(Boolean)

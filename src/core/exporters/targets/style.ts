@@ -19,10 +19,10 @@ export const styleLayout: LayoutAdapter = {
 };
 
 export const chakraLayout: LayoutAdapter = {
-  absoluteRoot: (a, children) => `<Box position="relative" w="${a.width}px" h="${a.height}px" overflow="hidden">\n${children}\n</Box>`,
+  absoluteRoot: (a, children) => `<Box position="relative" w="${a.width}px" h="${a.height}px" overflow="hidden" colorPalette="teal">\n${children}\n</Box>`,
   absoluteItem: (r, o, child) =>
     `<Box position="absolute" left="${r.x}px" top="${r.y}px" w="${r.w}px" h="${r.h}px"${o < 1 ? ` opacity={${Math.round(o * 100) / 100}}` : ""}>${child}</Box>`,
-  stackRoot: (a, children) => `<Flex direction="column" w="${a.width}px" minH="${a.height}px">\n${children}\n</Flex>`,
+  stackRoot: (a, children) => `<Flex direction="column" w="${a.width}px" minH="${a.height}px" colorPalette="teal">\n${children}\n</Flex>`,
   stackRow: (mt, children) => `<Flex align="flex-start"${mt ? ` mt="${mt}px"` : ""}>\n${children}\n</Flex>`,
   stackItem: (ml, mt, r, o, child) =>
     `<Box flexShrink={0}${ml ? ` ml="${ml}px"` : ""}${mt ? ` mt="${mt}px"` : ""} w="${r.w}px" h="${r.h}px"${o < 1 ? ` opacity={${Math.round(o * 100) / 100}}` : ""}>${child}</Box>`,

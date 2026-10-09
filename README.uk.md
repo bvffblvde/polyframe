@@ -111,6 +111,7 @@ pnpm test           # юніт- і компонентні тести Vitest
 pnpm test:coverage  # з порогами покриття для ops і geometry
 pnpm test:e2e       # Playwright
 pnpm bench          # performance bench on a production build (run pnpm build first)
+pnpm fidelity       # render exported code with the real libraries, diff against the editor, run axe
 pnpm storybook      # усі компоненти в усіх скінах і режимах
 ```
 
@@ -137,6 +138,8 @@ pnpm storybook      # усі компоненти в усіх скінах і р
 
 <!-- bench:start -->
 <!-- bench:end -->
+
+Точність експорту: кожен експортований шаблон рендериться справжньою бібліотекою й порівнюється з редактором попіксельно, плюс перевірка axe-core. Див. [таблицю точності](./docs/FIDELITY.md).
 
 ## 🏗️ Як це працює
 

@@ -22,7 +22,7 @@ export const linkExporters: ComponentExporters<LinkProps> = {
     jsx: `<a href="#" className="link-primary${p.underline ? "" : " link-underline-opacity-0 link-underline-opacity-100-hover"}">${text(p.text)}</a>`,
   }),
   chakra: ({ props: p }) => ({
-    jsx: `<Link href="#" variant="${p.underline ? "underline" : "plain"}" colorPalette="blue">${text(p.text)}</Link>`,
+    jsx: `<Link href="#" variant="${p.underline ? "underline" : "plain"}" colorPalette="teal">${text(p.text)}</Link>`,
     imports: [{ from: "@chakra-ui/react", names: ["Link"] }],
   }),
 };
